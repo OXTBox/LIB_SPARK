@@ -52,7 +52,7 @@ Needs: <topic numbers it builds on, or "none">
 
 1. <step title>
    Adding: <handler or function names, comma separated>
-   Makes this happen: <one sentence: what you see or what changes>
+   Result: <one sentence: what you see or what changes>
    Engine calls: <names from the list, comma separated>
 2. ...
 
