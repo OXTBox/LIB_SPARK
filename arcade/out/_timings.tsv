@@ -53,3 +53,5 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-13 17:21:43	spark-x2.6-4b	28	Big Ball Of Vectors	2_levels.md	903	370	6.9	53.5	44	ok
 2026-11-13 17:22:04	spark-x2.6-4b	29	Probe Vs Cone	1_concept.md	481	452	18.1	25.0	19	ok
 2026-11-13 17:22:33	spark-x2.6-4b	29	Probe Vs Cone	2_levels.md	804	523	27.9	18.7	44	ok
+2026-11-14 00:46:20	spark-x2.6-4b	973	Dodge Tunnel	1_concept.md	396	409	6.1	66.9	19	ok
+2026-11-14 00:46:31	spark-x2.6-4b	973	Dodge Tunnel	2_levels.md	751	403	6.1	66.4	46	ok

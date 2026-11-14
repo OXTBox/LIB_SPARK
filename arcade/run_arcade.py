@@ -40,7 +40,7 @@ def fill(template, **values):
     return re.sub(r'\{(\w+)\}', lambda m: str(values.get(m.group(1), m.group(0))), template)
 
 
-GAMES_FILE = ['games.tsv']
+GAMES_FILE = ['games_first_run.tsv']
 
 
 def games():
@@ -160,7 +160,7 @@ def main():
     ap.add_argument('--rest-seconds', type=float, default=15)
     ap.add_argument('--pause', type=float, default=5)
     ap.add_argument('--force', action='store_true')
-    ap.add_argument('--games', default='games.tsv', help='the queue file (round two: games_round2.tsv)')
+    ap.add_argument('--games', default='games_first_run.tsv', help='the queue file (round two: games_round2.tsv)')
     ap.add_argument('--no-script', action='store_true', help='concept and levels only: Claude writes the scripts (REVIEW.md)')
     a = ap.parse_args()
     GAMES_FILE[0] = a.games
