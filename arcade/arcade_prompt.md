@@ -117,3 +117,20 @@ header comment (title, controls, rules), locals, constants, `Game.OnStart`,
 `{prefix}.ShowHUD`. Put the 5 levels' numbers in `{prefix}.StartLevel` with a `switch` or
 `if`. Keep it under 200 lines: a simple game that is finished beats a clever one that
 is cut off. Only the code block, nothing after it.
+
+# WORK ON THESE GAMES NOW
+
+# SPARK Arcade Game Batch Queue
+
+When requested to build a game from this file, read the target genre brief below and generate its complete CONCEPT, LEVELS, and SCRIPT blocks without asking further questions.
+
+## Queue
+1. TITLE: VectorPong3D | BRIEF: A 3D perspective tennis match where you angle your shots into depth zones with bouncing obstacles.
+2. TITLE: JaiAlaiBlock | BRIEF: A scoop-wielding player catches and hurls blocks against a collapsing ceiling grid in a vector arena.
+3. TITLE: FloppyFlynn | BRIEF: A blue vector ship with a broken ankle navigates destructible terrain where crashes strip away floating limbs instead of instant death.
+4. TITLE: VectorBlobApocalypse | BRIEF: A third-person top-down isometric bullet hell against a swarm of jittery vector jelly blobs.
+5. TITLE: PromptAndGlaze | BRIEF: Two agents collect energy in a shifting maze using opposing powerups to either stun enemies or de-rez barriers.
+6. TITLE: MajorHavoc3D | BRIEF: A side-scrolling Bally Midway style arcade descent through vector vertical shafts and subterranean platforms.
+7. TITLE: MatrixTetris | BRIEF: A 3D situational grid logic puzzle where players rotate and dodge incoming 3D wireframe matrices to avoid being locked in.
+8. TITLE: BigBallOfVectors | BRIEF: A growing security polyhedron rolls across an open quantum grid, avoiding entanglement hazards that break map walls.
+9. TITLE: ProbeVsCone | BRIEF: Toss a logic-probe spear at a shifting defense cone; missed throws bounce hazardously around the vector arena until caught.

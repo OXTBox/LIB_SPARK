@@ -40,9 +40,12 @@ def fill(template, **values):
     return re.sub(r'\{(\w+)\}', lambda m: str(values.get(m.group(1), m.group(0))), template)
 
 
+GAMES_FILE = ['games_first_run.tsv']
+
+
 def games():
     out = []
-    for line in open(os.path.join(HERE, 'games.tsv'), encoding='utf-8'):
+    for line in open(os.path.join(HERE, GAMES_FILE[0]), encoding='utf-8'):
         if line.strip() and not line.startswith('#'):
             f = line.rstrip('\n').split('\t')
             out.append(dict(id=f[0], title=f[1], prefix=f[2], brief=f[3], columns=f[4], legend=f[5]))
@@ -157,7 +160,10 @@ def main():
     ap.add_argument('--rest-seconds', type=float, default=15)
     ap.add_argument('--pause', type=float, default=5)
     ap.add_argument('--force', action='store_true')
+    ap.add_argument('--games', default='games_first_run.tsv', help='the queue file (round two: games_round2.tsv)')
+    ap.add_argument('--no-script', action='store_true', help='concept and levels only: Claude writes the scripts (REVIEW.md)')
     a = ap.parse_args()
+    GAMES_FILE[0] = a.games
     os.makedirs(OUT, exist_ok=True)
     tim = os.path.join(OUT, '_timings.tsv')
     if not os.path.exists(tim):
@@ -175,8 +181,9 @@ def main():
         concept = stage(a, g, folder, '1_concept.md', p['SYSTEM'], fill(p['CONCEPT'], **g), 700)
         levels = stage(a, g, folder, '2_levels.md', p['SYSTEM'],
                        fill(p['LEVELS'], concept=concept[:2600], **g), 900)
-        stage(a, g, folder, '3_script.livecodescript', p['SYSTEM'],
-              fill(p['SCRIPT'], concept=concept[:2600], levels=levels[:2400], example=example, **g), 3600)
+        if not a.no_script:
+            stage(a, g, folder, '3_script.livecodescript', p['SYSTEM'],
+                  fill(p['SCRIPT'], concept=concept[:2600], levels=levels[:2400], example=example, **g), 3600)
     log('=== done: every game has its three files. Claude reviews next.')
 
 

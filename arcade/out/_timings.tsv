@@ -35,3 +35,23 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-13 12:55:28	spark-x2.6-4b	12	Deep Dive	1_concept.md	419	351	5.7	61.4	19	ok
 2026-11-13 12:55:40	spark-x2.6-4b	12	Deep Dive	2_levels.md	707	445	6.7	66.4	44	ok
 2026-11-13 12:56:17	spark-x2.6-4b	12	Deep Dive	3_script.livecodescript	2678	1847	31.6	58.4	148	ok
+2026-11-13 17:18:57	spark-x2.6-4b	21	Vector Pong 3D	1_concept.md	455	502	7.7	64.9	26	ok
+2026-11-13 17:19:06	spark-x2.6-4b	21	Vector Pong 3D	2_levels.md	854	447	6.8	65.8	44	ok
+2026-11-13 17:19:15	spark-x2.6-4b	22	Jai Alai Block	1_concept.md	453	453	6.7	68.0	21	ok
+2026-11-13 17:19:24	spark-x2.6-4b	22	Jai Alai Block	2_levels.md	806	477	7.2	66.5	47	ok
+2026-11-13 17:19:33	spark-x2.6-4b	23	Floppy Flynn	1_concept.md	454	453	6.7	67.8	20	ok
+2026-11-13 17:19:41	spark-x2.6-4b	23	Floppy Flynn	2_levels.md	800	428	6.6	64.8	44	ok
+2026-11-13 17:19:50	spark-x2.6-4b	24	Vector Blob Apocalypse	1_concept.md	440	415	6.2	66.5	18	ok
+2026-11-13 17:19:59	spark-x2.6-4b	24	Vector Blob Apocalypse	2_levels.md	762	440	7.8	56.4	44	ok
+2026-11-13 17:20:09	spark-x2.6-4b	25	Prompt And Glaze Maze	1_concept.md	477	406	7.3	55.6	18	ok
+2026-11-13 17:20:25	spark-x2.6-4b	25	Prompt And Glaze Maze	2_levels.md	772	566	14.0	40.4	39	ok
+2026-11-13 17:20:42	spark-x2.6-4b	26	Shaft Descent	1_concept.md	426	442	14.8	29.9	19	ok
+2026-11-13 17:21:05	spark-x2.6-4b	26	Shaft Descent	2_levels.md	796	558	21.8	25.6	44	ok
+2026-11-13 17:21:13	spark-x2.6-4b	27	Matrix Lock	1_concept.md	458	302	5.6	53.6	13	ok
+2026-11-13 17:21:23	spark-x2.6-4b	27	Matrix Lock	2_levels.md	648	428	7.8	54.8	44	ok
+2026-11-13 17:21:35	spark-x2.6-4b	28	Big Ball Of Vectors	1_concept.md	458	551	9.8	56.4	21	ok
+2026-11-13 17:21:43	spark-x2.6-4b	28	Big Ball Of Vectors	2_levels.md	903	370	6.9	53.5	44	ok
+2026-11-13 17:22:04	spark-x2.6-4b	29	Probe Vs Cone	1_concept.md	481	452	18.1	25.0	19	ok
+2026-11-13 17:22:33	spark-x2.6-4b	29	Probe Vs Cone	2_levels.md	804	523	27.9	18.7	44	ok
+2026-11-14 00:46:20	spark-x2.6-4b	973	Dodge Tunnel	1_concept.md	396	409	6.1	66.9	19	ok
+2026-11-14 00:46:31	spark-x2.6-4b	973	Dodge Tunnel	2_levels.md	751	403	6.1	66.4	46	ok

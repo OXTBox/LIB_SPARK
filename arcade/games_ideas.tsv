@@ -1,0 +1,2 @@
+# id	title	prefix	brief	level columns	layout legend
+973	Dodge Tunnel	Dodge	Cubes fly at you down a tunnel from four corners; slide and climb to dodge them; it gets faster every wave.	speed | count | lives | bonus	. empty, # wall, P player start
