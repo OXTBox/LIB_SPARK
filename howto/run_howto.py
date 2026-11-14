@@ -105,6 +105,9 @@ def main():
     game_names = ', '.join(g[0] for g in games)
     only = [x.strip() for x in a.only.split(',') if x.strip()]
     todo = [t for t in topics if not only or t[0] in only]
+    # topic 01 is written by hand (Claude): Spark is shown it as the model answer
+    ex = os.path.join(OUT, '01_Game_card_and_loop', 'outline.md')
+    example = open(ex, encoding='utf-8').read().strip() if os.path.exists(ex) else ''
     ra.log('=== LIB_HOWTO outline: %d topics, %d games, work %g min / rest %g s, model %s' % (
         (len(todo), 0 if a.skip_games else len(games)) + ra.pace(a) + (a.model,)))
     ra.load(a.model)
@@ -116,7 +119,8 @@ def main():
         folder = os.path.join(OUT, '%s_%s' % (t[0], slug(t[1])))
         os.makedirs(folder, exist_ok=True)
         ra.stage(a, {'id': t[0], 'title': t[1]}, folder, 'outline.md', p['SYSTEM'],
-                 ra.fill(p['OUTLINE'], id=t[0], title=t[1], about=t[2], games=game_names), 900)
+                 ra.fill(p['OUTLINE'], id=t[0], title=t[1], about=t[2], games=game_names,
+                         example=example), 900)
     if not a.skip_games and not only:
         for g in games:
             ra.stage(a, {'id': 'game', 'title': g[0]}, os.path.join(OUT, 'games'), slug(g[0]) + '.md',

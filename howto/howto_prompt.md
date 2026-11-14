@@ -24,13 +24,27 @@ Engine calls you may name:
 - sound: Audio.Init, Sound.Play
 - libraries: LIB_BIT (Bit.Maze, Bit.Blank), LIB_MAP (Map.FindPath, Map.BlockEdges), LIB_MOCAP stick clips (text files: joints, edges, one line of numbers a frame)
 Facts: +X is right, +Y is DOWN (up is minus Y), +Z is away from the camera. About 30 updates a second.
+Rules (learned from the first draft):
+- Mesh.Define only names a shape. NOTHING SHOWS until Entity.Spawn puts it in the scene.
+- Keys are read with "the keysDown" inside Game.OnUpdate. Game.OnClick is the MOUSE only.
+- Size changes need a new shape: Mesh.Define it again bigger, Entity.Kill the old one, Entity.Spawn the new one.
+- Every step adds something NEW the learner can see or test. Never repeat the same call as a new step.
+- A library (LIB_BIT, LIB_MAP, LIB_MOCAP) is not an engine call: name its function (Bit.Maze, Map.FindPath)
+  or the file it reads.
+- "Needs" lists the earlier topic numbers this topic builds on (most topics need 01 and 04).
+- "Games that show it": only a game whose description you were given clearly does this; else "none".
 
 ## OUTLINE
 Topic {id}: {title}
 It covers: {about}
 
-Write the outline of this tutorial topic: 4 to 7 steps, from nothing on screen to a small
-working result. Use EXACTLY this format and nothing else:
+Here is a finished outline of topic 01, as an example of the level of detail wanted:
+
+{example}
+
+Write the outline of this tutorial topic the same way: 4 to 7 steps, from nothing on screen to a
+small working result. Name the real values in "Adding" (shape sizes, colours, key codes) like
+the example. Write it ONCE, then stop. Use EXACTLY this format and nothing else:
 
 # {id} {title}
 Goal: <one sentence: what the learner has on screen at the end>
