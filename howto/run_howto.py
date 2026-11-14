@@ -50,7 +50,13 @@ def assemble(topics, games):
            '## Topics (the left-side list)', '']
     out += ['%s. %s' % (t[0], t[1]) for t in topics]
     for t in topics:
-        out += ['', '---', '', read(os.path.join(OUT, '%s_%s' % (t[0], slug(t[1])), 'outline.md'))]
+        text = read(os.path.join(OUT, '%s_%s' % (t[0], slug(t[1])), 'outline.md'))
+        # Spark sometimes answers, then starts "Wait, let me check the format..." and writes it all
+        # again until it is cut off: keep the first answer (up to its "Games that show it" line)
+        m = re.search(r'^Games that show it:.*$', text, flags=re.M)
+        if m:
+            text = text[:m.end()]
+        out += ['', '---', '', text]
     out += ['', '---', '', '## Missing fundamentals (Spark\'s suggestions)', '',
             read(os.path.join(OUT, '00_missing.md')), '', '---', '', '## Which game teaches what', '']
     by_topic = {}
@@ -59,11 +65,14 @@ def assemble(topics, games):
         if not os.path.exists(p):
             continue
         out.append('### %s' % g[0])
+        seen = set()
         for line in read(p).splitlines():
+            m = re.match(r'\s*-?\s*(\d+)\s*\|', line)           # only "<topic> | <title> | <why>" lines
+            if not m or m.group(1).zfill(2) in seen or len(seen) >= 4:
+                continue
+            seen.add(m.group(1).zfill(2))
             out.append('- ' + line.strip().lstrip('- '))
-            m = re.match(r'\s*-?\s*(\d+)', line)
-            if m:
-                by_topic.setdefault(m.group(1).zfill(2), []).append(g[0])
+            by_topic.setdefault(m.group(1).zfill(2), []).append(g[0])
         out.append('')
     out += ['## Games by topic', '']
     for t in topics:
