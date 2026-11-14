@@ -1,7 +1,13 @@
-# LIB_HOWTO: the big outline (Spark draft, 2026-11-14 08:24)
+# LIB_HOWTO: the outline (finished, 2026-11-14)
 
-Written by Spark (local model) from `LIB_SPARK/howto/` for Claude and the owner to review.
-Nothing here is code. "NEW:" marks a call Spark wanted that the engine does not have.
+Step-by-step game building for Vibecode3D (and the xt3d bench): every step adds one handler or
+function, and its **Result** is something new on screen. Spark (local model) drafted it in two
+passes; Claude corrected every engine call against the engine source and rewrote topics 07, 08,
+13, 15 and 17. Spark's drafts: `out_v1/OUTLINE_v1.md`, `out_v1/OUTLINE_spark_v2_owner_result.md`.
+
+Every lesson starts from the same place: a card script, one wire cube (topic 01). Facts used
+throughout: +X right, **+Y down (up is minus Y)**, +Z away; about 30 updates a second; script-local
+variables (`local sAngle` above the handlers) keep their values between updates.
 
 ## Topics (the left-side list)
 
@@ -35,11 +41,11 @@ Needs: none
    Result: press Play: the viewport is empty and nothing goes wrong. The game runs.
    Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
 2. A shape on screen
-   Adding: Mesh.Define "Cube", MeshBox(40,40,40) and Entity.Spawn("Cube",0,0,0,"cyan") in Game.OnStart
+   Adding: Mesh.Define "Cube", MeshBox(40,40,40) and put Entity.Spawn("Cube",0,0,0,"cyan") into sCube, in Game.OnStart
    Result: a cyan wire cube sits in the middle of the view.
    Engine calls: Mesh.Define, MeshBox, Entity.Spawn
 3. The loop: move it a little every step
-   Adding: on Game.OnUpdate (add 0.05 to an angle, SetObjectRotation with it)
+   Adding: on Game.OnUpdate (add 0.05 to sAngle, SetObjectRotation sCube, 0, sAngle, 0)
    Result: the cube turns, about 30 small turns a second.
    Engine calls: Game.OnUpdate, SetObjectRotation
 4. Words on screen
@@ -60,767 +66,597 @@ Games that show it: Simple_Test1
 ---
 
 # 02 Shapes: built-in meshes
-Goal: a named built-in wire mesh appears on screen as a visible shape in the middle of the view.
+Goal: a row of built-in shapes standing on a grid floor.
 Needs: 01
 
-1. A named shape on screen
-   Adding: Mesh.Define "Cube", MeshBox(40,40,40), Entity.Spawn("Cube",0,0,0,"cyan") in Game.OnStart
-   Result: a cyan wire cube sits in the middle of the view, visible as a shape.
-   Engine calls: Mesh.Define, MeshBox, Entity.Spawn
-2. A second named shape on screen
-   Adding: Mesh.Define "Sphere", MeshSphere(30,30), Entity.Spawn("Sphere",0,40,0,"orange") in Game.OnStart
-   Result: an orange wire sphere appears above the cube, both visible as shapes.
-   Engine calls: Mesh.Define, MeshSphere, Entity.Spawn
-3. A third named shape on screen
-   Adding: Mesh.Define "Pyramid", MeshPyramid(25,25), Entity.Spawn("Pyramid",0,-40,0,"green") in Game.OnStart
-   Result: a green wire pyramid appears below the cube, all three shapes visible together.
-   Engine calls: Mesh.Define, MeshPyramid, Entity.Spawn
-4. A grid shape on screen
-   Adding: Mesh.Define "Grid", MeshGrid(60,20), Entity.Spawn("Grid",0,0,0,"white") in Game.OnStart
-   Result: a white wire grid appears in the middle of the view, adding a fourth visible shape.
+1. A floor
+   Adding: Mesh.Define "Floor", MeshGrid(10,10,40); Entity.Spawn("Floor",0,0,0,"#204020")
+   Result: a dim green grid lies across the view: the ground.
    Engine calls: Mesh.Define, MeshGrid, Entity.Spawn
+2. A box on the floor
+   Adding: Mesh.Define "Box", MeshBox(40,40,40); Entity.Spawn("Box",-120,-20,0,"cyan")
+   Result: a cyan cube stands on the floor, left of centre (y -20: half its height up).
+   Engine calls: MeshBox, Entity.Spawn
+3. A ball
+   Adding: Mesh.Define "Ball", MeshSphere(22,6,10); Entity.Spawn("Ball",-40,-22,0,"orange")
+   Result: an orange wire ball sits next to the cube.
+   Engine calls: MeshSphere
+4. A pyramid and a prism
+   Adding: MeshPyramid(4,24,44) and MeshPrism(6,20,40), spawned at x 40 and 120
+   Result: a four-sided pyramid and a six-sided prism complete the row.
+   Engine calls: MeshPyramid, MeshPrism
+5. Change the numbers
+   Adding: MeshSphere(22,3,5) instead of (22,6,10)
+   Result: the ball turns into a crude, faceted shape: fewer rings and sides, fewer lines.
+   Engine calls: MeshSphere
 
 Pitfalls:
-- Mesh.Define only names a shape; nothing shows until Entity.Spawn puts it in the scene, so a defined mesh with no spawn stays invisible.
-- Size changes need a new shape: Mesh.Define the new size, Entity.Kill the old shape, and Entity.Spawn the new one, rather than reusing the same named shape.
+- Up is minus Y: an object at y +20 sinks under the floor.
+- MeshSphere's arguments are radius, rings, sides; MeshPyramid and MeshPrism start with the sides.
 
-Games that show it: Simple_Test1
+Games that show it: BigBallOfVectors, VectorBlobApocalypse, ShaftDescent
 
 ---
 
 # 03 Shapes: by hand
-Goal: a small wire cube made point-by-point with hand-drawn vertices, lines, and faces appears on screen.
-Needs: 01, 04
+Goal: a wire shape built point by point: a triangle, then a little house.
+Needs: 01, 02
 
-1. A game card with an empty scene
-   Adding: Game.OnStart (with Engine.ResetCamera, Scene.ClearAll, HUD.Clear)
-   Result: press Play and the viewport is empty and nothing goes wrong; the game runs.
-   Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
-2. A wire cube shape defined by hand
-   Adding: Mesh.Define "Cube", Mesh.AddVertex(0,0,0), Mesh.AddVertex(40,0,0), Mesh.AddVertex(40,40,0), Mesh.AddVertex(0,40,0), Mesh.AddVertex(0,0,40), Mesh.AddVertex(40,0,40), Mesh.AddVertex(40,40,40), Mesh.AddLine(0,1), Mesh.AddLine(1,2), Mesh.AddLine(2,3), Mesh.AddLine(3,4), Mesh.AddLine(4,5), Mesh.AddLine(5,6), Mesh.AddLine(6,7), Mesh.AddLine(7,0), Mesh.AddFace(0,1,2,3), Mesh.AddFace(1,2,7,6), Mesh.AddFace(2,3,7,6), Mesh.AddFace(3,4,0,7)
-   Result: the cube is named "Cube" in the scene and sits in the middle of the view.
-   Engine calls: Mesh.Define, Mesh.AddVertex, Mesh.AddLine, Mesh.AddFace
-3. The cube placed in the scene
-   Adding: Entity.Spawn("Cube",0,0,0,"cyan") in Game.OnStart
-   Result: the hand-built wire cube appears on screen as a cyan wire shape.
-   Engine calls: Entity.Spawn
-4. The cube rotates with the loop
-   Adding: on Game.OnUpdate (add 0.05 to an angle variable, SetObjectRotation with it)
-   Result: the cube turns about 30 small rotations per second as the game runs.
-   Engine calls: Game.OnUpdate, SetObjectRotation
+1. A new, empty mesh
+   Adding: put Mesh.New() into tM
+   Result: nothing on screen yet: an empty shape to fill.
+   Engine calls: Mesh.New
+2. Three points
+   Adding: Mesh.AddVertex tM, -30,0,0 / 30,0,0 / 0,-50,0 (each one's number comes back in the result)
+   Result: still nothing: points alone draw nothing.
+   Engine calls: Mesh.AddVertex
+3. Three lines: a triangle
+   Adding: Mesh.AddLine tM,1,2 / 2,3 / 3,1; Mesh.Define "Tri", tM; Entity.Spawn("Tri",0,0,0,"yellow")
+   Result: a yellow wire triangle stands in the middle of the view.
+   Engine calls: Mesh.AddLine, Mesh.Define, Entity.Spawn
+4. A house: a square and a roof
+   Adding: four more points for a square below the triangle and four lines around it
+   Result: a wire house outline: the triangle is now its roof.
+   Engine calls: Mesh.AddVertex, Mesh.AddLine
+5. Make it solid-looking
+   Adding: Mesh.AddFace tM, "4 5 6 7" (the square as one face)
+   Result: the front of the house is drawn as a face, not just its edges.
+   Engine calls: Mesh.AddFace
 
 Pitfalls:
-- Mesh.Define only names a shape; nothing shows until Entity.Spawn puts it in the scene.
-- Keep the rotation angle in a script-local variable; a plain local in Game.OnUpdate starts at 0 every step.
+- Vertex numbers are the ones Mesh.AddVertex returned (1, 2, 3 ...); a line to a number that was never added draws nothing.
+- Faces list their vertex numbers with spaces, in order around the edge.
 
-Games that show it: Simple_Test1
+Games that show it: Face, Thrmnlra, Amazing_Couple (its walls and beacon)
 
 ---
 
 # 04 Objects in the scene
-Goal: a coloured wire cube sits in the middle of the view, can be removed when the game stops, and the scene can be cleared when a new game starts.
-Needs: 01, 04
+Goal: cubes appear where you want them and disappear on purpose.
+Needs: 01
 
-1. A game card with an empty scene
-   Adding: on Game.OnStart (with Engine.ResetCamera, Scene.ClearAll, HUD.Clear)
-   Result: press Play: the viewport is empty and nothing goes wrong, the game runs.
-   Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
-2. A coloured wire cube on screen
-   Adding: Mesh.Define "Cube", MeshBox(40,40,40) and Entity.Spawn("Cube",0,0,0,"cyan") in Game.OnStart
-   Result: a cyan wire cube sits in the middle of the view.
-   Engine calls: Mesh.Define, MeshBox, Entity.Spawn
-3. Remove the cube when the game stops
-   Adding: on Game.OnStop (Entity.Kill("Cube"))
-   Result: press Stop, then Play another game: the cube is gone and the viewport stays empty.
-   Engine calls: Game.OnStop, Entity.Kill
-4. Clear the whole scene when a new game starts
-   Adding: on Game.OnStart (Scene.ClearAll)
-   Result: press Play again after stopping: all objects from the previous game are removed and the viewport is empty.
-   Engine calls: Game.OnStart, Scene.ClearAll
+1. Keep the key
+   Adding: put Entity.Spawn("Cube",0,0,0,"cyan") into sCube
+   Result: the cube shows, and sCube holds its key (like "Cube_1") to talk to it later.
+   Engine calls: Entity.Spawn
+2. Many of the same shape
+   Adding: a repeat that spawns five cubes at x -160, -80, 0, 80, 160, keys kept in sCubes[n]
+   Result: a row of five cubes from one shape definition.
+   Engine calls: Entity.Spawn
+3. Colours
+   Adding: a different colour for each ("red", "#40FF40", ...)
+   Result: five colours: the colour belongs to the object, not the shape.
+   Engine calls: Entity.Spawn
+4. Remove one
+   Adding: Entity.Kill sCubes[3] after 60 updates (count sTicks in Game.OnUpdate)
+   Result: two seconds in, the middle cube vanishes.
+   Engine calls: Entity.Kill
+5. Count them
+   Adding: HUD.Set "Count", Entity.Count("Cube"), 20,120,14
+   Result: the HUD shows 5, then 4.
+   Engine calls: Entity.Count, HUD.Set
 
 Pitfalls:
-- Mesh.Define only names a shape; nothing shows until Entity.Spawn puts it in the scene, so a defined cube will not appear on screen on its own.
-- Never repeat the same call as a new step: killing the cube or clearing the scene is only a new step when it removes something that was previously on screen.
+- Entity.Kill needs the key Entity.Spawn returned, not the shape's name.
+- Scene.ClearAll at the start of Game.OnStart, so a second Play doesn't add a second row.
 
-Games that show it: Simple_Test1
+Games that show it: SkyRaiders, WallBreaker, DotMaze
 
 ---
 
 # 05 Moving things
-Goal: a small wire cube moves continuously on screen, controlled by its rotation speed and velocity.
+Goal: a cube that moves by itself, three different ways.
 Needs: 01, 04
 
-1. A wire cube in the scene
-   Adding: Mesh.Define "Cube", MeshBox(40,40,40) and Entity.Spawn("Cube",0,0,0,"cyan") in Game.OnStart
-   Result: a cyan wire cube sits in the middle of the view.
-   Engine calls: Mesh.Define, MeshBox, Entity.Spawn
-2. Rotate the cube to start its motion
-   Adding: on Game.OnUpdate (add 0.05 to a script-local angle variable, SetObjectRotation with it)
-   Result: the cube turns about 30 small turns per second.
-   Engine calls: Game.OnUpdate, SetObjectRotation
-3. Add a constant downward velocity to the cube
-   Adding: on Game.OnUpdate (add 0.1 to a script-local velocity variable, SetObjectVelocity with it)
-   Result: the cube drifts downward at a steady rate while still turning.
-   Engine calls: Game.OnUpdate, SetObjectVelocity
-4. Move the cube with a fixed rotation speed
-   Adding: on Game.OnUpdate (add 0.2 to a script-local rotation speed variable, SetObjectRotationSpeed with it)
-   Result: the cube spins at a steady, visible rate, making its movement clearly visible.
-   Engine calls: Game.OnUpdate, SetObjectRotationSpeed
+1. Move it by hand every step
+   Adding: add 2 to sX in Game.OnUpdate; SetObjectPosition sCube, sX, 0, 0
+   Result: the cube slides to the right.
+   Engine calls: SetObjectPosition
+2. Bounce at the edges
+   Adding: if abs(sX) > 200 then put -sVX into sVX (move by sVX instead of 2)
+   Result: the cube slides back and forth.
+   Engine calls: SetObjectPosition
+3. Let the engine spin it
+   Adding: SetObjectRotationSpeed sCube, 0, 0.05, 0 (once, in Game.OnStart)
+   Result: it turns while it slides, with no rotation code in the loop.
+   Engine calls: SetObjectRotationSpeed
+4. Let the engine move it
+   Adding: a second cube with SetObjectVelocity tKey, 0, 0, 2 (once)
+   Result: the second cube drifts away from you on its own.
+   Engine calls: SetObjectVelocity
+5. Read where it is
+   Adding: HUD.Set "Pos", round(GetObjectPosition(tKey,"Z")), 20,120,14
+   Result: the HUD counts up as the second cube drifts.
+   Engine calls: GetObjectPosition, HUD.Set
 
 Pitfalls:
-- SetObjectPosition, SetObjectRotation, SetObjectRotationSpeed, and SetObjectVelocity only change the object's state; nothing moves on screen until the object is already in the scene via Entity.Spawn.
-- Keep the angle, velocity, and rotation speed in script-local variables inside Game.OnUpdate; a plain local starts at 0 every step and the motion will not appear.
+- Velocity and rotation speed are set once; setting them every step is not needed.
+- Moving by hand (step 1) and by velocity (step 4) on the same object fight each other.
 
-Games that show it: Simple_Test1
+Games that show it: Simple_Test2, demo, Canyon
 
 ---
 
 # 06 Keyboard input
-Goal: a wire cube responds to held WASD keys by moving right, left, up, and down on screen.
-Needs: 01, 04
+Goal: drive the cube with WASD or the arrow keys.
+Needs: 01, 05
 
-1. A game card with the update loop and a shape
-   Adding: Game.OnStart (with Engine.ResetCamera, Scene.ClearAll, HUD.Clear), Mesh.Define "Cube", MeshBox(40,40,40), Entity.Spawn("Cube",0,0,0,"cyan"), Game.OnUpdate (add 0.05 to an angle, SetObjectRotation with it)
-   Result: the game runs and a cyan wire cube sits in the middle of the view, slowly turning about 30 times per second.
-   Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear, Mesh.Define, MeshBox, Entity.Spawn, Game.OnUpdate, SetObjectRotation
-2. A test hook to read the keys
-   Adding: Game.OnClick (add a TestKeys handler that reads the keysDown)
-   Result: the game now exposes a TestKeys hook that can be used to test key input without clicking the mouse.
-   Engine calls: Game.OnClick
-3. Held WASD keys move the cube
-   Adding: inside Game.OnUpdate, read the keysDown for the W, A, S, D key codes and add the corresponding movement value to the cube's position
-   Result: holding W moves the cube up (toward minus Y), holding S moves it down (toward plus Y), holding A moves it left, and holding D moves it right.
-   Engine calls: Game.OnUpdate
-4. Arrow keys move the cube in the same way
-   Adding: inside Game.OnUpdate, read the keysDown for the arrow key codes and add the corresponding movement value to the cube's position
-   Result: the arrow keys provide the same left, right, up, and down movement as the WASD keys.
-   Engine calls: Game.OnUpdate
-5. One press versus held movement
-   Adding: inside Game.OnUpdate, only apply movement when the corresponding key is held (keysDown is true), and skip the movement for keys pressed only once
-   Result: pressing a key briefly moves the cube only while the key is held down, so the cube moves smoothly in a direction instead of jumping erratically.
-   Engine calls: Game.OnUpdate
+1. Whose keys are they
+   Adding: focus on nothing in Game.OnStart, and an empty "on arrowKey / end arrowKey"
+   Result: arrow keys no longer open menus or move field cursors: they belong to the game.
+   Engine calls: Game.OnStart
+2. Read the keys held down
+   Adding: put the keysDown into tKeys in Game.OnUpdate; if 100 or 65363 is among the items of tKeys then add 3 to sX
+   Result: hold D (or right arrow) and the cube moves right.
+   Engine calls: the keysDown, SetObjectPosition
+3. All four directions
+   Adding: A 97 / left 65361, W 119 / up 65362 (minus Z: away), S 115 / down 65364
+   Result: the cube goes wherever you steer it.
+   Engine calls: the keysDown
+4. One press, not held
+   Adding: Space (32) with a sKeyWas["space"] flag: act only when it goes down
+   Result: each tap of Space changes the cube's colour once, however long it's held.
+   Engine calls: the keysDown
+5. A test hook
+   Adding: Cube.Keys() returns sTestKeys when a test set it, else the keysDown; Cube.TestKeys pKeys
+   Result: a test (topic 17) can drive the cube without a keyboard.
+   Engine calls: the keysDown
 
 Pitfalls:
-- Keys are only read inside Game.OnUpdate, not in Game.OnClick; Game.OnClick is the mouse only, so a key press will not trigger movement if read there.
-- A plain local variable in Game.OnUpdate starts at 0 every step, so keep the key state in a script-local variable that persists between updates.
+- Game.OnClick is the mouse; keys are read in Game.OnUpdate.
+- Upper and lower case have different codes (w 119, W 87): accept both.
 
-Games that show it: Simple_Test1
+Games that show it: BigBallOfVectors, Amazing_Couple, VectorPong3D
 
 ---
 
 # 07 Mouse and picking
-Goal: a single cube responds to the mouse click by firing a projectile that travels toward the cursor.
-Needs: 01, 04
+Goal: click a rock to blast it.
+Needs: 01, 04, 11
 
-1. A clickable cube on screen
-   Adding: Game.OnClick, Mesh.Define "Cube", MeshBox(40,40,40), Entity.Spawn("Cube",0,0,0,"cyan")
-   Result: a cyan wire cube sits in the middle of the view and can be clicked with the mouse.
-   Engine calls: Game.OnClick, Mesh.Define, MeshBox, Entity.Spawn
-2. A projectile spawned at the click point
-   Adding: ScreenToCameraRay, RayCastScene, Entity.Spawn("Projectile",0,0,0,"orange")
-   Result: clicking the cube spawns an orange projectile at the camera ray position where the cube was hit.
-   Engine calls: ScreenToCameraRay, RayCastScene, Entity.Spawn
-3. The projectile moves toward the mouse cursor each update
-   Adding: Game.OnUpdate, SetObjectVelocity, SetObjectPosition
-   Result: the projectile travels toward the mouse cursor, about 30 small steps per second.
-   Engine calls: Game.OnUpdate, SetObjectVelocity, SetObjectPosition
-4. The projectile fires from the weapon when it reaches the target
-   Adding: Weapon.FireAt
-   Result: clicking the cube again fires the projectile from the weapon, and the projectile continues moving toward the cursor.
+1. Something to click
+   Adding: five rocks (MeshSphere(20,3,5)) spawned at random places, each with hit points: put 2 into gObjectTransforms[tKey]["hp"] (global gObjectTransforms)
+   Result: rough grey rocks are scattered around, each able to take two hits.
+   Engine calls: MeshSphere, Entity.Spawn, gObjectTransforms
+2. Hear the click
+   Adding: on Game.OnClick pX, pY (HUD.Set "Click", pX & "," & pY, 20,120,14)
+   Result: every click shows its screen position.
+   Engine calls: Game.OnClick, HUD.Set
+3. Fire at it
+   Adding: Weapon.FireAt pX, pY inside Game.OnClick
+   Result: a laser fires from the click; a hit rock sparks white, and the second hit de-rezzes it.
    Engine calls: Weapon.FireAt
+4. Know what was hit
+   Adding: on Game.OnKill pKey, pX, pY, pZ (add 1 to sScore; FX.Sparks pX,pY,pZ,12,"orange")
+   Result: sparks at the rock and the score goes up.
+   Engine calls: Game.OnKill, FX.Sparks
+5. (deeper) Pick without firing
+   Adding: ScreenToCameraRay and RayCastScene(gSceneObjects, ...) to find the object under the mouse
+   Result: the rock under the mouse turns yellow before you fire.
+   Engine calls: ScreenToCameraRay, RayCastScene
 
 Pitfalls:
-- Game.OnClick is the mouse only; do not use it to read keyboard input, or the click will not trigger.
-- RayCastScene only returns a hit when a shape is in the scene; if the cube is killed or removed, the click will not spawn a projectile.
+- Weapon.FireAt does the hit test for you; ScreenToCameraRay is only needed for picking without shooting.
+- Only objects with "hp" can be destroyed; Game.OnKill arrives only when one is (Hunter's rocks work this way).
 
-Games that show it: Simple_Test1
+Games that show it: demo, Hunter, Simple_Test2
 
 ---
 
 # 08 Camera
-Goal: a fixed view shows a centered wire cube, then the camera rotates to a top-down orientation.
-Needs: 01, 04
+Goal: the same scene seen from a fixed view, from above, and from behind a moving hero.
+Needs: 01, 05, 06
 
-1. Set the fixed camera view
-   Adding: Engine.SetCam, gCameraYaw, gCameraPitch
-   Result: the viewport locks to a centered, straight-down view of the scene without any camera movement.
+1. Where the camera is
+   Adding: Engine.SetCam 0, 120, 400 in Game.OnStart (the engine takes the scene's position negated: +Y here lifts the camera)
+   Result: the cube grid is seen from in front and a little above.
+   Engine calls: Engine.SetCam
+2. Where it looks
+   Adding: put -atan2(120, 400) into gCameraPitch
+   Result: the view tilts down to the middle of the scene.
+   Engine calls: gCameraPitch
+3. From above
+   Adding: Engine.SetCam 0, 420, 300 and put -atan2(420, 340) into gCameraPitch (Big Ball of Vectors)
+   Result: a steep top-down view of the whole floor.
+   Engine calls: Engine.SetCam, gCameraPitch
+4. Turn around the scene
+   Adding: add 0.01 to gCameraYaw every update
+   Result: the view swings slowly around the scene.
+   Engine calls: gCameraYaw
+5. Follow the hero
+   Adding: every update put the camera behind the steered cube: x - sin(heading)*105, height 88, z - cos(heading)*105; aim with atan2 (Amazing Couple's Couple.Camera)
+   Result: a third-person view: the camera stays behind the cube as you steer it.
    Engine calls: Engine.SetCam, gCameraYaw, gCameraPitch
-2. Add a wire cube to the fixed view
-   Adding: Mesh.Define "Cube", MeshBox(40,40,40), Entity.Spawn("Cube",0,0,0,"cyan")
-   Result: a cyan wire cube sits centered in the fixed view, visible and stable.
-   Engine calls: Mesh.Define, MeshBox, Entity.Spawn
-3. Rotate the camera to a top-down view
-   Adding: gCameraPitch, gCameraYaw
-   Result: the camera tilts so the view is oriented straight down, showing the cube from above.
-   Engine calls: gCameraYaw, gCameraPitch
-4. Move the camera yaw to follow a new position
-   Adding: gCameraYaw, SetObjectPosition
-   Result: the camera rotates around the scene center, keeping the view oriented top-down while the cube stays in view.
-   Engine calls: gCameraYaw, SetObjectPosition
+6. Smooth it
+   Adding: move the camera only 0.22 of the way to its target each update
+   Result: the camera glides after the hero instead of snapping.
+   Engine calls: Engine.SetCam
 
 Pitfalls:
-- gCameraYaw and gCameraPitch only change the view when Engine.SetCam is used to apply them; setting them alone leaves the camera in its previous orientation.
-- Do not change the camera view without a new shape on screen, or the learner will see no visible change from the camera call.
+- Engine.SetCam takes the scene position negated; Amazing Couple passes -sCamX, -sCamY, -sCamZ.
+- Engine.ResetCamera at the start of Game.OnStart, or the last game's camera stays.
 
-Games that show it: Simple_Test1
+Games that show it: Amazing_Couple, BigBallOfVectors, TrenchRun
 
 ---
 
 # 09 HUD and text
-Goal: a working score line and help text appear on screen below the engine's top bars.
-Needs: 01, 04
+Goal: a score that counts, a message that comes and goes, help text that stays.
+Needs: 01
 
-1. Clear the HUD before adding text
-   Adding: HUD.Clear
-   Result: the viewport shows no leftover score lines, messages, or help text, giving a clean slate for the new text.
-   Engine calls: HUD.Clear
-2. Add a score line at the top of the HUD
-   Adding: HUD.Set "Score", "100", 20, 120, 14
-   Result: a cyan score line showing 100 appears below the engine's top bars.
+1. A line of text
+   Adding: HUD.Set "Score","SCORE 0", gViewLeft + 20, 120, 14
+   Result: SCORE 0 shows below the engine's top bars.
    Engine calls: HUD.Set
-3. Add a help message below the score line
-   Adding: HUD.Set "Help", "Click to move", 20, 140, 14
-   Result: a help message showing "Click to move" appears below the score line, keeping text organized below the top bars.
+2. Make it count
+   Adding: add 1 to sScore every 30 updates; HUD.Set "Score","SCORE" && sScore, ...
+   Result: the score goes up once a second; setting the same name replaces the text.
    Engine calls: HUD.Set
-4. Remove the score line when the game stops
-   Adding: on Game.OnStop (HUD.Remove "Score")
-   Result: press Stop, then Play another game: the old score line is gone and only the help message remains.
-   Engine calls: Game.OnStop, HUD.Remove
+3. Help at the bottom
+   Adding: HUD.Set "Help","ARROWS MOVE   SPACE JUMP", gViewLeft + 20, gViewBottom - 30, 11
+   Result: small help text sits at the bottom of the view.
+   Engine calls: HUD.Set
+4. A message that goes away
+   Adding: HUD.Set "Msg","GET READY",200,300,24 at the start; HUD.Remove "Msg" after 60 updates
+   Result: GET READY flashes up for two seconds.
+   Engine calls: HUD.Set, HUD.Remove
+5. Only redraw when it changed
+   Adding: keep the last text in sHUDWas; skip HUD.Set when nothing changed
+   Result: the same screen, less work every update (Big Ball of Vectors' Ball.ShowHUD).
+   Engine calls: HUD.Set
 
 Pitfalls:
-- HUD.Set only places text on screen; nothing appears until the call is made, so a missing HUD.Set leaves no visible text.
-- Do not add the same HUD.Set call twice as a separate step; each step must add a new type of text (score line, message, help text) to show a new result.
+- y below about 112, or the text hides under the engine's top bars and the ... menu.
+- HUD.Clear in Game.OnStop, or the text follows you into the next game.
 
-Games that show it: Simple_Test1
+Games that show it: BigBallOfVectors, Amazing_Couple, WallBreaker
 
 ---
 
 # 10 Collisions
-Goal: a wire cube on screen that responds to collision rules and can be hit by a ray cast.
-Needs: 01, 04
+Goal: a ball rolls into a cube and the cube reacts.
+Needs: 04, 05, 11
 
-1. A game card with a basic update loop
-   Adding: Game.OnStart, Game.OnUpdate, Game.OnStop
-   Result: the game starts, runs its update loop, and stops cleanly when the engine stops the game.
-   Engine calls: Game.OnStart, Game.OnUpdate, Game.OnStop
-2. A wire cube shape in the scene
-   Adding: Mesh.Define "Cube", MeshBox(40,40,40), Entity.Spawn("Cube",0,0,0,"cyan")
-   Result: a cyan wire cube sits in the middle of the view.
-   Engine calls: Mesh.Define, MeshBox, Entity.Spawn
-3. A collision group for the cube
-   Adding: Collision.SetGroup("Cube", "cube")
-   Result: the cube is assigned to the cube collision group so it can be matched against other shapes.
+1. Two things on a collision course
+   Adding: a cube at x 150 and a ball at x -150 with SetObjectVelocity ball, 2, 0, 0
+   Result: the ball rolls towards the cube and passes straight through it.
+   Engine calls: Entity.Spawn, SetObjectVelocity
+2. Put them in groups
+   Adding: Collision.SetGroup sBall,"ball",22 and Collision.SetGroup sCube,"block",28
+   Result: nothing changes yet: groups alone don't collide.
    Engine calls: Collision.SetGroup
-4. A collision rule between the cube group and a new wire sphere
-   Adding: Mesh.Define "Sphere", MeshSphere(30,30,30), Entity.Spawn("Sphere",0,0,0,"orange"), Collision.AddRule("cube", "sphere")
-   Result: the orange wire sphere now triggers a collision with the cyan cube when they overlap.
-   Engine calls: Mesh.Define, MeshSphere, Entity.Spawn, Collision.AddRule
-5. A hit handler that changes the cube's appearance when it is hit
-   Adding: Game.OnClick, Collision.Hit
-   Result: clicking the sphere triggers the collision handler, which updates the cube's state so the learner can see the collision response.
-   Engine calls: Game.OnClick, Collision.Hit
-6. Simple distance checks in the update loop
-   Adding: Game.OnUpdate, ScreenToCameraRay
-   Result: every update step runs a distance check against the camera ray, confirming the collision rules work continuously as the game runs.
-   Engine calls: Game.OnUpdate, ScreenToCameraRay
+3. A rule
+   Adding: Collision.AddRule "ball","block" (and Collision.ClearRules at the start)
+   Result: the engine now checks those two groups every update.
+   Engine calls: Collision.AddRule, Collision.ClearRules
+4. React to the hit
+   Adding: on Collision.Hit pA, pB (FX.Sparks at the cube; SetObjectVelocity sBall, -2, 0, 0)
+   Result: sparks fly and the ball bounces back.
+   Engine calls: Collision.Hit, FX.Sparks
+5. The simple way
+   Adding: in Game.OnUpdate, if the distance between ball and cube < 50 then ... (no groups)
+   Result: the same bounce from a distance check: often enough for small games.
+   Engine calls: GetObjectPosition
 
 Pitfalls:
-- Collision rules only work after the shape is spawned into the scene; defining a shape alone will not trigger collisions.
-- Collision.Hit only fires when the mouse clicks the colliding shape; it does not trigger on every update step, so do not expect the hit to happen automatically.
+- The radius in Collision.SetGroup decides how close counts as touching.
+- Collision.Hit can arrive several updates in a row while they overlap: move them apart at once.
 
-Games that show it: Simple_Test1
+Games that show it: demo, Hunter, Canyon (rules); BigBallOfVectors, WallBreaker (distance)
 
 ---
 
 # 11 Effects
-Goal: a small burst of sparks appears on screen when the game runs and can be cleared when the game stops.
+Goal: something happens and you can see it happen.
 Needs: 01, 04
 
-1. A game card with an empty scene
-   Adding: Game.OnStart (with Engine.ResetCamera, Scene.ClearAll, HUD.Clear)
-   Result: press Play: the viewport is empty, nothing goes wrong, and the game runs.
-   Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
-2. A shape on screen for the effect to attach to
-   Adding: Mesh.Define "Cube", MeshBox(40,40,40) and Entity.Spawn("Cube",0,0,0,"cyan") in Game.OnStart
-   Result: a cyan wire cube sits in the middle of the view, ready for the effect.
-   Engine calls: Mesh.Define, MeshBox, Entity.Spawn
-3. A spark effect that appears when the game starts
-   Adding: FX.Sparks("Cube", 0, 0, 0, 20) in Game.OnStart
-   Result: a small burst of sparks flies out from the cube as the game starts.
+1. Sparks
+   Adding: FX.Sparks 0, -20, 0, 16, "orange" in Game.OnStart
+   Result: a burst of orange sparks at the start.
    Engine calls: FX.Sparks
-4. The effect can be destroyed when the game stops
-   Adding: FX.Destroy("Cube") in Game.OnStop
-   Result: press Stop, then Play another game: the sparks disappear and no leftover effect remains.
-   Engine calls: FX.Destroy, Game.OnStop
-5. The effect can be cleared completely when the game stops
-   Adding: Particles.Clear in Game.OnStop
-   Result: press Stop, then Play another game: all leftover sparks and effects are removed, leaving an empty viewport.
-   Engine calls: Particles.Clear, Game.OnStop
+2. Sparks on a key
+   Adding: Space (topic 06) fires FX.Sparks at the cube's position
+   Result: every tap of Space bursts sparks from the cube.
+   Engine calls: FX.Sparks, GetObjectPosition
+3. Destroy it
+   Adding: FX.Destroy sCube on Return
+   Result: the cube de-rezzes (Tron-style dashes that grow, thin out and fade) and is gone.
+   Engine calls: FX.Destroy
+4. Debris instead
+   Adding: View.Set "explode", "debris" before FX.Destroy (FX.Derez always de-rezzes)
+   Result: the next cube bursts into flying edge pieces instead.
+   Engine calls: View.Set, FX.Destroy, FX.Derez
+5. A clean start
+   Adding: Particles.Clear in Game.OnStart
+   Result: Play again: no sparks are left over from last time.
+   Engine calls: Particles.Clear
 
 Pitfalls:
-- FX.Sparks only shows the effect when the shape it targets has been spawned; define and spawn the shape first, or the effect has nothing to attach to.
-- Never repeat the same FX call as a new step; each new step must add a new effect behavior (appear, destroy, or clear) rather than repeating the same call.
+- FX.Sparks takes x, y, z, count, colour: remember up is minus Y.
+- Lots of sparks every update slows everything: burst them on events.
 
-Games that show it: Simple_Test1
+Games that show it: BigBallOfVectors, WallBreaker, CityShield
 
 ---
 
 # 12 Game state
-Goal: a game shows a score and lives counter, updates them with the keysDown, and lets the player restart with Space.
-Needs: 01, 04
+Goal: score, lives, levels, a win, a loss, and Space to play again.
+Needs: 06, 09, 10
 
-1. Add score and lives HUD elements
-   Adding: HUD.Set "Score", 0, 20, 120, 14, HUD.Set "Lives", 3, 20, 160, 14
-   Result: the viewport shows a score of 0 and three lives below the engine's top bars.
+1. The numbers
+   Adding: put 0 into sScore, 3 into sLives, 1 into sLevel in Game.OnStart; show them with HUD.Set
+   Result: SCORE 0  LIVES 3  LEVEL 1 at the top.
    Engine calls: HUD.Set
-2. Update score and lives each game step
-   Adding: on Game.OnUpdate (read the keysDown, add 1 to the score when the right key is pressed, subtract 1 from the lives when the left key is pressed)
-   Result: pressing the right key increases the score, pressing the left key decreases the lives, about 30 updates a second.
-   Engine calls: Game.OnUpdate
-3. Show win and lose states when conditions are met
-   Adding: on Game.OnUpdate (if the score is at least 100, HUD.Set "WIN", 20, 120, 14; if the lives are at most 0, HUD.Set "LOSE", 20, 120, 14)
-   Result: reaching a score of 100 shows a WIN message, running out of lives shows a LOSE message.
-   Engine calls: Game.OnUpdate, HUD.Set
-4. Restart the game with Space
-   Adding: on Game.OnClick (if the Space key is pressed, reset the score to 0, the lives to 3, and remove the WIN and LOSE messages)
-   Result: pressing Space clears the win and lose states and restarts the game with a fresh score and lives.
-   Engine calls: Game.OnClick, HUD.Remove
-5. Add a State function for notes and tests
-   Adding: State function that returns the current score, lives, and win/lose status
-   Result: the game can check its state values for notes and tests without reading the HUD each step.
-   Engine calls: Game.OnUpdate
+2. Change them in play
+   Adding: catching something adds to sScore; a hazard takes a life
+   Result: the numbers move while you play.
+   Engine calls: HUD.Set
+3. Over: won or lost
+   Adding: sOver and sWon flags; when sLives is 0 or the last level is cleared, stop the play code
+   Result: the game freezes with YOU WIN or GAME OVER.
+   Engine calls: HUD.Set
+4. Play again
+   Adding: when sOver and Space (32) is down (and at least 30 updates passed), call Game.OnStart
+   Result: Space starts a fresh game; the short wait stops a held Space from skipping the message.
+   Engine calls: the keysDown, Game.OnStart
+5. One line that says it all
+   Adding: function Game.State: return sLevel & "|" & sScore & "|" & sLives & "|" & sOver
+   Result: game notes and tests (topic 17) can read the game's state.
+   Engine calls: none (your own function)
 
 Pitfalls:
-- Only Game.OnClick handles the mouse; use the keysDown inside Game.OnUpdate for keyboard input, or the state will never update.
-- Resetting score and lives requires updating the HUD values immediately after the Space press, or the old win or lose messages will stay on screen.
+- Read Space in Game.OnUpdate (topic 06), not Game.OnClick.
+- Reset every number in Game.OnStart, or Play again keeps the old score.
 
-Games that show it: Simple_Test1
+Games that show it: BigBallOfVectors, WallBreaker, SkyRaiders
 
 ---
 
 # 13 Levels and layouts
-Goal: a repeatable-seeded maze grid appears on screen as a working level layout.
-Needs: 01, 04
+Goal: levels from a table, and a maze that is the same every time for the same seed.
+Needs: 02, 12
 
-1. A seeded level table
-   Adding: LIB_BIT.Bit.Maze, LIB_MAP.Map.FindPath
-   Result: the level table is loaded with a fixed seed so the maze layout is the same every time the game runs.
-   Engine calls: LIB_BIT.Bit.Maze, LIB_MAP.Map.FindPath
-2. A level grid on screen
-   Adding: Mesh.Define "Grid", MeshGrid(40,40,40), Entity.Spawn("Grid",0,0,0,"gray")
-   Result: a gray grid fills the view, showing the level layout the seeded maze defines.
-   Engine calls: Mesh.Define, MeshGrid, Entity.Spawn
-3. A maze path on the grid
-   Adding: LIB_BIT.Bit.Maze, LIB_MAP.Map.FindPath
-   Result: the maze path from the seeded table is drawn as a visible path on the grid, showing the working level layout.
-   Engine calls: LIB_BIT.Bit.Maze, LIB_MAP.Map.FindPath
-4. A repeatable layout check
-   Adding: LIB_BIT.Bit.Maze, LIB_MAP.Map.FindPath
-   Result: the same seed produces the identical maze layout every time, so the level is repeatable.
-   Engine calls: LIB_BIT.Bit.Maze, LIB_MAP.Map.FindPath
+1. A level table
+   Adding: one line a level: "4,3,1,5" = agents, speed, hazards, quota; put line sLevel of kLevels into tRow
+   Result: level 1 uses the first line's numbers; change the numbers, change the level.
+   Engine calls: none
+2. Next level
+   Adding: when the quota is met, Ball.StartLevel sLevel + 1 (clear the scene, read the next line)
+   Result: the game gets harder level by level.
+   Engine calls: Scene.ClearAll
+3. A maze from a seed
+   Adding: start using LIB_BIT; put Bit.Maze(6,6,sSeed) into sGrid
+   Result: nothing on screen yet: a 13 x 13 grid of 1s (walls) and 0s (floor) in a variable.
+   Engine calls: Bit.Maze (LIB_BIT)
+4. The maze on screen
+   Adding: LIB_MAP's Map.BlockEdges(sGrid, 76, 58, false) -> wall segments -> a wire mesh (Amazing Couple's Couple.SegmentsToMesh)
+   Result: a blue wire maze stands on the floor.
+   Engine calls: Map.BlockEdges (LIB_MAP), Mesh.New, Mesh.AddVertex, Mesh.AddLine, Entity.Spawn
+5. The same maze every time
+   Adding: add 1 to sSeed when a maze is cleared
+   Result: seed 1 is always the same maze, here and in xt3d and Python; the next seed is a new one.
+   Engine calls: Bit.Maze
+6. (next) A map drawn by hand
+   Adding: CellMap.Read a .cellmap made in LIB_BIT's BitEditor; walls where the tag is "#"
+   Result: your own painted level, with doors, traps and heights.
+   Engine calls: CellMap.Read (LIB_BIT/editor)
 
 Pitfalls:
-- A library function only defines or loads the maze data; nothing shows until Entity.Spawn puts the grid shape into the scene.
-- Reusing the same maze seed without changing the seed will repeat the exact same layout, so always keep the seed fixed for repeatable levels.
+- A maze grid is 2 x rooms + 1 wide: 6 rooms make 13 cells.
+- Random without a seed gives a different level every run, so a tester can't report "level 3 is too hard".
 
-Games that show it: DotMaze, PromptAndGlazeMaze, Simple_Test1
+Games that show it: Amazing_Couple, BigBallOfVectors, DotMaze
 
 ---
 
 # 14 Animation: No Bones
-Goal: a wire sphere spins on screen, bobs up and down, and swaps to a larger wire sphere each frame.
-Needs: 01, 04
+Goal: things that look alive with no skeleton: spin, bob, grow, change shape.
+Needs: 01, 04, 05
 
-1. A spinning wire sphere on screen
-   Adding: Mesh.Define "Sphere", MeshSphere(50,50,50) and Entity.Spawn("Sphere",0,0,0,"cyan") in Game.OnStart
-   Result: a cyan wire sphere sits in the middle of the view.
-   Engine calls: Mesh.Define, MeshSphere, Entity.Spawn
-2. Spin the sphere every update
-   Adding: on Game.OnUpdate (add 0.05 to an angle variable, SetObjectRotation with it)
-   Result: the sphere rotates about 30 small turns per second.
-   Engine calls: Game.OnUpdate, SetObjectRotation
-3. Add a bob to the sphere
-   Adding: Scene.SetBob("Sphere",0.1)
-   Result: the sphere rises and falls gently in the view.
+1. Spin
+   Adding: SetObjectRotationSpeed sGem, 0, 0.05, 0
+   Result: a gem turns slowly forever.
+   Engine calls: SetObjectRotationSpeed
+2. Bob
+   Adding: Scene.SetBob sBuoy, 6, 0.1, 0.05 (height, roll, speed)
+   Result: a buoy rises, falls and rocks gently.
    Engine calls: Scene.SetBob
-4. Grow the sphere and swap it for a larger one
-   Adding: Mesh.Define "BigSphere", MeshSphere(90,90,90) and Entity.Kill("Sphere"), Entity.Spawn("BigSphere",0,0,0,"cyan") in Game.OnUpdate
-   Result: the sphere grows to 90 units and the old mesh is replaced with the bigger one, still spinning.
-   Engine calls: Mesh.Define, Entity.Kill, Entity.Spawn, SetObjectRotation
-5. Show the animation title
-   Adding: HUD.Set "Title","NO BONES ANIMATION",20,120,14 in Game.OnStart
-   Result: the title shows below the engine's top bars while the sphere animates.
-   Engine calls: HUD.Set
-6. Clean up when the game stops
-   Adding: on Game.OnStop (HUD.Clear)
-   Result: press Stop, then Play another game: no old title or mesh is left over.
-   Engine calls: Game.OnStop, HUD.Clear
+3. Grow
+   Adding: every 30 updates: Mesh.Define a bigger MeshSphere, Entity.Kill the old ball, Entity.Spawn the new one
+   Result: the ball grows a step at a time.
+   Engine calls: Mesh.Define, MeshSphere, Entity.Kill, Entity.Spawn
+4. Change shape
+   Adding: more sides each time (MeshSphere(r, sides div 2, sides)): Big Ball of Vectors' Ball.Reshape
+   Result: a crude polyhedron becomes rounder as it grows (or, in Amazing Couple, loses a side at every bounce).
+   Engine calls: MeshSphere
+5. A flip-book
+   Adding: define 8 meshes at the start ("Wing.1" ... "Wing.8"); each update show the next one (a mesh swap, like Amazing Couple's Couple.SetMesh)
+   Result: a wing flaps: frame animation with no bones.
+   Engine calls: Mesh.Define
 
 Pitfalls:
-- Mesh.Define only names a shape; nothing shows until Entity.Spawn puts it in the scene, so always define and spawn together.
-- Size changes need a new shape: define the bigger mesh, kill the old one, and spawn the new one, otherwise the old mesh stays on screen.
+- Scene.SetBob bobs around the height the object had when it was called: place it first.
+- Redefining a mesh every update is slow: change shape on events or every few updates.
 
-Games that show it: BigBallOfVectors, Simple_Test1
+Games that show it: BigBallOfVectors, demo, Amazing_Couple (the ball)
 
 ---
 
 # 15 Animation: BVH
+Goal: a stick figure that walks and stands still, from motion capture, with feet that don't skate.
+Needs: 03, 06, 14
 
-Goal: a mesh animates with a BVH motion capture clip, showing walking and idle poses with feet that do not skate.
-
-Needs: 01, 04
-
-1. A game card with the motion capture library loaded
-   Adding: Game.OnStart, LIB_MOCAP joints, LIB_MOCAP edges, LIB_MOCAP one line of numbers a frame
-   Result: the motion capture stick clips are loaded and ready to be used in the game.
-   Engine calls: Game.OnStart
-2. A mesh to animate with BVH motion
-   Adding: Mesh.Define "Mesh", MeshBox(40,40,40), Entity.Spawn("Mesh",0,0,0,"blue") in Game.OnStart
-   Result: a blue wire cube is placed in the scene so the motion capture clip can drive its pose.
-   Engine calls: Mesh.Define, MeshBox, Entity.Spawn
-3. Load the BVH motion capture clip
-   Adding: LIB_MOCAP load clip in Game.OnStart
-   Result: the BVH motion capture clip is loaded and ready to drive the mesh's animation.
-   Engine calls: Game.OnStart
-4. Animate the mesh one frame per update with the BVH clip
-   Adding: Game.OnUpdate, LIB_MOCAP one mesh a frame
-   Result: the mesh follows the BVH motion capture clip, updating its pose at about 30 frames per second.
-   Engine calls: Game.OnUpdate
-5. Show walking and idle poses from the clip
-   Adding: LIB_MOCAP walk pose, LIB_MOCAP idle pose in Game.OnUpdate
-   Result: the mesh displays the walking and idle poses from the clip, showing the motion capture animation.
-   Engine calls: Game.OnUpdate
-6. Ensure the feet do not skate during animation
-   Adding: LIB_MOCAP feet no skate in Game.OnUpdate
-   Result: the mesh's feet stay in place during the BVH animation, preventing the feet from sliding or skating.
-   Engine calls: Game.OnUpdate
+1. The clip file
+   Adding: read LIB_MOCAP/library/<clip>/<clip>_stick.txt: the "fps", "travel", "cycle", "joints" and "edges" lines, then one line of numbers a frame (x,y,z a joint)
+   Result: nothing on screen yet: the clip is in a variable (a BVH capture, already turned into stick text by LIB_MOCAP).
+   Engine calls: none (reading a text file)
+2. One pose
+   Adding: frame 1 as a mesh: Mesh.AddVertex for each joint (times 30 units a metre, Y negated: up is minus Y), Mesh.AddLine for each edge
+   Result: a stick figure stands in the scene.
+   Engine calls: Mesh.New, Mesh.AddVertex, Mesh.AddLine, Mesh.Define, Entity.Spawn
+3. Every pose
+   Adding: one mesh a frame at the start ("Clip.1", "Clip.2" ...), only the frames of its walk cycle
+   Result: still one figure, but every pose is ready to show.
+   Engine calls: Mesh.Define
+4. Play it
+   Adding: each update move fps x step time through the frames and swap the figure's mesh (Couple.SetMesh)
+   Result: the figure walks on the spot.
+   Engine calls: SetObjectPosition
+5. Walk forward without skating
+   Adding: move forward by the clip's "travel" speed, and play frames at the speed it really moved
+   Result: it walks across the floor and its feet stay planted.
+   Engine calls: SetObjectPosition, SetObjectRotation
+6. Walk and stand
+   Adding: a second clip (idle); show idle when the speed is 0, walk when moving (W key)
+   Result: it stands and fidgets, then walks when you press W.
+   Engine calls: the keysDown
 
 Pitfalls:
-- Mesh.Define only names a shape; nothing shows until Entity.Spawn puts it in the scene, so the mesh must be spawned before the animation steps run.
-- The BVH motion capture clip must be loaded before the mesh is animated, otherwise the mesh will have no pose to follow and may show a blank or stuck frame.
+- Only the clip's cycle frames loop cleanly; the whole capture jumps at the end.
+- Feet skate when the figure moves faster or slower than the clip's "travel": tie the frame rate to the real speed.
 
-Games that show it: Simple_Test1
+Games that show it: Amazing_Couple, GeneticAnomaly
 
 ---
 
 # 16 Sound
-Goal: a sound plays when the player presses the mouse to trigger an event, with no leftover visual changes after the game stops.
-Needs: 01, 04
+Goal: a sound when something happens.
+Needs: 07 or 10
 
-1. Set up the game card to run with sound support
-   Adding: Game.OnStart, Audio.Init
-   Result: the game card initializes audio and starts running, so a sound can be triggered when an event occurs.
-   Engine calls: Game.OnStart, Audio.Init
-2. Add a trigger object that the player can interact with
-   Adding: Mesh.Define "TriggerCube", MeshBox(30,30,30), Entity.Spawn("TriggerCube",0,0,0,"orange")
-   Result: an orange wire cube sits in the middle of the view, ready to be triggered by the player.
-   Engine calls: Mesh.Define, MeshBox, Entity.Spawn
-3. Play the sound when the player clicks the trigger object
-   Adding: Game.OnClick, Sound.Play
-   Result: pressing the mouse on the orange cube triggers the sound, which the learner can hear immediately.
-   Engine calls: Game.OnClick, Sound.Play
-4. Clear the sound and any leftover state when the game stops
-   Adding: Game.OnStop, Audio.Init
-   Result: pressing Stop stops the game and resets audio, so playing another game starts cleanly with no stale sound state.
-   Engine calls: Game.OnStop, Audio.Init
+1. Sound files where the engine looks
+   Adding: a folder per sound type in the engine's sounds folder (SoundDirectory()), e.g. "zap" with zap1.wav, zap2.wav
+   Result: nothing yet: the engine knows the sounds by their folder names.
+   Engine calls: none
+2. Load them
+   Adding: Audio.Init in Game.OnStart (Game.Play calls it the first time anyway)
+   Result: a short LOADING SOUNDS, once.
+   Engine calls: Audio.Init
+3. Play one on an event
+   Adding: Sound.Play "zap" in Game.OnKill (topic 07) or Collision.Hit (topic 10)
+   Result: each hit makes a sound; with several files in the folder they take turns.
+   Engine calls: Sound.Play
+4. No files, no crash
+   Adding: nothing: Sound.Play on a type with no files does nothing
+   Result: the game runs silently on a machine without the sound folder.
+   Engine calls: Sound.Play
 
 Pitfalls:
-- Audio.Init must be called in Game.OnStart before any Sound.Play call, otherwise the sound will not play when the game starts.
-- Do not put Sound.Play inside Game.OnUpdate as a new step; only trigger it from Game.OnClick so the sound happens when the player acts, not every frame.
+- The type is the folder name ("zap"), not a file name.
+- A sound every update is noise: play on events.
 
-Games that show it: Simple_Test1
+Games that show it: Hunter, Canyon
 
 ---
 
 # 17 Pause, notes and tests
-Goal: the game pauses on Escape and shows a pause note on F2, while headless tests can drive the game with TestKeys and read its State.
-Needs: 01, 04
+Goal: a game that pauses cleanly, takes notes while you play, and can be tested with no window.
+Needs: 06, 12
 
-1. A game with a loop that runs and can be paused
-   Adding: Game.OnStart (with Engine.ResetCamera, Scene.ClearAll, HUD.Clear), Game.OnUpdate (add 0.05 to a script-local angle variable and call SetObjectRotation with it)
-   Result: the game starts, the loop runs about 30 small turns per second, and pressing Escape pauses the game.
-   Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear, Game.OnUpdate, SetObjectRotation
-2. A pause note on screen
-   Adding: HUD.Set "Pause Note","PAUSE ON ESCAPE",20,120,14 in Game.OnStart
-   Result: the pause note appears in the viewport when the game is paused, and disappears when the game resumes.
-   Engine calls: HUD.Set
-3. A test hook for headless driving
-   Adding: Game.OnClick (read the keysDown variable for TestKeys input, call TestKeys.Drive if the TestKeys key is pressed)
-   Result: headless tests can send TestKeys input to the game and trigger the same actions as the mouse and keyboard, without a user pressing a key.
-   Engine calls: Game.OnClick, keysDown
-4. A State variable for tests to read
-   Adding: Game.OnStart (initialize a script-local State variable to 0)
-   Result: headless tests can read the State variable to verify what the game did during a test run.
-   Engine calls: Game.OnStart
+1. Pause
+   Adding: on Game.OnPause (HUD.Set "Paused","PAUSED",...) and on Game.OnResume (HUD.Remove "Paused")
+   Result: Escape stops the game and shows PAUSED; resuming takes it away.
+   Engine calls: Game.OnPause, Game.OnResume, HUD.Set, HUD.Remove
+2. A State function
+   Adding: function <Prefix>.State returning the game's numbers in one line (topic 12)
+   Result: anyone can ask the game what is happening.
+   Engine calls: none
+3. Notes while you play
+   Adding: nothing in the game: press ` or F2 (LIB_GAMES' GameNotes front script)
+   Result: a note box opens; your note is saved with the game's State line in LIB_LLMIN/LIB_GAMES/GAME_NOTES.txt.
+   Engine calls: none (GameNotes)
+4. A test hook
+   Adding: <Prefix>.TestKeys pKeys and <Prefix>.Keys() (topic 06)
+   Result: a script can hold keys down for the game.
+   Engine calls: the keysDown
+5. A headless test
+   Adding: tools/headless_play.sh <Game> <Prefix> "32:2 65363:60 0:300"
+   Result: the game runs with no window, holding keys for so many steps, and prints the State after each: errors show at once.
+   Engine calls: none (tools/engine_stubs)
 
 Pitfalls:
-- Only Game.OnClick reads the mouse and TestKeys input; never put the key check in Game.OnUpdate, or headless tests will never trigger the test actions.
-- Keep the State variable in a script-local variable; a plain local in Game.OnStart resets every step and tests will read stale values.
+- Read keys only through <Prefix>.Keys(), or the tests can't drive the game.
+- Keep State short and on one line: it goes into every note and test log.
 
-Games that show it: Simple_Test1
+Games that show it: Amazing_Couple, BigBallOfVectors, Thrmnlra
 
 ---
 
 # 18 One game, two engines
-Goal: the same simple spinning cube game runs correctly in both the Vibecode3D and xt3d engines with a minimal script.
-Needs: 01, 04
+Goal: the spinning cube of topic 01 running unchanged in the xt3d bench.
+Needs: 01
 
-1. Build the shared game card with the engine-start setup
-   Adding: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
-   Result: pressing Play starts the game in both engines, leaving the viewport empty and no leftover state.
-   Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
-2. Add the wire cube shape and spawn it in the scene
-   Adding: Mesh.Define "Cube", MeshBox(40,40,40), Entity.Spawn("Cube",0,0,0,"cyan")
-   Result: a cyan wire cube sits in the middle of the view in both engines.
-   Engine calls: Mesh.Define, MeshBox, Entity.Spawn
-3. Add the update loop to spin the cube in both engines
-   Adding: Game.OnUpdate, SetObjectRotation
-   Result: the cube rotates about 30 small turns per second in both engines.
-   Engine calls: Game.OnUpdate, SetObjectRotation
-4. Add the title HUD text so both engines show the game's label
-   Adding: HUD.Set "Title","SPINNING CUBE",20,120,14
-   Result: the title appears below the engine's top bars in both engines.
-   Engine calls: HUD.Set
-5. Add the stop cleanup so both engines reset cleanly when the game ends
-   Adding: Game.OnStop, HUD.Clear
-   Result: pressing Stop and starting a new game in either engine leaves no leftover title or state.
-   Engine calls: Game.OnStop, HUD.Clear
+1. Only engine calls
+   Adding: nothing new: use only the calls in these lessons (no buttons or fields of your own on the card)
+   Result: the card script has nothing the xt3d bench doesn't also have.
+   Engine calls: (all of the above)
+2. Positions from the view
+   Adding: HUD positions from gViewLeft, gViewTop, gViewRight, gViewBottom instead of fixed numbers
+   Result: the HUD lands in the right place in both windows.
+   Engine calls: gViewLeft, gViewBottom
+3. Keys belong to the game
+   Adding: focus on nothing and the empty arrowKey handler (topic 06)
+   Result: in both engines the arrows steer the game, not a menu.
+   Engine calls: the keysDown
+4. Run it in the xt3d bench
+   Adding: install the game with LIB_TEST's installer; open it from the bench
+   Result: the same cube turns in xt3d; check the speed and that the labels line up.
+   Engine calls: none
+5. Keep the speed the same
+   Adding: Engine.Info("stepMS") for step time instead of assuming 33 ms
+   Result: animation and movement run at the same speed in both engines.
+   Engine calls: Engine.Info
 
 Pitfalls:
-- Keep the script identical for both engines: never add engine-specific calls such as engine-specific shape or camera setup, or the two engines will behave differently.
-- Do not add extra shape definitions or spawns beyond the one cube: every extra call adds new state that both engines must handle, which is what makes the script harder to keep simple.
+- A control you made by hand on the Vibecode3D card doesn't exist in xt3d.
+- Test in both before calling a lesson done.
 
-Games that show it: Simple_Test1
-
----
-
-## Missing fundamentals (Spark's suggestions)
-
-Game loop and lifecycle | Defines the card script structure with Game.OnStart, Game.OnUpdate, and Game.OnStop to run the game repeatedly and clean up | Beginners need it to understand how a 3D vector game runs continuously and stops cleanly
-Game state management | Covers score, lives, levels, win/lose conditions, and restart logic via a State function and Space key | Beginners need it to track progress, handle game outcomes, and allow players to continue play again
-Input handling and picking | Covers keyboard input, mouse picking, and ray casting to let players interact with the game environment | Beginners need it to learn how players control movement and select objects in the 3D scene
-Camera control and navigation | Covers camera setup, yaw/pitch controls, fixed/top-down/follow/third-person views | Beginners need it to understand how the player sees the game world and navigate it effectively
-Collision detection | Covers group rules, collision rules, and distance-based checks to make objects interact | Beginners need it to learn how objects in the scene collide and respond to each other
-Animation techniques | Covers spin, bob, mesh swapping, growth/shrink, and BVH motion capture to animate objects | Beginners need it to learn how to make game objects move and appear dynamic in the scene
-Level and layout design | Covers level tables, grids, mazes, and repeatable random seeds for level content | Beginners need it to learn how to design and repeat game levels with structured layouts
-Sound and feedback | Covers audio initialization, sound playback, and particle effects for feedback | Beginners need it to learn how to add audio and visual feedback to enhance gameplay experiences
+Games that show it: Thrmnlra, TrenchRun, ProbeVsCone
 
 ---
 
-## Which game teaches what
+## Games by topic (checked in the scripts)
 
-### Amazing_Couple
-- 01 | Game card and loop | The script runs the full third-person maze playthrough with the companion following the player through the maze on its own, showing Game.OnStart setup, Game.OnUpdate updates, and Game.OnStop cleanup |
-- 08 | Camera | The third-person camera behind the hero follows the player through the maze, demonstrating Engine.SetCam, gCameraYaw, and gCameraPitch for third-person view control |
-- 09 | HUD and text | The cyan PROMPT and magenta GLAZE stick figures are displayed as persistent HUD text, showing HUD.Set for keeping messages visible below the top bars |
-- 15 | Animation | The minimal stick figures driven by LIB_MOCAP BVH clips animate with walking and idle states, demonstrating clip loading, per-frame mesh updates, and non-skating feet motion |
-
-### Antack
-- 01 | Game card and loop | The Antack game runs its setup, ~30 updates per second, and cleanup as a single card script driven by Game.OnStart, Game.OnUpdate, and Game.OnStop |
-- 02 | Shapes | The built-in MeshBox and MeshPyramid meshes used for the ant-hill bases and enemy hills appear immediately after their creation steps |
-- 03 | Shapes | The hand-built ant and enemy hill meshes are created point by point with Mesh.New, Mesh.AddVertex, Mesh.AddLine, and Mesh.AddFace before they are placed in the scene |
-- 04 | Objects in the scene | Spawning the ant armies at the enemy hills and killing the red enemy armies the computer sends at shows Entity.Spawn, Entity.Kill, and Scene.ClearAll in action |
-
-### BatDuel
-- 01 | Game card and loop | The bat, ball, and serve mechanics run continuously through Game.OnUpdate at about 30 updates per second, with Game.OnStart setting up the scene and Game.OnStop cleaning up after play |
-- 02 | Shapes | The two bat meshes and the ball are built with built-in MeshBox and MeshSphere calls that appear immediately on screen |
-- 04 | Objects in the scene | Spawning the ball into the world with Entity.Spawn places a named coloured shape in the scene, while Entity.Kill removes it and Scene.ClearAll resets the layout |
-- 05 | Moving things | The bat and ball move through the scene using SetObjectPosition and SetObjectVelocity, with +Y being down so the ball bounces off the top and bottom edges |
-
-### BigBallOfVectors
-- 01 | Game card and loop | | The Security Polyhedron spawns, gains sides and size with every catch, and the game runs its ~30 updates per second via Game.OnStart, Game.OnUpdate, and Game.OnStop.
-- 02 | Shapes | | The crude Security Polyhedron is shown as a built-in MeshBox mesh that gains sides and size as it catches agents.
-- 03 | Shapes | | The entanglement hazards are shown as hand-wired Mesh.New, Mesh.AddVertex, Mesh.AddLine, and Mesh.AddFace shapes that form the tangled ball.
-- 04 | Objects in the scene | | The loose rogue AI agents are shown as Entity.Spawned named shapes that can be Entity.Killed or cleared with Scene.ClearAll.
-
-### Canyon
-- 01 | Game card and loop | The Canyon card runs Game.OnStart to set up the scene, Game.OnUpdate to update the game about 30 times a second, and Game.OnStop to clean up, showing a complete card script loop.
-- 02 | Shapes | The built-in MeshBox and MeshPrism calls spawn the canyon walls and ground meshes directly on screen, showing how to create basic shapes with engine calls.
-- 04 | Objects in the scene | Entity.Spawn places named canyon objects into the world with colours, Entity.Kill removes them, and Scene.ClearAll resets the scene, showing how to manage scene objects.
-- 08 | Camera | Engine.SetCam with gCameraYaw and gCameraPitch sets the fixed third-person view behind the canyon hero, showing how to control camera positioning and movement.
-
-### CityShield
-- 01 | Game card and loop | The CityShield card runs Game.OnStart to set up the game, Game.OnUpdate to process the falling streaks about 30 times a second, and Game.OnStop to clean up, showing the full card script lifecycle.
-- 02 | Shapes | The built-in MeshBox and MeshPrism calls create the six city blocks and streaks shown on screen, demonstrating how to build basic shapes with the engine's built-in mesh tools.
-- 03 | Shapes | The hand-wired Mesh.New, Mesh.AddVertex, Mesh.AddLine, and Mesh.AddFace calls construct the custom streaks point by point, showing how to build custom shapes without relying on built-in meshes.
-- 04 | Objects in the scene | Entity.Spawn places the named streaks in the world with their colours, Entity.Kill removes them when stopped, and Scene.ClearAll resets the scene between levels, showing how to manage scene objects.
-
-### CrossTraffic
-- 01 | Game card and loop | The walker hops across lanes of traffic while Game.OnStart sets up the scene, Game.OnUpdate runs the hop and lane updates about 30 times a second, and Game.OnStop cleans up the scene |
-- 08 | Camera | The walker is viewed from a fixed third-person camera behind the hero using Engine.SetCam with gCameraYaw and gCameraPitch to follow the hopping walker |
-- 09 | HUD and text | The score lines showing the three required top-strip reaches and the help text for the arrow keys and Space controls are shown via HUD.Set and kept below the top bars |
-- 10 | Collisions | The walker’s hop triggers Collision.AddRule and Collision.Hit checks to detect when the walker reaches the top strip lanes to score |
-
-### DeepDive
-- 01 | Game card and loop | The diver's upward swim is driven by the Game.OnStart setup, Game.OnUpdate loop, and Game.OnStop cleanup, showing a card script runs continuously at about 30 updates per second |
-- 02 | Shapes | The pearls brought up from the sea bed are built with MeshBox and Mesh.Define, showing built-in meshes create the scene's shapes |
-- 03 | Shapes | The hand-wired pearl shapes are created point by point with Mesh.New, Mesh.AddVertex, Mesh.AddLine, and Mesh.AddFace, showing how to build custom wire shapes |
-- 04 | Objects in the scene | The pearls spawned from the sea bed are removed when they reach the surface via Entity.Kill and Entity.Count, showing how to add, track, and remove scene objects |
-
-### DotMaze
-- 01 | Game card and loop | The DotMaze card runs Game.OnStart to set up the maze, Game.OnUpdate to update the scene about 30 times a second, and Game.OnStop to clean up, showing the full game lifecycle.
-- 02 | Shapes | The built-in MeshBox used to draw the maze walls and the dot shapes appears on screen immediately after spawning, demonstrating how basic meshes create the game’s visual elements.
-- 03 | Shapes | The hand-wired maze walls and dots are built point by point using Mesh.New, Mesh.AddVertex, Mesh.AddLine, and Mesh.AddFace, showing how to create custom shapes without relying on built-in meshes.
-- 04 | Objects in the scene | Each collected dot and the chaser entities are spawned with Entity.Spawn and removed with Entity.Kill, showing how to add and remove named objects in the scene.
-
-### Face
-- 01 | Game card and loop | The Face game runs its setup in Game.OnStart, its 30-updates-per-second rendering loop in Game.OnUpdate, and its cleanup in Game.OnStop so the raised vector blocks stay on the dim grid panel.
-- 04 | Objects in the scene | Spawning the LIB_MCP connected face mesh into the scene with Entity.Spawn places the smiling vector blocks on the panel, while Entity.Kill and Scene.ClearAll let the player remove or reset them.
-- 08 | Camera | Engine.SetCam with the fixed view globals locks the camera on the grid panel so the raised vector blocks stay visible in a stable third-person view.
-- 011 | Effects | FX.Sparks and FX.Destroy produce the visual feedback when the face mesh is interacted with, showing the effect feedback step working in the game.
-
-### FloppyFlynn
-- 01 | Game card and loop | The blue two-legged ship’s flight cycle is driven by the Game.OnStart, Game.OnUpdate, and Game.OnStop card hooks that run the 30-update-second loop for the destructible terrain flight.
-- 02 | Shapes | The ship’s two-legged body and terrain blocks are built with the built-in MeshBox and MeshPrism calls that create the vector ship’s core geometry.
-- 03 | Shapes | The ship’s custom ankle flap is drawn point by point using Mesh.New, Mesh.AddVertex, Mesh.AddLine, and Mesh.AddFace to wire the unique two-legged design.
-- 04 | Objects in the scene | The destructible terrain and ship parts are placed in the world with Entity.Spawn, removed when damaged with Entity.Kill, and cleared with Scene.ClearAll to reset levels.
-
-### GeneticAnomaly
-- 01 | Game card and loop | The GeneticAnomaly card runs Game.OnStart to set up the procedural world, Game.OnUpdate to update about 30 times a second, and Game.OnStop to clean up after play ends. |
-- 02 | Shapes | Built-in meshes like MeshBox and MeshPrism are used to create the stick figures and basic world structures for the game. |
-- 08 | Camera | Engine.SetCam with gCameraYaw and gCameraPitch lets the player control the fixed top-down view and third-person camera behind the hero. |
-- 15 | Animation | BVH stick clips from LIB_MOCAP are loaded to animate the stick figures walking and idling with feet that do not skate. |
-
-### Hunter
-- 01 | Game card and loop | The Hunter card runs Game.OnStart to set up the rolling terrain, Game.OnUpdate to update the scene about 30 times a second, and Game.OnStop to clean up, so the player sees the game cycle continuously.
-- 04 | Objects in the scene | Spawning named rock and gem meshes with Entity.Spawn puts the terrain and hidden gems on screen, while Entity.Kill and Scene.ClearAll let the player see objects appear and disappear.
-- 07 | Mouse and picking | The Hunter uses Game.OnClick, ScreenToCameraRay, RayCastScene, and Weapon.FireAt to let the player click to aim and fire, showing the picking and shooting interaction works.
-- 10 | Collisions | The Hunter uses Collision.SetGroup, Collision.AddRule, and Collision.Hit to detect rock cracks and enemy contact, showing the collision rules drive the game's core interactions.
-
-### JaiAlaiBlock
-- 01 | Game card and loop | The runner’s frame loop runs Game.OnStart to set up the grid, Game.OnUpdate to update the runner and blocks, and Game.OnStop to clean up, so the game runs continuously at about 30 updates per second.
-- 02 | Shapes | The ceiling of blocks is built with MeshBox to create the grid of blocks that the runner hurls the ball at.
-- 04 | Objects in the scene | The runner and the thrown ball are spawned as named objects with colours, and the falling blocks are killed when they hit the ground to remove them from the scene.
-- 08 | Camera | The camera uses Engine.SetCam with fixed gCameraYaw and gCameraPitch to keep a stable top-down view of the grid and blocks.
-
-### LongWorm
-- 01 | Game card and loop | The LongWorm card runs Game.OnStart to set up the worm, Game.OnUpdate to advance the worm on the grid about 30 times a second, and Game.OnStop to clean up, so the player sees the worm move continuously.
-- 02 | Shapes | The built-in MeshBox mesh used to spawn the worm's body shape on the grid, showing how a simple named shape is placed in the scene.
-- 03 | Shapes | The hand-wired Mesh.New, Mesh.AddVertex, Mesh.AddLine, Mesh.AddFace steps build the worm's custom body mesh point by point, showing how to create a shape without relying on built-in meshes.
-- 04 | Objects in the scene | Entity.Spawn places the worm's named body shape in the world with a colour, Entity.Kill removes it when it ends, and Scene.ClearAll resets the scene, showing how to manage scene objects.
-
-### MatrixLock
-- 01 | Game card and loop | The falling wireframe shapes drop one at a time while Game.OnStart sets up the grid floor and Game.OnUpdate runs the drop logic about 30 times a second, showing the card script drives the whole game loop |
-- 04 | Objects in the scene | Each falling shape is spawned as a named mesh with a colour, killed when it lands on the floor, and the scene is cleared between levels to reset the grid, showing how objects are added and removed from the scene |
-- 05 | Moving things | The falling shapes drop downward using SetObjectPosition while their rotation is driven by SetObjectRotationSpeed, demonstrating that +Y is down and shapes move and rotate as they fall |
-- 08 | Camera | The camera uses Engine.SetCam with fixed gCameraYaw and gCameraPitch to show a top-down view of the grid floor, demonstrating how the camera is configured for the 3D grid scene |
-
-### ProbeVsCone
-- 01 | Game card and loop | The runner’s spear-throw and cone-shield updates are driven entirely by Game.OnStart setup, Game.OnUpdate 30 times per second, and Game.OnStop cleanup, showing the card script loop runs the full game flow.
-- 02 | Shapes | The boss Cone is built with MeshPrism and Mesh.Define, showing built-in meshes and named shape definitions appear on screen immediately.
-- 04 | Objects in the scene | The shield cubes and key tokens are spawned via Entity.Spawn with colours, removed via Entity.Kill, and cleared with Scene.ClearAll, demonstrating object lifecycle management.
-- 07 | Mouse and picking | The player throws the logic-probe spear using Game.OnClick, ScreenToCameraRay, RayCastScene, and Weapon.FireAt, showing mouse-driven scene interaction.
-
-### PromptAndGlazeMaze
-- 01 | Game card and loop | The PromptAndGlazeMaze card runs Game.OnStart to set up the agents and maze, Game.OnUpdate to update both agents and thrown polyhedra about 30 times a second, and Game.OnStop to clean up, so a beginner sees the full game loop in one script.
-- 02 | Shapes | The built-in MeshBox and MeshPrism meshes used for the two agents and the thrown polyhedron powerup show how to create basic 3D shapes directly with engine calls.
-- 03 | Shapes | The hand-built Mesh.New, Mesh.AddVertex, Mesh.AddLine, and Mesh.AddFace calls used to construct the custom energy dot shapes point by point show how to wire custom 3D shapes without relying on built-in meshes.
-- 04 | Objects in the scene | The Entity.Spawn calls that place the energy dots and agents in the maze, Entity.Kill to remove collected dots, and Scene.ClearAll to reset the level show how to manage scene objects for the game.
-
-### RockField
-- 01 | Game card and loop | The ship spawns, drifts, and fires while Game.OnStart sets up the scene, Game.OnUpdate runs the 30-updates-per-second loop, and Game.OnStop cleans up the state |
-- 04 | Objects in the scene | Spawning a named rock mesh with a colour, killing it to remove it, and clearing the scene to reset the field show the object lifecycle |
-- 08 | Camera | The fixed top-down view and the third-person camera behind the ship using Engine.SetCam and gCameraYaw/gCameraPitch show how the camera is controlled |
-- 10 | Collisions | The ship firing and splitting rocks into smaller ones via Collision.SetGroup, Collision.AddRule, and Collision.Hit shows how collision rules drive the core gameplay |
-
-### ShaftDescent
-- 01 | Game card and loop | The runner descends the shaft through repeated Game.OnUpdate frames while Game.OnStart sets up the shaft and platforms and Game.OnStop cleans up the scene |
-- 05 | Moving things | The runner’s downward descent and platform movement follow the +Y is DOWN rule with SetObjectPosition and SetObjectRotationSpeed applied each frame |
-- 08 | Camera | The camera follows the runner down the shaft using Engine.SetCam and gCameraYaw/gCameraPitch for a third-person view behind the runner |
-- 10 | Collisions | The runner avoids patrol drones and drops through gaps by using Collision.SetGroup, Collision.AddRule, and Collision.Hit checks in Game.OnUpdate |
-
-### Simple_Test1
-- 01 | Game card and loop | The wireframe cube continuously spins over the floor grid in Game.OnUpdate, with Game.OnStart setting up the scene and Game.OnStop cleaning up after the game ends |
-- 02 | Shapes | The built-in wireframe cube rendered by MeshBox is the visible proof that a named mesh shape works in the scene |
-- 03 | Shapes | The hand-built wireframe cube created point by point with Mesh.New, Mesh.AddVertex, Mesh.AddLine, and Mesh.AddFace replaces the built-in cube as a visible example of hand-crafted wire shapes |
-- 04 | Objects in the scene | The named wireframe cube entity is visible in the scene with its colour, and removing it via Entity.Kill shows the object lifecycle works |
-
-### Simple_Test2
-- 01 | Game card and loop | The card script runs Game.OnStart to set up the sea, Game.OnUpdate to update the boat, buoy, rocks, and laser about 30 times a second, and Game.OnStop to clean up |
-- 02 | Shapes | The built-in MeshBox and MeshSphere meshes create the grid sea and buoy, with Mesh.Define naming them for the scene |
-- 04 | Objects in the scene | Entity.Spawn places the named rock and laser shapes into the world with colours, Entity.Kill removes drifting rocks that hit the boat, and Scene.ClearAll resets the scene between levels |
-
-### SkyRaiders
-- 01 | Game card and loop | The SkyRaiders card script runs Game.OnStart to set up the game, Game.OnUpdate to drive the 30-update-second loop, and Game.OnStop to clean up after play |
-- 07 | Mouse and picking | The Space fire input combined with Game.OnClick, ScreenToCameraRay, RayCastScene, and Weapon.FireAt lets the player click to aim and fire the cannon |
-- 09 | HUD and text | The HUD.Set calls display the score lines and help text for the SkyRaiders sky raiders gameplay |
-- 10 | Collisions | The Collision.SetGroup, Collision.AddRule, and Collision.Hit calls plus simple distance checks in Game.OnUpdate let the cannon and raiders interact with the ground and each other |
-
-### SoftLanding
-- 01 | Game card and loop | The lander’s descent is driven entirely by the Game.OnStart setup, Game.OnUpdate updates, and Game.OnStop cleanup loop that runs gravity and burns every frame |
-- 05 | Moving things | The lander’s side thrusters and main engine use SetObjectPosition, SetObjectRotationSpeed, and SetObjectVelocity to move and rotate while +Y is DOWN, showing the movement mechanics |
-- 08 | Camera | The third-person view behind the lander uses Engine.SetCam and the gCameraYaw/gCameraPitch globals to frame the descent from behind the hero |
-- 10 | Collisions | The lander’s landing on the pad is detected with Collision.SetGroup, Collision.AddRule, and Collision.Hit checks in Game.OnUpdate to trigger the landing state |
-
-### StackDown
-- 01 | Game card and loop | The tutorial shows a game is a card script where Game.OnStart sets up, Game.OnUpdate runs about 30 times a second, and Game.OnStop cleans up, demonstrated by StackDown's core card script loop that runs continuously for the falling-block gameplay.
-- 02 | Shapes | The tutorial shows built-in meshes like MeshBox, MeshPrism, MeshPyramid, MeshSphere, MeshGrid and Mesh.Define giving a shape a name, demonstrated by the initial stack of four MeshBox blocks that form the core falling shapes of the game.
-- 04 | Objects in the scene | The tutorial shows Entity.Spawn puts a named shape in the world with a colour, Entity.Kill removes it, and Scene.ClearAll, demonstrated by the falling blocks being spawned as named coloured shapes into the scene and killed when they fall into the well to clear the level.
-- 08 | Camera | The tutorial shows Engine.SetCam, gCameraYaw, gCameraPitch for fixed view, top-down, follow, and third person behind a hero, demonstrated by StackDown's camera setup that provides the fixed top-down view needed to track the falling blocks and the well as the player plays.
-
-### Thrmnlra
-- 01 | Game card and loop | The terminal types a friend's spelling as the game runs, with Game.OnStart setting up the typing loop, Game.OnUpdate advancing it about 30 times a second, and Game.OnStop cleaning up after play |
-- 04 | Objects in the scene | A NORAD-style big board and missiles appear in the scene as named entities spawned with colours, and are removed when killed to show how objects are added and removed |
-- 06 | Keyboard input | The player types words to stop missiles by pressing WASD and arrow keys, showing one press versus held key input driving the typing behavior |
-
-### TrenchRun
-- 01 | Game card and loop | The tutorial runs the TrenchRun game card through Game.OnStart, Game.OnUpdate, and Game.OnStop so the player sees the trench round and looping update cycle in action |
-- 02 | Shapes | The built-in MeshBox used to construct the trench floor and ring walls is shown in the scene as the first visible geometry after setup |
-- 04 | Objects in the scene | The torus mesh spawns into the world with a colour and stays visible until the player shoots it, demonstrating Entity.Spawn and Entity.Kill in use |
-- 08 | Camera | The fixed top-down view and third-person follow of the trench round are shown via Engine.SetCam and gCameraYaw/gCameraPitch, letting the player see the curved trench layout |
-
-### VectorBlobApocalypse
-- 01 | Game card and loop | The game runs a continuous Game.OnUpdate loop about 30 times a second that spawns jittery vector blobs, spins them, and lets the player shoot them without stopping |
-- 02 | Shapes | Built-in MeshBox and MeshSphere meshes are used to create the swarm of vector jelly blobs that appear from every side |
-- 03 | Shapes | Hand-built Mesh.New, Mesh.AddVertex, and Mesh.AddFace wire the custom vector blob shapes point by point so they look like jittery jelly forms |
-- 04 | Objects in the scene | Entity.Spawn places the named vector blob shapes into the world with colours, while Entity.Kill removes them when they are destroyed |
-
-### VectorPong3D
-- 01 | Game card and loop | The game runs as a single card script where Game.OnStart sets up the court, Game.OnUpdate processes about 30 updates per second, and Game.OnStop cleans up, showing how a basic 3D vector game is structured.
-- 04 | Objects in the scene | Spawning a named floating block with Entity.Spawn and removing it with Entity.Kill demonstrates how objects are placed and managed in the scene.
-- 08 | Camera | The camera uses Engine.SetCam with gCameraYaw and gCameraPitch to provide a fixed view, showing how the 3D court is displayed from behind the player's bat.
-- 10 | Collisions | The Game.OnUpdate distance checks with Collision.SetGroup and Collision.AddRule show how the ball bounces off the walls, ceiling, and floating blocks.
-
-### VineRun
-- 01 | Game card and loop | The runner crosses the jungle floor screen by screen because Game.OnStart sets up the game, Game.OnUpdate runs about 30 times a second to move the runner, and Game.OnStop cleans up the scene |
-- 04 | Objects in the scene | The named jungle floor shapes and rolling logs appear in the world with colours, are removed when cleared, and can be killed to remove them from the scene |
-- 08 | Camera | The third person view behind the runner shows the jungle floor scrolling by screen while the camera follows the runner with gCameraYaw and gCameraPitch |
-
-### WallBreaker
-- 01 | Game card and loop | The bat moves with left/right arrows while the ball launches with Space, showing Game.OnStart setting up, Game.OnUpdate running about 30 times a second, and Game.OnStop cleaning up |
-- 04 | Objects in the scene | Spawning the bat, ball, and brick rows as named coloured entities shows Entity.Spawn putting shapes in the world, Entity.Kill removing them, and Scene.ClearAll clearing the scene |
-- 08 | Camera | The fixed top-down view of the brick rows shows Engine.SetCam and gCameraYaw/gCameraPitch creating a stable camera perspective for the game |
-- 09 | HUD and text | The score lines and level messages shown on screen demonstrate HUD.Set adding score and message text, HUD.Remove clearing them, and HUD.Clear keeping help text below the top bars |
-
-### demo
-- 01 | Game card and loop | The demo’s card script runs Game.OnStart to set up the sea, Game.OnUpdate to update the boat, rocks, laser, and collisions about 30 times a second, and Game.OnStop to clean up, showing a complete game loop from start to stop |
-- 07 | Mouse and picking | Clicking the laser in the demo fires the laser at the clicked location via Game.OnClick, ScreenToCameraRay, RayCastScene, and Weapon.FireAt, showing how mouse input drives the game’s core interaction |
-- 10 | Collisions | The demo uses Collision.SetGroup, Collision.AddRule, and Collision.Hit to detect when drifting rocks hit the boat, showing how collision rules make the game respond to physical interactions |
-- 11 | Effects | When a rock drifts into the boat, the demo triggers FX.Derez to remove the rock with a visual effect, showing how effects add feedback to game events |
-
-### uDead
-- 01 | Game card and loop | The uDead game runs its setup, ~30 updates per second, and cleanup through Game.OnStart, Game.OnUpdate, and Game.OnStop so the player sees the game cycle in action.
-- 02 | Shapes | The built-in MeshBox and MeshSphere meshes appear on screen immediately when spawned, showing how basic shapes are created with engine calls.
-- 03 | Shapes | The hand-built wire shapes using Mesh.New, Mesh.AddVertex, Mesh.AddLine, and Mesh.AddFace are drawn point by point to demonstrate custom mesh construction.
-- 04 | Objects in the scene | Entity.Spawn places named colored shapes into the world and Entity.Kill removes them, showing how objects are added and removed from the scene.
-
-## Games by topic
-
-- 01 Game card and loop: Amazing_Couple, Antack, BatDuel, BigBallOfVectors, Canyon, CityShield, CrossTraffic, DeepDive, DotMaze, Face, FloppyFlynn, GeneticAnomaly, Hunter, JaiAlaiBlock, LongWorm, MatrixLock, ProbeVsCone, PromptAndGlazeMaze, RockField, ShaftDescent, Simple_Test1, Simple_Test2, SkyRaiders, SoftLanding, StackDown, Thrmnlra, TrenchRun, VectorBlobApocalypse, VectorPong3D, VineRun, WallBreaker, demo, uDead
-- 02 Shapes: built-in meshes: Antack, BatDuel, BigBallOfVectors, Canyon, CityShield, DeepDive, DotMaze, FloppyFlynn, GeneticAnomaly, JaiAlaiBlock, LongWorm, ProbeVsCone, PromptAndGlazeMaze, Simple_Test1, Simple_Test2, StackDown, TrenchRun, VectorBlobApocalypse, uDead
-- 03 Shapes: by hand: Antack, BigBallOfVectors, CityShield, DeepDive, DotMaze, FloppyFlynn, LongWorm, PromptAndGlazeMaze, Simple_Test1, VectorBlobApocalypse, uDead
-- 04 Objects in the scene: Antack, BatDuel, BigBallOfVectors, Canyon, CityShield, DeepDive, DotMaze, Face, FloppyFlynn, Hunter, JaiAlaiBlock, LongWorm, MatrixLock, ProbeVsCone, PromptAndGlazeMaze, RockField, Simple_Test1, Simple_Test2, StackDown, Thrmnlra, TrenchRun, VectorBlobApocalypse, VectorPong3D, VineRun, WallBreaker, uDead
-- 05 Moving things: BatDuel, MatrixLock, ShaftDescent, SoftLanding
-- 06 Keyboard input: Thrmnlra
-- 07 Mouse and picking: Hunter, ProbeVsCone, SkyRaiders, demo
-- 08 Camera: Amazing_Couple, Canyon, CrossTraffic, Face, GeneticAnomaly, JaiAlaiBlock, MatrixLock, RockField, ShaftDescent, SoftLanding, StackDown, TrenchRun, VectorPong3D, VineRun, WallBreaker
-- 09 HUD and text: Amazing_Couple, CrossTraffic, SkyRaiders, WallBreaker
-- 10 Collisions: CrossTraffic, Hunter, RockField, ShaftDescent, SkyRaiders, SoftLanding, VectorPong3D, demo
-- 11 Effects: demo
-- 12 Game state: -
-- 13 Levels and layouts: -
-- 14 Animation: No Bones: -
+- 01 Game card and loop: Simple_Test1
+- 02 Shapes: built-in meshes: BigBallOfVectors, VectorBlobApocalypse, ShaftDescent
+- 03 Shapes: by hand: Face, Thrmnlra, Amazing_Couple
+- 04 Objects in the scene: SkyRaiders, WallBreaker, DotMaze
+- 05 Moving things: Simple_Test2, demo, Canyon
+- 06 Keyboard input: BigBallOfVectors, Amazing_Couple, VectorPong3D
+- 07 Mouse and picking: demo, Hunter, Simple_Test2
+- 08 Camera: Amazing_Couple, BigBallOfVectors, TrenchRun
+- 09 HUD and text: BigBallOfVectors, Amazing_Couple, WallBreaker
+- 10 Collisions: demo, Hunter, Canyon; BigBallOfVectors, WallBreaker
+- 11 Effects: BigBallOfVectors, WallBreaker, CityShield
+- 12 Game state: BigBallOfVectors, WallBreaker, SkyRaiders
+- 13 Levels and layouts: Amazing_Couple, BigBallOfVectors, DotMaze
+- 14 Animation: No Bones: BigBallOfVectors, demo, Amazing_Couple
 - 15 Animation: BVH: Amazing_Couple, GeneticAnomaly
-- 16 Sound: -
-- 17 Pause, notes and tests: -
-- 18 One game, two engines: -
+- 16 Sound: Hunter, Canyon
+- 17 Pause, notes and tests: Amazing_Couple, BigBallOfVectors, Thrmnlra
+- 18 One game, two engines: Thrmnlra, TrenchRun, ProbeVsCone
+
+## Next
+1. Owner reviews this outline (order, missing topics, too much or too little in a step).
+2. Each step becomes two files in LIB_HOWTO: the words (Spark can expand them) and the code
+   (Claude writes it, as small as possible, and checks it compiles and runs headless).
+3. The LIB_HOWTO stack shows them: topics on the left, the step's words and code on the right.
