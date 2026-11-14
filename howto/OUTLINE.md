@@ -32,23 +32,23 @@ Needs: none
 
 1. An empty game card
    Adding: on Game.OnStart (with Engine.ResetCamera, Scene.ClearAll, HUD.Clear)
-   Makes this happen: press Play: the viewport is empty and nothing goes wrong. The game runs.
+   Result: press Play: the viewport is empty and nothing goes wrong. The game runs.
    Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
 2. A shape on screen
    Adding: Mesh.Define "Cube", MeshBox(40,40,40) and Entity.Spawn("Cube",0,0,0,"cyan") in Game.OnStart
-   Makes this happen: a cyan wire cube sits in the middle of the view.
+   Result: a cyan wire cube sits in the middle of the view.
    Engine calls: Mesh.Define, MeshBox, Entity.Spawn
 3. The loop: move it a little every step
    Adding: on Game.OnUpdate (add 0.05 to an angle, SetObjectRotation with it)
-   Makes this happen: the cube turns, about 30 small turns a second.
+   Result: the cube turns, about 30 small turns a second.
    Engine calls: Game.OnUpdate, SetObjectRotation
 4. Words on screen
    Adding: HUD.Set "Title","SPINNING CUBE",20,120,14 in Game.OnStart
-   Makes this happen: the title shows below the engine's top bars.
+   Result: the title shows below the engine's top bars.
    Engine calls: HUD.Set
 5. Clean up when the game stops
    Adding: on Game.OnStop (HUD.Clear)
-   Makes this happen: press Stop, then Play another game: no old title is left over.
+   Result: press Stop, then Play another game: no old title is left over.
    Engine calls: Game.OnStop, HUD.Clear
 
 Pitfalls:
@@ -65,19 +65,19 @@ Needs: 01
 
 1. A named shape on screen
    Adding: Mesh.Define "Cube", MeshBox(40,40,40), Entity.Spawn("Cube",0,0,0,"cyan") in Game.OnStart
-   Makes this happen: a cyan wire cube sits in the middle of the view, visible as a shape.
+   Result: a cyan wire cube sits in the middle of the view, visible as a shape.
    Engine calls: Mesh.Define, MeshBox, Entity.Spawn
 2. A second named shape on screen
    Adding: Mesh.Define "Sphere", MeshSphere(30,30), Entity.Spawn("Sphere",0,40,0,"orange") in Game.OnStart
-   Makes this happen: an orange wire sphere appears above the cube, both visible as shapes.
+   Result: an orange wire sphere appears above the cube, both visible as shapes.
    Engine calls: Mesh.Define, MeshSphere, Entity.Spawn
 3. A third named shape on screen
    Adding: Mesh.Define "Pyramid", MeshPyramid(25,25), Entity.Spawn("Pyramid",0,-40,0,"green") in Game.OnStart
-   Makes this happen: a green wire pyramid appears below the cube, all three shapes visible together.
+   Result: a green wire pyramid appears below the cube, all three shapes visible together.
    Engine calls: Mesh.Define, MeshPyramid, Entity.Spawn
 4. A grid shape on screen
    Adding: Mesh.Define "Grid", MeshGrid(60,20), Entity.Spawn("Grid",0,0,0,"white") in Game.OnStart
-   Makes this happen: a white wire grid appears in the middle of the view, adding a fourth visible shape.
+   Result: a white wire grid appears in the middle of the view, adding a fourth visible shape.
    Engine calls: Mesh.Define, MeshGrid, Entity.Spawn
 
 Pitfalls:
@@ -94,19 +94,19 @@ Needs: 01, 04
 
 1. A game card with an empty scene
    Adding: Game.OnStart (with Engine.ResetCamera, Scene.ClearAll, HUD.Clear)
-   Makes this happen: press Play and the viewport is empty and nothing goes wrong; the game runs.
+   Result: press Play and the viewport is empty and nothing goes wrong; the game runs.
    Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
 2. A wire cube shape defined by hand
    Adding: Mesh.Define "Cube", Mesh.AddVertex(0,0,0), Mesh.AddVertex(40,0,0), Mesh.AddVertex(40,40,0), Mesh.AddVertex(0,40,0), Mesh.AddVertex(0,0,40), Mesh.AddVertex(40,0,40), Mesh.AddVertex(40,40,40), Mesh.AddLine(0,1), Mesh.AddLine(1,2), Mesh.AddLine(2,3), Mesh.AddLine(3,4), Mesh.AddLine(4,5), Mesh.AddLine(5,6), Mesh.AddLine(6,7), Mesh.AddLine(7,0), Mesh.AddFace(0,1,2,3), Mesh.AddFace(1,2,7,6), Mesh.AddFace(2,3,7,6), Mesh.AddFace(3,4,0,7)
-   Makes this happen: the cube is named "Cube" in the scene and sits in the middle of the view.
+   Result: the cube is named "Cube" in the scene and sits in the middle of the view.
    Engine calls: Mesh.Define, Mesh.AddVertex, Mesh.AddLine, Mesh.AddFace
 3. The cube placed in the scene
    Adding: Entity.Spawn("Cube",0,0,0,"cyan") in Game.OnStart
-   Makes this happen: the hand-built wire cube appears on screen as a cyan wire shape.
+   Result: the hand-built wire cube appears on screen as a cyan wire shape.
    Engine calls: Entity.Spawn
 4. The cube rotates with the loop
    Adding: on Game.OnUpdate (add 0.05 to an angle variable, SetObjectRotation with it)
-   Makes this happen: the cube turns about 30 small rotations per second as the game runs.
+   Result: the cube turns about 30 small rotations per second as the game runs.
    Engine calls: Game.OnUpdate, SetObjectRotation
 
 Pitfalls:
@@ -123,19 +123,19 @@ Needs: 01, 04
 
 1. A game card with an empty scene
    Adding: on Game.OnStart (with Engine.ResetCamera, Scene.ClearAll, HUD.Clear)
-   Makes this happen: press Play: the viewport is empty and nothing goes wrong, the game runs.
+   Result: press Play: the viewport is empty and nothing goes wrong, the game runs.
    Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
 2. A coloured wire cube on screen
    Adding: Mesh.Define "Cube", MeshBox(40,40,40) and Entity.Spawn("Cube",0,0,0,"cyan") in Game.OnStart
-   Makes this happen: a cyan wire cube sits in the middle of the view.
+   Result: a cyan wire cube sits in the middle of the view.
    Engine calls: Mesh.Define, MeshBox, Entity.Spawn
 3. Remove the cube when the game stops
    Adding: on Game.OnStop (Entity.Kill("Cube"))
-   Makes this happen: press Stop, then Play another game: the cube is gone and the viewport stays empty.
+   Result: press Stop, then Play another game: the cube is gone and the viewport stays empty.
    Engine calls: Game.OnStop, Entity.Kill
 4. Clear the whole scene when a new game starts
    Adding: on Game.OnStart (Scene.ClearAll)
-   Makes this happen: press Play again after stopping: all objects from the previous game are removed and the viewport is empty.
+   Result: press Play again after stopping: all objects from the previous game are removed and the viewport is empty.
    Engine calls: Game.OnStart, Scene.ClearAll
 
 Pitfalls:
@@ -152,19 +152,19 @@ Needs: 01, 04
 
 1. A wire cube in the scene
    Adding: Mesh.Define "Cube", MeshBox(40,40,40) and Entity.Spawn("Cube",0,0,0,"cyan") in Game.OnStart
-   Makes this happen: a cyan wire cube sits in the middle of the view.
+   Result: a cyan wire cube sits in the middle of the view.
    Engine calls: Mesh.Define, MeshBox, Entity.Spawn
 2. Rotate the cube to start its motion
    Adding: on Game.OnUpdate (add 0.05 to a script-local angle variable, SetObjectRotation with it)
-   Makes this happen: the cube turns about 30 small turns per second.
+   Result: the cube turns about 30 small turns per second.
    Engine calls: Game.OnUpdate, SetObjectRotation
 3. Add a constant downward velocity to the cube
    Adding: on Game.OnUpdate (add 0.1 to a script-local velocity variable, SetObjectVelocity with it)
-   Makes this happen: the cube drifts downward at a steady rate while still turning.
+   Result: the cube drifts downward at a steady rate while still turning.
    Engine calls: Game.OnUpdate, SetObjectVelocity
 4. Move the cube with a fixed rotation speed
    Adding: on Game.OnUpdate (add 0.2 to a script-local rotation speed variable, SetObjectRotationSpeed with it)
-   Makes this happen: the cube spins at a steady, visible rate, making its movement clearly visible.
+   Result: the cube spins at a steady, visible rate, making its movement clearly visible.
    Engine calls: Game.OnUpdate, SetObjectRotationSpeed
 
 Pitfalls:
@@ -181,23 +181,23 @@ Needs: 01, 04
 
 1. A game card with the update loop and a shape
    Adding: Game.OnStart (with Engine.ResetCamera, Scene.ClearAll, HUD.Clear), Mesh.Define "Cube", MeshBox(40,40,40), Entity.Spawn("Cube",0,0,0,"cyan"), Game.OnUpdate (add 0.05 to an angle, SetObjectRotation with it)
-   Makes this happen: the game runs and a cyan wire cube sits in the middle of the view, slowly turning about 30 times per second.
+   Result: the game runs and a cyan wire cube sits in the middle of the view, slowly turning about 30 times per second.
    Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear, Mesh.Define, MeshBox, Entity.Spawn, Game.OnUpdate, SetObjectRotation
 2. A test hook to read the keys
    Adding: Game.OnClick (add a TestKeys handler that reads the keysDown)
-   Makes this happen: the game now exposes a TestKeys hook that can be used to test key input without clicking the mouse.
+   Result: the game now exposes a TestKeys hook that can be used to test key input without clicking the mouse.
    Engine calls: Game.OnClick
 3. Held WASD keys move the cube
    Adding: inside Game.OnUpdate, read the keysDown for the W, A, S, D key codes and add the corresponding movement value to the cube's position
-   Makes this happen: holding W moves the cube up (toward minus Y), holding S moves it down (toward plus Y), holding A moves it left, and holding D moves it right.
+   Result: holding W moves the cube up (toward minus Y), holding S moves it down (toward plus Y), holding A moves it left, and holding D moves it right.
    Engine calls: Game.OnUpdate
 4. Arrow keys move the cube in the same way
    Adding: inside Game.OnUpdate, read the keysDown for the arrow key codes and add the corresponding movement value to the cube's position
-   Makes this happen: the arrow keys provide the same left, right, up, and down movement as the WASD keys.
+   Result: the arrow keys provide the same left, right, up, and down movement as the WASD keys.
    Engine calls: Game.OnUpdate
 5. One press versus held movement
    Adding: inside Game.OnUpdate, only apply movement when the corresponding key is held (keysDown is true), and skip the movement for keys pressed only once
-   Makes this happen: pressing a key briefly moves the cube only while the key is held down, so the cube moves smoothly in a direction instead of jumping erratically.
+   Result: pressing a key briefly moves the cube only while the key is held down, so the cube moves smoothly in a direction instead of jumping erratically.
    Engine calls: Game.OnUpdate
 
 Pitfalls:
@@ -214,19 +214,19 @@ Needs: 01, 04
 
 1. A clickable cube on screen
    Adding: Game.OnClick, Mesh.Define "Cube", MeshBox(40,40,40), Entity.Spawn("Cube",0,0,0,"cyan")
-   Makes this happen: a cyan wire cube sits in the middle of the view and can be clicked with the mouse.
+   Result: a cyan wire cube sits in the middle of the view and can be clicked with the mouse.
    Engine calls: Game.OnClick, Mesh.Define, MeshBox, Entity.Spawn
 2. A projectile spawned at the click point
    Adding: ScreenToCameraRay, RayCastScene, Entity.Spawn("Projectile",0,0,0,"orange")
-   Makes this happen: clicking the cube spawns an orange projectile at the camera ray position where the cube was hit.
+   Result: clicking the cube spawns an orange projectile at the camera ray position where the cube was hit.
    Engine calls: ScreenToCameraRay, RayCastScene, Entity.Spawn
 3. The projectile moves toward the mouse cursor each update
    Adding: Game.OnUpdate, SetObjectVelocity, SetObjectPosition
-   Makes this happen: the projectile travels toward the mouse cursor, about 30 small steps per second.
+   Result: the projectile travels toward the mouse cursor, about 30 small steps per second.
    Engine calls: Game.OnUpdate, SetObjectVelocity, SetObjectPosition
 4. The projectile fires from the weapon when it reaches the target
    Adding: Weapon.FireAt
-   Makes this happen: clicking the cube again fires the projectile from the weapon, and the projectile continues moving toward the cursor.
+   Result: clicking the cube again fires the projectile from the weapon, and the projectile continues moving toward the cursor.
    Engine calls: Weapon.FireAt
 
 Pitfalls:
@@ -243,19 +243,19 @@ Needs: 01, 04
 
 1. Set the fixed camera view
    Adding: Engine.SetCam, gCameraYaw, gCameraPitch
-   Makes this happen: the viewport locks to a centered, straight-down view of the scene without any camera movement.
+   Result: the viewport locks to a centered, straight-down view of the scene without any camera movement.
    Engine calls: Engine.SetCam, gCameraYaw, gCameraPitch
 2. Add a wire cube to the fixed view
    Adding: Mesh.Define "Cube", MeshBox(40,40,40), Entity.Spawn("Cube",0,0,0,"cyan")
-   Makes this happen: a cyan wire cube sits centered in the fixed view, visible and stable.
+   Result: a cyan wire cube sits centered in the fixed view, visible and stable.
    Engine calls: Mesh.Define, MeshBox, Entity.Spawn
 3. Rotate the camera to a top-down view
    Adding: gCameraPitch, gCameraYaw
-   Makes this happen: the camera tilts so the view is oriented straight down, showing the cube from above.
+   Result: the camera tilts so the view is oriented straight down, showing the cube from above.
    Engine calls: gCameraYaw, gCameraPitch
 4. Move the camera yaw to follow a new position
    Adding: gCameraYaw, SetObjectPosition
-   Makes this happen: the camera rotates around the scene center, keeping the view oriented top-down while the cube stays in view.
+   Result: the camera rotates around the scene center, keeping the view oriented top-down while the cube stays in view.
    Engine calls: gCameraYaw, SetObjectPosition
 
 Pitfalls:
@@ -272,19 +272,19 @@ Needs: 01, 04
 
 1. Clear the HUD before adding text
    Adding: HUD.Clear
-   Makes this happen: the viewport shows no leftover score lines, messages, or help text, giving a clean slate for the new text.
+   Result: the viewport shows no leftover score lines, messages, or help text, giving a clean slate for the new text.
    Engine calls: HUD.Clear
 2. Add a score line at the top of the HUD
    Adding: HUD.Set "Score", "100", 20, 120, 14
-   Makes this happen: a cyan score line showing 100 appears below the engine's top bars.
+   Result: a cyan score line showing 100 appears below the engine's top bars.
    Engine calls: HUD.Set
 3. Add a help message below the score line
    Adding: HUD.Set "Help", "Click to move", 20, 140, 14
-   Makes this happen: a help message showing "Click to move" appears below the score line, keeping text organized below the top bars.
+   Result: a help message showing "Click to move" appears below the score line, keeping text organized below the top bars.
    Engine calls: HUD.Set
 4. Remove the score line when the game stops
    Adding: on Game.OnStop (HUD.Remove "Score")
-   Makes this happen: press Stop, then Play another game: the old score line is gone and only the help message remains.
+   Result: press Stop, then Play another game: the old score line is gone and only the help message remains.
    Engine calls: Game.OnStop, HUD.Remove
 
 Pitfalls:
@@ -301,27 +301,27 @@ Needs: 01, 04
 
 1. A game card with a basic update loop
    Adding: Game.OnStart, Game.OnUpdate, Game.OnStop
-   Makes this happen: the game starts, runs its update loop, and stops cleanly when the engine stops the game.
+   Result: the game starts, runs its update loop, and stops cleanly when the engine stops the game.
    Engine calls: Game.OnStart, Game.OnUpdate, Game.OnStop
 2. A wire cube shape in the scene
    Adding: Mesh.Define "Cube", MeshBox(40,40,40), Entity.Spawn("Cube",0,0,0,"cyan")
-   Makes this happen: a cyan wire cube sits in the middle of the view.
+   Result: a cyan wire cube sits in the middle of the view.
    Engine calls: Mesh.Define, MeshBox, Entity.Spawn
 3. A collision group for the cube
    Adding: Collision.SetGroup("Cube", "cube")
-   Makes this happen: the cube is assigned to the cube collision group so it can be matched against other shapes.
+   Result: the cube is assigned to the cube collision group so it can be matched against other shapes.
    Engine calls: Collision.SetGroup
 4. A collision rule between the cube group and a new wire sphere
    Adding: Mesh.Define "Sphere", MeshSphere(30,30,30), Entity.Spawn("Sphere",0,0,0,"orange"), Collision.AddRule("cube", "sphere")
-   Makes this happen: the orange wire sphere now triggers a collision with the cyan cube when they overlap.
+   Result: the orange wire sphere now triggers a collision with the cyan cube when they overlap.
    Engine calls: Mesh.Define, MeshSphere, Entity.Spawn, Collision.AddRule
 5. A hit handler that changes the cube's appearance when it is hit
    Adding: Game.OnClick, Collision.Hit
-   Makes this happen: clicking the sphere triggers the collision handler, which updates the cube's state so the learner can see the collision response.
+   Result: clicking the sphere triggers the collision handler, which updates the cube's state so the learner can see the collision response.
    Engine calls: Game.OnClick, Collision.Hit
 6. Simple distance checks in the update loop
    Adding: Game.OnUpdate, ScreenToCameraRay
-   Makes this happen: every update step runs a distance check against the camera ray, confirming the collision rules work continuously as the game runs.
+   Result: every update step runs a distance check against the camera ray, confirming the collision rules work continuously as the game runs.
    Engine calls: Game.OnUpdate, ScreenToCameraRay
 
 Pitfalls:
@@ -338,23 +338,23 @@ Needs: 01, 04
 
 1. A game card with an empty scene
    Adding: Game.OnStart (with Engine.ResetCamera, Scene.ClearAll, HUD.Clear)
-   Makes this happen: press Play: the viewport is empty, nothing goes wrong, and the game runs.
+   Result: press Play: the viewport is empty, nothing goes wrong, and the game runs.
    Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
 2. A shape on screen for the effect to attach to
    Adding: Mesh.Define "Cube", MeshBox(40,40,40) and Entity.Spawn("Cube",0,0,0,"cyan") in Game.OnStart
-   Makes this happen: a cyan wire cube sits in the middle of the view, ready for the effect.
+   Result: a cyan wire cube sits in the middle of the view, ready for the effect.
    Engine calls: Mesh.Define, MeshBox, Entity.Spawn
 3. A spark effect that appears when the game starts
    Adding: FX.Sparks("Cube", 0, 0, 0, 20) in Game.OnStart
-   Makes this happen: a small burst of sparks flies out from the cube as the game starts.
+   Result: a small burst of sparks flies out from the cube as the game starts.
    Engine calls: FX.Sparks
 4. The effect can be destroyed when the game stops
    Adding: FX.Destroy("Cube") in Game.OnStop
-   Makes this happen: press Stop, then Play another game: the sparks disappear and no leftover effect remains.
+   Result: press Stop, then Play another game: the sparks disappear and no leftover effect remains.
    Engine calls: FX.Destroy, Game.OnStop
 5. The effect can be cleared completely when the game stops
    Adding: Particles.Clear in Game.OnStop
-   Makes this happen: press Stop, then Play another game: all leftover sparks and effects are removed, leaving an empty viewport.
+   Result: press Stop, then Play another game: all leftover sparks and effects are removed, leaving an empty viewport.
    Engine calls: Particles.Clear, Game.OnStop
 
 Pitfalls:
@@ -371,23 +371,23 @@ Needs: 01, 04
 
 1. Add score and lives HUD elements
    Adding: HUD.Set "Score", 0, 20, 120, 14, HUD.Set "Lives", 3, 20, 160, 14
-   Makes this happen: the viewport shows a score of 0 and three lives below the engine's top bars.
+   Result: the viewport shows a score of 0 and three lives below the engine's top bars.
    Engine calls: HUD.Set
 2. Update score and lives each game step
    Adding: on Game.OnUpdate (read the keysDown, add 1 to the score when the right key is pressed, subtract 1 from the lives when the left key is pressed)
-   Makes this happen: pressing the right key increases the score, pressing the left key decreases the lives, about 30 updates a second.
+   Result: pressing the right key increases the score, pressing the left key decreases the lives, about 30 updates a second.
    Engine calls: Game.OnUpdate
 3. Show win and lose states when conditions are met
    Adding: on Game.OnUpdate (if the score is at least 100, HUD.Set "WIN", 20, 120, 14; if the lives are at most 0, HUD.Set "LOSE", 20, 120, 14)
-   Makes this happen: reaching a score of 100 shows a WIN message, running out of lives shows a LOSE message.
+   Result: reaching a score of 100 shows a WIN message, running out of lives shows a LOSE message.
    Engine calls: Game.OnUpdate, HUD.Set
 4. Restart the game with Space
    Adding: on Game.OnClick (if the Space key is pressed, reset the score to 0, the lives to 3, and remove the WIN and LOSE messages)
-   Makes this happen: pressing Space clears the win and lose states and restarts the game with a fresh score and lives.
+   Result: pressing Space clears the win and lose states and restarts the game with a fresh score and lives.
    Engine calls: Game.OnClick, HUD.Remove
 5. Add a State function for notes and tests
    Adding: State function that returns the current score, lives, and win/lose status
-   Makes this happen: the game can check its state values for notes and tests without reading the HUD each step.
+   Result: the game can check its state values for notes and tests without reading the HUD each step.
    Engine calls: Game.OnUpdate
 
 Pitfalls:
@@ -404,19 +404,19 @@ Needs: 01, 04
 
 1. A seeded level table
    Adding: LIB_BIT.Bit.Maze, LIB_MAP.Map.FindPath
-   Makes this happen: the level table is loaded with a fixed seed so the maze layout is the same every time the game runs.
+   Result: the level table is loaded with a fixed seed so the maze layout is the same every time the game runs.
    Engine calls: LIB_BIT.Bit.Maze, LIB_MAP.Map.FindPath
 2. A level grid on screen
    Adding: Mesh.Define "Grid", MeshGrid(40,40,40), Entity.Spawn("Grid",0,0,0,"gray")
-   Makes this happen: a gray grid fills the view, showing the level layout the seeded maze defines.
+   Result: a gray grid fills the view, showing the level layout the seeded maze defines.
    Engine calls: Mesh.Define, MeshGrid, Entity.Spawn
 3. A maze path on the grid
    Adding: LIB_BIT.Bit.Maze, LIB_MAP.Map.FindPath
-   Makes this happen: the maze path from the seeded table is drawn as a visible path on the grid, showing the working level layout.
+   Result: the maze path from the seeded table is drawn as a visible path on the grid, showing the working level layout.
    Engine calls: LIB_BIT.Bit.Maze, LIB_MAP.Map.FindPath
 4. A repeatable layout check
    Adding: LIB_BIT.Bit.Maze, LIB_MAP.Map.FindPath
-   Makes this happen: the same seed produces the identical maze layout every time, so the level is repeatable.
+   Result: the same seed produces the identical maze layout every time, so the level is repeatable.
    Engine calls: LIB_BIT.Bit.Maze, LIB_MAP.Map.FindPath
 
 Pitfalls:
@@ -433,27 +433,27 @@ Needs: 01, 04
 
 1. A spinning wire sphere on screen
    Adding: Mesh.Define "Sphere", MeshSphere(50,50,50) and Entity.Spawn("Sphere",0,0,0,"cyan") in Game.OnStart
-   Makes this happen: a cyan wire sphere sits in the middle of the view.
+   Result: a cyan wire sphere sits in the middle of the view.
    Engine calls: Mesh.Define, MeshSphere, Entity.Spawn
 2. Spin the sphere every update
    Adding: on Game.OnUpdate (add 0.05 to an angle variable, SetObjectRotation with it)
-   Makes this happen: the sphere rotates about 30 small turns per second.
+   Result: the sphere rotates about 30 small turns per second.
    Engine calls: Game.OnUpdate, SetObjectRotation
 3. Add a bob to the sphere
    Adding: Scene.SetBob("Sphere",0.1)
-   Makes this happen: the sphere rises and falls gently in the view.
+   Result: the sphere rises and falls gently in the view.
    Engine calls: Scene.SetBob
 4. Grow the sphere and swap it for a larger one
    Adding: Mesh.Define "BigSphere", MeshSphere(90,90,90) and Entity.Kill("Sphere"), Entity.Spawn("BigSphere",0,0,0,"cyan") in Game.OnUpdate
-   Makes this happen: the sphere grows to 90 units and the old mesh is replaced with the bigger one, still spinning.
+   Result: the sphere grows to 90 units and the old mesh is replaced with the bigger one, still spinning.
    Engine calls: Mesh.Define, Entity.Kill, Entity.Spawn, SetObjectRotation
 5. Show the animation title
    Adding: HUD.Set "Title","NO BONES ANIMATION",20,120,14 in Game.OnStart
-   Makes this happen: the title shows below the engine's top bars while the sphere animates.
+   Result: the title shows below the engine's top bars while the sphere animates.
    Engine calls: HUD.Set
 6. Clean up when the game stops
    Adding: on Game.OnStop (HUD.Clear)
-   Makes this happen: press Stop, then Play another game: no old title or mesh is left over.
+   Result: press Stop, then Play another game: no old title or mesh is left over.
    Engine calls: Game.OnStop, HUD.Clear
 
 Pitfalls:
@@ -472,27 +472,27 @@ Needs: 01, 04
 
 1. A game card with the motion capture library loaded
    Adding: Game.OnStart, LIB_MOCAP joints, LIB_MOCAP edges, LIB_MOCAP one line of numbers a frame
-   Makes this happen: the motion capture stick clips are loaded and ready to be used in the game.
+   Result: the motion capture stick clips are loaded and ready to be used in the game.
    Engine calls: Game.OnStart
 2. A mesh to animate with BVH motion
    Adding: Mesh.Define "Mesh", MeshBox(40,40,40), Entity.Spawn("Mesh",0,0,0,"blue") in Game.OnStart
-   Makes this happen: a blue wire cube is placed in the scene so the motion capture clip can drive its pose.
+   Result: a blue wire cube is placed in the scene so the motion capture clip can drive its pose.
    Engine calls: Mesh.Define, MeshBox, Entity.Spawn
 3. Load the BVH motion capture clip
    Adding: LIB_MOCAP load clip in Game.OnStart
-   Makes this happen: the BVH motion capture clip is loaded and ready to drive the mesh's animation.
+   Result: the BVH motion capture clip is loaded and ready to drive the mesh's animation.
    Engine calls: Game.OnStart
 4. Animate the mesh one frame per update with the BVH clip
    Adding: Game.OnUpdate, LIB_MOCAP one mesh a frame
-   Makes this happen: the mesh follows the BVH motion capture clip, updating its pose at about 30 frames per second.
+   Result: the mesh follows the BVH motion capture clip, updating its pose at about 30 frames per second.
    Engine calls: Game.OnUpdate
 5. Show walking and idle poses from the clip
    Adding: LIB_MOCAP walk pose, LIB_MOCAP idle pose in Game.OnUpdate
-   Makes this happen: the mesh displays the walking and idle poses from the clip, showing the motion capture animation.
+   Result: the mesh displays the walking and idle poses from the clip, showing the motion capture animation.
    Engine calls: Game.OnUpdate
 6. Ensure the feet do not skate during animation
    Adding: LIB_MOCAP feet no skate in Game.OnUpdate
-   Makes this happen: the mesh's feet stay in place during the BVH animation, preventing the feet from sliding or skating.
+   Result: the mesh's feet stay in place during the BVH animation, preventing the feet from sliding or skating.
    Engine calls: Game.OnUpdate
 
 Pitfalls:
@@ -509,19 +509,19 @@ Needs: 01, 04
 
 1. Set up the game card to run with sound support
    Adding: Game.OnStart, Audio.Init
-   Makes this happen: the game card initializes audio and starts running, so a sound can be triggered when an event occurs.
+   Result: the game card initializes audio and starts running, so a sound can be triggered when an event occurs.
    Engine calls: Game.OnStart, Audio.Init
 2. Add a trigger object that the player can interact with
    Adding: Mesh.Define "TriggerCube", MeshBox(30,30,30), Entity.Spawn("TriggerCube",0,0,0,"orange")
-   Makes this happen: an orange wire cube sits in the middle of the view, ready to be triggered by the player.
+   Result: an orange wire cube sits in the middle of the view, ready to be triggered by the player.
    Engine calls: Mesh.Define, MeshBox, Entity.Spawn
 3. Play the sound when the player clicks the trigger object
    Adding: Game.OnClick, Sound.Play
-   Makes this happen: pressing the mouse on the orange cube triggers the sound, which the learner can hear immediately.
+   Result: pressing the mouse on the orange cube triggers the sound, which the learner can hear immediately.
    Engine calls: Game.OnClick, Sound.Play
 4. Clear the sound and any leftover state when the game stops
    Adding: Game.OnStop, Audio.Init
-   Makes this happen: pressing Stop stops the game and resets audio, so playing another game starts cleanly with no stale sound state.
+   Result: pressing Stop stops the game and resets audio, so playing another game starts cleanly with no stale sound state.
    Engine calls: Game.OnStop, Audio.Init
 
 Pitfalls:
@@ -538,19 +538,19 @@ Needs: 01, 04
 
 1. A game with a loop that runs and can be paused
    Adding: Game.OnStart (with Engine.ResetCamera, Scene.ClearAll, HUD.Clear), Game.OnUpdate (add 0.05 to a script-local angle variable and call SetObjectRotation with it)
-   Makes this happen: the game starts, the loop runs about 30 small turns per second, and pressing Escape pauses the game.
+   Result: the game starts, the loop runs about 30 small turns per second, and pressing Escape pauses the game.
    Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear, Game.OnUpdate, SetObjectRotation
 2. A pause note on screen
    Adding: HUD.Set "Pause Note","PAUSE ON ESCAPE",20,120,14 in Game.OnStart
-   Makes this happen: the pause note appears in the viewport when the game is paused, and disappears when the game resumes.
+   Result: the pause note appears in the viewport when the game is paused, and disappears when the game resumes.
    Engine calls: HUD.Set
 3. A test hook for headless driving
    Adding: Game.OnClick (read the keysDown variable for TestKeys input, call TestKeys.Drive if the TestKeys key is pressed)
-   Makes this happen: headless tests can send TestKeys input to the game and trigger the same actions as the mouse and keyboard, without a user pressing a key.
+   Result: headless tests can send TestKeys input to the game and trigger the same actions as the mouse and keyboard, without a user pressing a key.
    Engine calls: Game.OnClick, keysDown
 4. A State variable for tests to read
    Adding: Game.OnStart (initialize a script-local State variable to 0)
-   Makes this happen: headless tests can read the State variable to verify what the game did during a test run.
+   Result: headless tests can read the State variable to verify what the game did during a test run.
    Engine calls: Game.OnStart
 
 Pitfalls:
@@ -567,23 +567,23 @@ Needs: 01, 04
 
 1. Build the shared game card with the engine-start setup
    Adding: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
-   Makes this happen: pressing Play starts the game in both engines, leaving the viewport empty and no leftover state.
+   Result: pressing Play starts the game in both engines, leaving the viewport empty and no leftover state.
    Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
 2. Add the wire cube shape and spawn it in the scene
    Adding: Mesh.Define "Cube", MeshBox(40,40,40), Entity.Spawn("Cube",0,0,0,"cyan")
-   Makes this happen: a cyan wire cube sits in the middle of the view in both engines.
+   Result: a cyan wire cube sits in the middle of the view in both engines.
    Engine calls: Mesh.Define, MeshBox, Entity.Spawn
 3. Add the update loop to spin the cube in both engines
    Adding: Game.OnUpdate, SetObjectRotation
-   Makes this happen: the cube rotates about 30 small turns per second in both engines.
+   Result: the cube rotates about 30 small turns per second in both engines.
    Engine calls: Game.OnUpdate, SetObjectRotation
 4. Add the title HUD text so both engines show the game's label
    Adding: HUD.Set "Title","SPINNING CUBE",20,120,14
-   Makes this happen: the title appears below the engine's top bars in both engines.
+   Result: the title appears below the engine's top bars in both engines.
    Engine calls: HUD.Set
 5. Add the stop cleanup so both engines reset cleanly when the game ends
    Adding: Game.OnStop, HUD.Clear
-   Makes this happen: pressing Stop and starting a new game in either engine leaves no leftover title or state.
+   Result: pressing Stop and starting a new game in either engine leaves no leftover title or state.
    Engine calls: Game.OnStop, HUD.Clear
 
 Pitfalls:
