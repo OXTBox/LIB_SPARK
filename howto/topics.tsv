@@ -1,0 +1,20 @@
+# LIB_HOWTO topics: the left-side list of the tutorial stack. One per line: id <tab> title <tab> what it covers.
+# Edit freely (owner or Claude); Spark outlines every topic it has not done yet. Same id = same folder.
+01	Game card and loop	a game is a card script; Game.OnStart sets up, Game.OnUpdate runs about 30 times a second, Game.OnStop cleans up
+02	Shapes: built-in meshes	MeshBox, MeshPrism, MeshPyramid, MeshSphere, MeshGrid; Mesh.Define gives a shape a name
+03	Shapes: by hand	Mesh.New, Mesh.AddVertex, Mesh.AddLine, Mesh.AddFace: wire shapes point by point
+04	Objects in the scene	Entity.Spawn puts a named shape in the world with a colour; Entity.Kill removes it; Scene.ClearAll
+05	Moving things	SetObjectPosition, SetObjectRotation, SetObjectRotationSpeed, SetObjectVelocity; +Y is DOWN
+06	Keyboard input	the keysDown, key codes (WASD and arrow keys), one press versus held, a TestKeys hook for tests
+07	Mouse and picking	Game.OnClick, ScreenToCameraRay, RayCastScene, Weapon.FireAt
+08	Camera	Engine.SetCam, gCameraYaw, gCameraPitch: fixed view, top-down, follow, third person behind a hero
+09	HUD and text	HUD.Set, HUD.Remove, HUD.Clear: score lines, messages, help text kept below the top bars
+10	Collisions	Collision.SetGroup, Collision.AddRule, Collision.Hit; simple distance checks in Game.OnUpdate
+11	Effects	FX.Sparks, FX.Destroy, FX.Derez, Particles.Clear: feedback when something happens
+12	Game state	score, lives, levels, win and lose, play again with Space, a State function for notes and tests
+13	Levels and layouts	level tables (one line a level), grids and mazes from LIB_BIT and LIB_MAP, random but repeatable seeds
+14	Animation: No Bones	spin, bob (Scene.SetBob), swap the mesh each frame, grow and shrink, a shape that changes (Big Ball of Vectors)
+15	Animation: BVH	LIB_MOCAP stick clips from BVH motion capture: load a clip, one mesh a frame, walk and idle, feet that do not skate
+16	Sound	Audio.Init, Sound.Play: a sound when something happens
+17	Pause, notes and tests	Escape pause, game notes (` or F2), headless tests that drive the game with TestKeys and read State
+18	One game, two engines	the same card script in Vibecode3D and in the xt3d bench: what to keep simple so both run it
