@@ -275,3 +275,27 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-15 04:35:00	spark-x2.6-4b	885	Sock Sorter	2_levels.md	709	293	5.0	59.1	13	ok
 2026-11-15 04:35:11	spark-x2.6-4b	797	Slow Comet	1_concept.md	471	382	6.3	61.0	17	ok
 2026-11-15 04:35:20	spark-x2.6-4b	797	Slow Comet	2_levels.md	688	234	4.4	53.4	13	ok
+2026-11-15 04:36:17	spark-x2.6-4b	255	Moth Lamp Maze	1_concept.md	485	392	5.7	69.0	18	ok
+2026-11-15 04:36:26	spark-x2.6-4b	255	Moth Lamp Maze	2_levels.md	703	231	3.6	64.1	11	ok
+2026-11-15 04:36:35	spark-x2.6-4b	552	Stepping Stones Duet	1_concept.md	487	272	4.2	65.2	15	ok
+2026-11-15 04:36:44	spark-x2.6-4b	552	Stepping Stones Duet	2_levels.md	581	233	3.6	64.9	13	ok
+2026-11-15 04:36:54	spark-x2.6-4b	174	Chalk Line	1_concept.md	478	342	5.0	68.5	17	ok
+2026-11-15 04:37:03	spark-x2.6-4b	174	Chalk Line	2_levels.md	648	263	4.0	65.1	13	ok
+2026-11-15 04:37:13	spark-x2.6-4b	801	Pinball Corridor	1_concept.md	479	371	5.5	66.9	17	ok
+2026-11-15 04:37:21	spark-x2.6-4b	801	Pinball Corridor	2_levels.md	677	202	3.2	63.0	11	ok
+2026-11-15 04:37:32	spark-x2.6-4b	634	Ice Block Tower	1_concept.md	479	367	5.4	68.3	18	ok
+2026-11-15 04:37:41	spark-x2.6-4b	634	Ice Block Tower	2_levels.md	677	266	4.0	65.8	13	ok
+2026-11-15 04:37:51	spark-x2.6-4b	545	Treasure Map Steps	1_concept.md	486	381	5.5	69.5	19	ok
+2026-11-15 04:38:00	spark-x2.6-4b	545	Treasure Map Steps	2_levels.md	690	204	3.4	60.6	11	ok
+2026-11-15 04:38:11	spark-x2.6-4b	807	Scarecrow Field	1_concept.md	487	414	6.1	68.1	17	ok
+2026-11-15 04:38:20	spark-x2.6-4b	807	Scarecrow Field	2_levels.md	720	240	3.8	64.0	13	ok
+2026-11-15 04:38:30	spark-x2.6-4b	753	Draw Bridge Duel	1_concept.md	482	385	5.7	68.0	18	ok
+2026-11-15 04:38:38	spark-x2.6-4b	753	Draw Bridge Duel	2_levels.md	690	202	3.2	62.3	11	ok
+2026-11-15 04:38:49	spark-x2.6-4b	397	Bubble Lift	1_concept.md	482	356	5.3	66.9	18	ok
+2026-11-15 04:38:58	spark-x2.6-4b	397	Bubble Lift	2_levels.md	662	257	4.2	61.2	13	ok
+2026-11-15 04:39:09	spark-x2.6-4b	285	Clock Hands Room	1_concept.md	473	447	6.5	69.2	19	ok
+2026-11-15 04:39:19	spark-x2.6-4b	285	Clock Hands Room	2_levels.md	758	255	4.1	61.8	11	ok
+2026-11-15 04:39:29	spark-x2.6-4b	331	Domino Run	1_concept.md	483	380	5.6	68.4	18	ok
+2026-11-15 04:39:38	spark-x2.6-4b	331	Domino Run	2_levels.md	683	239	3.8	62.8	13	ok
+2026-11-15 04:39:49	spark-x2.6-4b	994	Glass Bottle Shelf	1_concept.md	478	379	5.6	67.3	19	ok
+2026-11-15 04:39:57	spark-x2.6-4b	994	Glass Bottle Shelf	2_levels.md	684	227	3.7	60.7	13	ok

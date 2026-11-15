@@ -317,3 +317,26 @@ to strip.
 Running count across eight batches: 46 games near enough to build (3 + 3 + 4 + 3 + 5 + 10 + 8 + 10).
 The format is now settled; further batches mostly add more of the same. Spark could next draft
 something else the owner needs (see DAY_WORK_11_15).
+
+## Batch 9 (2026-11-15, 12 ideas)
+
+Run: 04:36 to 04:40 (the same work period as batch 8, which began 04:31: the next run rests
+first), 24 requests, 111 s, 61 to 70 tokens/s, no cut-offs. Keys right in 12 of 12. Two misreads
+of how the player acts (Chalk Line, Scarecrow Field) and one TAB misread (Draw Bridge Duel).
+
+| Game | Verdict | What to change |
+|---|---|---|
+| Moth Lamp Maze (255) | buildable as is | Keys, LOSE (oil runs out) and table right. |
+| Ice Block Tower (634) | buildable as is | Collapse ends the try; table good (height 7 to 14, melt 35 s down to 20). |
+| Domino Run (331) | buildable with a small change | Nothing hurts: moves against par (Spark's "falling into a domino" is invented). Table good. |
+| Bubble Lift (397) | buildable with a small change | An eel sends you to the last ledge (no lives). Table good. |
+| Pinball Corridor (801) | buildable with a small change | A drain sends you back to the last star; 3 drains end the run. Table good. |
+| Glass Bottle Shelf (994) | buildable with a small change | Cracks allowed is the lose rule (Spark's own column), not lives. Table good. |
+| Treasure Map Steps (545) | buildable with a small change | Wrong steps allowed (3 to 1) is the lose rule; no lives. Table good. |
+| Clock Hands Room (285) | needs a change | The numbers column came back as "1, 2, 3" every level: 4, 6, 8, 10, 12. A hand sends you to the middle. |
+| Chalk Line (174) | needs a change | You walk and the chalk follows you (Spark made the arrows move the line). Nothing can fall off: the bell ends the round. |
+| Scarecrow Field (807) | needs a change | You walk; walking into a scarecrow pushes it (Spark made arrows move it). A crow on a crop is a miss; 5 misses end the day. |
+| Stepping Stones Duet (552) | needs a change, **fits PROMPT & GLAZE** | Falling in = both back to the bank, no lives. Table good. |
+| Draw Bridge Duel (753) | needs a change, **fits PROMPT & GLAZE** | TAB swaps between PROMPT and GLAZE (not with the knight). Table is muddled: knights 1, 1, 2, 2, 3; crank 4 to 2 s; moat 2 to 5. |
+
+Running count across nine batches: 53 games near enough to build (46 + 7).
