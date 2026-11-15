@@ -115,7 +115,29 @@ def pace(a):
         return a.work_minutes, a.rest_seconds
 
 
+CLOCK = os.path.join(OUT, '.work_clock')   # "work_start last_request" (seconds), shared by runs
+
+
+def resume_clock(a):
+    """one work period runs across runs: a run started less than a rest after the last request
+    goes on with that period's clock, so back-to-back batches still get their rest"""
+    work, rest = pace(a)
+    try:
+        start, last = [float(x) for x in open(CLOCK).read().split()[:2]]
+    except (OSError, ValueError):
+        return time.time()
+    return start if time.time() - last < max(rest, 60) else time.time()
+
+
+def mark_clock():
+    try:
+        open(CLOCK, 'w').write('%f %f\n' % (WORK_START[0], time.time()))
+    except OSError:
+        pass
+
+
 def breathe(a):
+    mark_clock()
     work, rest = pace(a)
     if work <= 0 or time.time() - WORK_START[0] < work * 60:
         return
@@ -183,7 +205,9 @@ def main():
     todo = [g for g in games() if not only or g['id'] in only]
     log('=== start: %d games, work %g min / rest %g s, model %s' % ((len(todo),) + pace(a) + (a.model,)))
     load(a.model)
-    WORK_START[0] = time.time()
+    WORK_START[0] = resume_clock(a)
+    if WORK_START[0] < time.time() - 1:
+        log('continuing a work period that began %d s ago' % (time.time() - WORK_START[0]))
     for g in todo:
         folder = os.path.join(OUT, '%s_%s' % (g['id'], g['title'].replace(' ', '_')))
         os.makedirs(folder, exist_ok=True)

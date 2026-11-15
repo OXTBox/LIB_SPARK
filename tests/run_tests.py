@@ -38,6 +38,16 @@ def main():
     check('own level columns: no LAYOUTS picture asked for', 'LAYOUTS' not in run_arcade.levels_prompt(lv, {'legend': 'none'})
           and 'NOTES' in run_arcade.levels_prompt(lv, {'legend': 'none'}))
     check('old ideas still get LAYOUTS', 'LAYOUTS' in run_arcade.levels_prompt(lv, {'legend': '. empty, # wall'}))
+    import tempfile, time as _t
+    with tempfile.TemporaryDirectory() as d:
+        old = run_arcade.CLOCK
+        run_arcade.CLOCK = os.path.join(d, 'clock')
+        a2 = types.SimpleNamespace(work_minutes=10, rest_seconds=900)
+        open(run_arcade.CLOCK, 'w').write('%f %f' % (_t.time() - 1800, _t.time() - 60))
+        check('a run soon after the last one continues its work period', run_arcade.resume_clock(a2) < _t.time() - 1700)
+        open(run_arcade.CLOCK, 'w').write('%f %f' % (_t.time() - 5000, _t.time() - 1000))
+        check('a run after a full rest starts a new period', run_arcade.resume_clock(a2) > _t.time() - 5)
+        run_arcade.CLOCK = old
     return done()
 
 
