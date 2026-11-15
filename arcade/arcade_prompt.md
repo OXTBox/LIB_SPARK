@@ -38,7 +38,8 @@ OBJECTS:
 (3 to 6 objects)
 RULES:
 - 4 to 7 short rules: how things move, what scores, and what costs a life (if anything can: a puzzle may have no lives, only a move count).
-WIN: one line. LOSE: one line.
+WIN: one line. LOSE: one line: the thing that ends a try (caught, fallen, time up), or
+"nothing: the score is moves against par" when nothing in the idea can hurt you.
 NUMBERS: the starting values as name=value pairs on one line (speeds in world units per
 step, 30 steps a second; the screen is 900 wide and 600 high).
 RISK: one line: the part of this game that will be hardest to program.

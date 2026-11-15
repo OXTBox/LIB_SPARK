@@ -261,4 +261,4 @@ against par')" instead of a lives rule.
 | Twin Keys Vault (433) | needs a change, **fits PROMPT & GLAZE** | TAB swaps hero (Spark: "swap the two locks"); no Space: standing on a lock turns it. A guard touching a hero sends both to the start. Table good. |
 | Star Weaver (640) | needs a change | No Space: looking at a star for half a second links it. A wrong line just breaks the chain, no lives. Table good. |
 
-Running count across six batches: about 31 games near enough to build (as is or a small change).
+Running count across six batches: 28 games near enough to build (as is or a small change: 3 + 3 + 4 + 3 + 5 + 10).
