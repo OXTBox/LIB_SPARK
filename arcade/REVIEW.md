@@ -340,3 +340,39 @@ of how the player acts (Chalk Line, Scarecrow Field) and one TAB misread (Draw B
 | Draw Bridge Duel (753) | needs a change, **fits PROMPT & GLAZE** | TAB swaps between PROMPT and GLAZE (not with the knight). Table is muddled: knights 1, 1, 2, 2, 3; crank 4 to 2 s; moat 2 to 5. |
 
 Running count across nine batches: 53 games near enough to build (46 + 7).
+
+## Batches 10 and 11 (2026-11-15, 24 ideas in one run)
+
+Run: rest 04:45 to 05:00 (model unloaded; the work clock carried over from batch 9), work 05:00
+to 05:08, 48 requests, 230 s of model time, 59 to 72 tokens/s, no cut-offs, every table in range.
+Keys right in 24 of 24 (a few describe them oddly: "left moves the slide", "moves the boat").
+Lives still creep into LOSE lines, but most now have a real cause.
+
+| Game | Verdict | Change |
+|---|---|---|
+| Tower Signals (103) | as is | |
+| Ring Road (186) | as is | |
+| Penguin Slide (794) | as is | |
+| Bakery Rush (733) | as is | |
+| Snow Fort (437) | as is | |
+| Junk Magnet (617) | small | overheating drops the load (it doesn't end the try); 3 overheats end it |
+| Clean Sweep Chimney (563) | small | a puff pushes you up a ledge, it doesn't cost a life |
+| Hatch Watch (529) | small | a chick out of the door is a miss; 3 misses end the night |
+| Kitten Rescue (247) | small | a cracked branch drops you to the one below |
+| Library Shelver (949) | small | a book not shelved when asked is a miss |
+| Wire Walker (966) | small | drop "30 moves"; a fall ends the try |
+| Ghost Train (817) | small | the signs are scenery: only tipping ends the ride |
+| Mole Holes (650) | small | a missed mole is a miss, a filled hole just closes |
+| Seed Sower (332) | small | eaten seeds are re-sown, not lives; the clock ends the day |
+| Sun Dial Garden (474) | small | a heat meter fills in the sun and empties in shade |
+| Tidy Robot (173) | small | the cat costs time, not lives; the clock ends the round |
+| Satellite Dish (716) | small | the signal bar is the score; no lives |
+| Water Slide (791) | small | the keys lean the rider (Spark: "move the slide") |
+| Night Bus (358) | change | stopping needs a brake: add Down (the idea lacks it), or stops are taken by staying in the stop lane |
+| Leaf Pile (796) | change | walking pushes leaves (Spark gave Up a job and made stepping on leaves deadly) |
+| Lantern Festival (624) | change | you steer the lantern, not a boat; a lantern touching an arch is lost |
+| Lock Pick Room (995) | change | walking onto a pin raises it (no Up); out of order drops all pins, no lives |
+| Paint Bucket Relay (521) | change, PROMPT & GLAZE | TAB swaps hero; no lives |
+| Rope Bridge Builder (747) | change, PROMPT & GLAZE | TAB swaps hero; a fall goes back to the bank |
+
+Running count across eleven batches: 71 games near enough to build (53 + 18).

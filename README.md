@@ -23,6 +23,7 @@ What we know about working with Spark (`spark-x2.6-4b`, the local model in LM St
 | 2026-11-15 | game designs, batch 7 (12 ideas, LOSE fix) | 24 | 120 s | 54 to 69 tokens/s | LOSE names a cause in 8 of 12; 3 copied the prompt's example into CONTROLS (reworded); 3 as is, 5 small change, 4 need a change |
 | 2026-11-15 | game designs, batch 8 (12 ideas, first real rest 04:16-04:31) | 24 | 118 s | 53 to 72 tokens/s | keys right in 12 of 12; 4 as is, 6 small change, 2 need a change |
 | 2026-11-15 | game designs, batch 9 (12 ideas) | 24 | 111 s | 61 to 70 tokens/s | keys right 12 of 12; 2 as is, 5 small change, 5 need a change |
+| 2026-11-15 | game designs, batches 10 and 11 (24 ideas, one run; rest 04:45-05:00) | 48 | 230 s | 59 to 72 tokens/s | keys right 24 of 24; 5 as is, 13 small change, 6 need a change |
 
 ## What holds so far
 
