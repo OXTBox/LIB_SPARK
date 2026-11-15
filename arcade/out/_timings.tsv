@@ -203,3 +203,27 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-15 04:04:34	spark-x2.6-4b	935	Mirror Shots	2_levels.md	732	529	7.8	67.9	49	ok
 2026-11-15 04:04:44	spark-x2.6-4b	660	Dropping Rooms	1_concept.md	455	332	5.0	66.8	13	ok
 2026-11-15 04:04:56	spark-x2.6-4b	660	Dropping Rooms	2_levels.md	674	422	6.3	67.0	49	ok
+2026-11-15 04:06:19	spark-x2.6-4b	539	Rope Swing Gap	1_concept.md	473	377	5.5	69.2	17	ok
+2026-11-15 04:06:28	spark-x2.6-4b	539	Rope Swing Gap	2_levels.md	684	193	3.1	61.4	11	ok
+2026-11-15 04:06:38	spark-x2.6-4b	641	Snow Plough Maze	1_concept.md	458	412	5.9	69.8	19	ok
+2026-11-15 04:06:48	spark-x2.6-4b	641	Snow Plough Maze	2_levels.md	720	282	4.4	64.1	13	ok
+2026-11-15 04:07:00	spark-x2.6-4b	433	Twin Keys Vault	1_concept.md	467	472	6.8	69.3	28	ok
+2026-11-15 04:07:09	spark-x2.6-4b	433	Twin Keys Vault	2_levels.md	776	250	4.0	62.4	13	ok
+2026-11-15 04:07:19	spark-x2.6-4b	182	Glow Worm Cave	1_concept.md	459	357	5.3	67.6	17	ok
+2026-11-15 04:07:27	spark-x2.6-4b	182	Glow Worm Cave	2_levels.md	662	205	3.3	62.7	11	ok
+2026-11-15 04:07:38	spark-x2.6-4b	667	Ball Gate Arena	1_concept.md	456	402	5.9	67.8	19	ok
+2026-11-15 04:07:47	spark-x2.6-4b	667	Ball Gate Arena	2_levels.md	707	248	3.9	64.0	13	ok
+2026-11-15 04:07:57	spark-x2.6-4b	561	Fuse Runner	1_concept.md	456	337	5.0	66.7	15	ok
+2026-11-15 04:08:05	spark-x2.6-4b	561	Fuse Runner	2_levels.md	645	208	3.3	62.5	11	ok
+2026-11-15 04:08:17	spark-x2.6-4b	168	Hidden Floor	1_concept.md	461	446	6.5	68.7	20	ok
+2026-11-15 04:08:25	spark-x2.6-4b	168	Hidden Floor	2_levels.md	742	180	3.0	60.1	11	ok
+2026-11-15 04:08:36	spark-x2.6-4b	873	Kite Field	1_concept.md	454	384	5.6	68.8	18	ok
+2026-11-15 04:08:44	spark-x2.6-4b	873	Kite Field	2_levels.md	686	244	3.9	62.8	13	ok
+2026-11-15 04:08:56	spark-x2.6-4b	114	Conveyor Sort	1_concept.md	455	454	6.8	67.1	21	ok
+2026-11-15 04:09:08	spark-x2.6-4b	114	Conveyor Sort	2_levels.md	757	446	6.8	66.0	27	ok
+2026-11-15 04:09:18	spark-x2.6-4b	234	Sleepwalker Guide	1_concept.md	458	364	5.5	66.5	18	ok
+2026-11-15 04:09:27	spark-x2.6-4b	234	Sleepwalker Guide	2_levels.md	671	222	3.6	61.4	13	ok
+2026-11-15 04:09:38	spark-x2.6-4b	500	Signal Flags	1_concept.md	451	361	5.7	63.5	18	ok
+2026-11-15 04:09:46	spark-x2.6-4b	500	Signal Flags	2_levels.md	666	231	3.7	62.3	13	ok
+2026-11-15 04:09:58	spark-x2.6-4b	640	Star Weaver	1_concept.md	447	402	6.4	62.6	18	ok
+2026-11-15 04:10:08	spark-x2.6-4b	640	Star Weaver	2_levels.md	710	290	4.9	59.5	14	ok

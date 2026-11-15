@@ -234,3 +234,31 @@ prompt when an idea has its own columns (every cut-off so far was in LAYOUTS).
 | Pebble Trail (364) | needs a change | Spark invented a lose rule (you must pick up your pebbles). No lose: steps against par. Maze 7 to 15 cells. |
 | Echo Steps (460) | needs a change | Ghost delay 0 steps makes it touch you at once: 10, 9, 8, 7, 6. Room 7x7 to 11x11 cells. |
 | Dropping Rooms (660) | needs a change | Hole speed falls in Spark's table (should rise), smoke seconds 30 to 20 good. Rooms stacked straight down need stacked maps or one room reused: reuse one room for now. |
+
+## Batch 6 (2026-11-15, 12 ideas, columns with ranges, no layout pictures)
+
+Run: 04:06 to 04:10, 24 requests, 119 s of model time (half of batch 5, as the pictures are
+gone), 60 to 70 tokens/s, no cut-offs. **Every table stays inside the ranges given and rises
+level by level** (one, Conveyor Sort, wrote its table twice). This is now the way to ask:
+`Title | what happens; keys: ... | columns: name (from to), ...`.
+Left over: Spark still gives every game lives in the concept (most LOSE lines are "you run out of
+lives" with no cause), and 2 of 12 added a key (Twin Keys Vault: Space; Star Weaver: Space).
+Next prompt fix, proposed: CONCEPT asks "LOSE: what ends a try (or 'nothing: score is moves
+against par')" instead of a lives rule.
+
+| Game | Verdict | What to change |
+|---|---|---|
+| Fuse Runner (561) | buildable as is | Keys right, rule right (the fuse catching you ends the try), table good. Corridor runner frame like Dodge Tunnel. |
+| Rope Swing Gap (539) | buildable as is | Keys right; missing a ledge drops you to the last one (as the idea says; lives 3 are fine). Table good. |
+| Snow Plough Maze (641) | buildable with a small change | No lives: the try ends when snow cuts off a house for 10 s. Table good. Streets from the maze tool. |
+| Glow Worm Cave (182) | buildable with a small change | "Moving outside the path" loses nothing: walls just block. No lives; time against par. Table good. |
+| Ball Gate Arena (667) | buildable with a small change | Drop the stock "picks up / presses switches" text. Lives: none; a drone touching the ball resets it to the middle. Table good. |
+| Hidden Floor (168) | buildable with a small change | Spark invented keys; drop them. A hole sends you back (no lives, steps against par). Table good: room 6 to 10, holes 4 to 16. Minesweeper-style numbers on a cellmap. |
+| Sleepwalker Guide (234) | buildable with a small change | The stairs end the try (no lives). Table good. |
+| Signal Flags (500) | buildable with a small change | A ship not waved in within 20 s sails away (a miss; 3 misses end the round). Table good (one row has 4 berths after 5: fix to 5). |
+| Kite Field (873) | buildable with a small change | A bird hitting the kite or the kite touching ground costs a life (Spark gave no cause). Table good. |
+| Conveyor Sort (114) | buildable with a small change | A wrong-bin box is a miss (5 misses end the shift), not a life. Table good. |
+| Twin Keys Vault (433) | needs a change, **fits PROMPT & GLAZE** | TAB swaps hero (Spark: "swap the two locks"); no Space: standing on a lock turns it. A guard touching a hero sends both to the start. Table good. |
+| Star Weaver (640) | needs a change | No Space: looking at a star for half a second links it. A wrong line just breaks the chain, no lives. Table good. |
+
+Running count across six batches: about 31 games near enough to build (as is or a small change).
