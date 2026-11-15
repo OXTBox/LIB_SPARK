@@ -1,0 +1,55 @@
+ENTITY: Robot Vacuum
+GAME: Sweep Patrol
+COLOUR: 180,180,200
+SIZE: 34,10,34
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+body | box | 34,10,34 | 0,0,17 | 0,0,0 | the flat round vacuum body sitting on the ground
+bumper | box | 10,4,12 | 0,-2,17 | 0,0,0 | the front bumper at the +z front of the body
+mast | prism | 6,8,10 | 0,-5,17 | 0,0,0 | the vertical mast holding the light on top
+light | sphere | 4,3,6 | 0,-12,17 | 0,0,0 | the small light on top of the mast
+
+Wait, the mast prism is 10 tall from y 0 to y -10, but the light sphere is at y -12, which would float. Fixing the mast to extend higher:
+
+ENTITY: Robot Vacuum
+GAME: Sweep Patrol
+COLOUR: 180,180,200
+SIZE: 34,10,34
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+body | box | 34,10,34 | 0,0,17 | 0,0,0 | the flat round vacuum body sitting on the ground
+bumper | box | 10,4,12 | 0,-2,17 | 0,0,0 | the front bumper at the +z front of the body
+mast | prism | 6,8,14 | 0,-5,17 | 0,0,0 | the vertical mast holding the light on top
+light | sphere | 4,3,6 | 0,-12,17 | 0,0,0 | the small light on top of the mast
+
+Hmm, the mast prism height 14 from y 0 to y -14, so its top is at y -14, and the light sphere centre at y -12 with radius 3 extends to y -15, which is below the mast top. Adjusting the light to sit on the mast top:
+
+ENTITY: Robot Vacuum
+GAME: Sweep Patrol
+COLOUR: 180,180,200
+SIZE: 34,10,34
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+body | box | 34,10,34 | 0,0,17 | 0,0,0 | the flat round vacuum body sitting on the ground
+bumper | box | 10,4,12 | 0,-2,17 | 0,0,0 | the front bumper at the +z front of the body
+mast | prism | 6,8,14 | 0,-5,17 | 0,0,0 | the vertical mast holding the light on top
+light | sphere | 4,3,6 | 0,-12,17 | 0,0,0 | the small light on top of the mast
+
+Actually, the prism is centred on its at point, so a prism with height 14 spans y -7 to y 7. That would go above ground. The prism height should be 14 and at y -7 to be centred on y -7, spanning y -14 to y 0. Let me correct:
+
+ENTITY: Robot Vacuum
+GAME: Sweep Patrol
+COLOUR: 180,180,200
+SIZE: 34,10,34
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+body | box | 34,10,34 | 0,0,17 | 0,0,0 | the flat round vacuum body sitting on the ground
+bumper | box | 10,4,12 | 0,-2,17 | 0,0,0 | the front bumper at the +z front of the body
+mast | prism | 6,8,14 | 0,-7,17 | 0,0,0 | the vertical mast holding the light on top
+light | sphere | 4,3,6 | 0,-14,17 | 0,0,0 | the small light on top of the mast
+
+This works: body box 34x10x34 at y 0 spans y -5 to y 5, lowest point y 0 on ground. Bumper box 10

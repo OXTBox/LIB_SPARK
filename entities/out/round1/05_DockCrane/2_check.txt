@@ -1,0 +1,51 @@
+FAULTS
+parse    ok: 4 parts
+size     FAIL: is 30 x 185 x 70, SIZE says 30 x 120 x 100
+joined   FAIL: not touching the rest: arm, cable, hook
+base     FAIL: lowest point at y 60.0 (ground means 0)
+mirror   ok
+edges    ok: 37 (budget 160)
+front    (judge) front half 18 vertices, widest 5; back half 8, widest 15
+
+top (front up the page)
+     #######
+     #  #  #
+     #     #
+     #######
+
+
+
+
+
+
+
+#################
+#               #
+#               #
+#               #
+#               #
+#               #
+#               #
+#               #
+#################
+side (front to the right)
+            ###
+            ###
+            ###
+            ###
+            ###
+            ###
+            ###
+#######     ###
+#     #     # #
+#     #     # #
+#     #     # #
+#     #     # #
+#     #     ###
+#     #
+#     #
+#     #
+#     #
+#     #
+#     #
+#######

@@ -19,12 +19,12 @@ FOR THE GAME: {game}
 WHAT IT IS: {brief}
 ABOUT THIS BIG: {size}
 
-THE ENGINE'S AXES (important):
+THE AXES (important):
 - x is left (-) to right (+); z is back (-) to front (+): the object's front points to +z.
-- y points DOWN. Up is minus: a mast 70 tall goes from y 0 to y -70.
-- The ground is y 0. An object standing on the ground has its lowest point at y 0 and
-  everything else at negative y.
-- Turns are in degrees: "0,90,0" turns a part a quarter round the up axis.
+- y is HEIGHT above the ground: the ground is y 0, a mast 70 tall goes from y 0 to y 70.
+- An object standing on the ground has its lowest point at y 0 and everything above it.
+  A part's "at" point is its CENTRE: a box 30 tall standing on the ground is at y 15.
+- Turns are in degrees: "0,90,0" turns a part a quarter round the upright axis.
 
 THE SHAPES (sizes field):
 - box: w,h,d (width x, height y, depth z), centred on its "at" point
@@ -42,8 +42,15 @@ RULES:
 - If the object is the same on its left and right, write SYMMETRIC: yes and place parts so
   every part on the left has a twin at minus x, or sits on x 0.
 - BASE: ground (stands on y 0), floats (on water), or flies.
+- RELATIONS: say how the main parts stack, using the part names: "cap on top of tower;
+  lamp_room on top of tower; basket below balloon". Words allowed: on top of, above, below,
+  inside. These are checked, so place the parts so they are true: a part ON TOP OF another
+  starts at the other's top height (its centre y = the other's top + half its own height).
+- Work out every position before you answer. Do not think aloud, do not write "Wait",
+  do not write the recipe twice: one recipe, then stop.
 
-EXAMPLE (a sail boat, 110 long, front to +z, floating):
+EXAMPLE (a sail boat, 110 long, front to +z, floating: the deck at height 0, the keel 25 below
+the water, the mast 70 up):
 
 ENTITY: Sail Boat
 GAME: harbour demo
@@ -51,15 +58,16 @@ COLOUR: 255,255,255
 SIZE: 40,95,110
 SYMMETRIC: yes
 BASE: floats
+RELATIONS: cabin on top of hull; sail above hull
 PARTS:
 name | shape | sizes | at x,y,z | turn rx,ry,rz | what it is for
-hull | loft | 0; 0,60; 20,25; 20,-50; -20,-50; -20,25 / 25; 0,30; 10,12.5; 10,-25; -10,-25; -10,12.5 | 0,0,0 | 0,0,0 | the hull: deck outline at y 0, a half-size keel 25 below
-cabin | box | 24,14,30 | 0,-7,-15 | 0,0,0 | the cabin sitting on the back deck
-mast | line | 0,0,10; 0,-70,10 | 0,0,0 | 0,0,0 | holds the sail
-sail | tri | 0,-66,12; 0,-8,12; 0,-8,45 | 0,0,0 | 0,0,0 | one triangle sail
+hull | loft | 0; 0,60; 20,25; 20,-50; -20,-50; -20,25 / -25; 0,30; 10,12.5; 10,-25; -10,-25; -10,12.5 | 0,0,0 | 0,0,0 | the hull: deck outline at height 0, a half-size keel 25 below
+cabin | box | 24,14,30 | 0,7,-15 | 0,0,0 | the cabin sitting on the back deck (14 tall, so its centre is at 7)
+mast | line | 0,0,10; 0,70,10 | 0,0,0 | 0,0,0 | holds the sail
+sail | tri | 0,66,12; 0,8,12; 0,8,45 | 0,0,0 | 0,0,0 | one triangle sail
 
 Now write the recipe for {name}, in the same format: ENTITY, GAME, COLOUR, SIZE, SYMMETRIC,
-BASE, then PARTS with one part per line.
+BASE, RELATIONS, then PARTS with one part per line.
 
 ## RETRY
 
@@ -71,4 +79,5 @@ The checker found these faults:
 
 {faults}
 
-Write the whole recipe again with these faults fixed, in the same format, nothing else.
+Write the whole recipe again with these faults fixed, in the same format, nothing else. Do not
+think aloud: one recipe, then stop. Remember: y is height above the ground; a part's "at" is its centre.

@@ -1,0 +1,55 @@
+ENTITY: Sentry Drone
+GAME: wire arcade
+COLOUR: 255,128,0
+SIZE: 30,50,30
+SYMMETRIC: yes
+BASE: flies
+PARTS:
+base | box | 30,12,30 | 0,0,0 | 0,0,0 | the wide base resting on the ground
+neck | box | 10,25,20 | 0,-12,0 | 0,0,0 | the short neck connecting base to body
+body | box | 14,30,14 | 0,-35,0 | 0,0,0 | the ball body of the patrol robot
+eye | prism | 8,8,8 | 0,-52,0 | 0,0,0 | the front eye on the robot
+
+Wait, the rules require every part to touch another part and under 160 edges. Let me correct the recipe to fit the exact format and constraints.
+
+ENTITY: Sentry Drone
+GAME: wire arcade
+COLOUR: 255,128,0
+SIZE: 30,50,30
+SYMMETRIC: yes
+BASE: flies
+PARTS:
+base | box | 30,12,30 | 0,0,0 | 0,0,0 | the wide base of the patrol robot
+neck | box | 10,25,20 | 0,-12,0 | 0,0,0 | the short neck connecting base to body
+body | box | 14,30,14 | 0,-35,0 | 0,0,0 | the ball body of the patrol robot
+eye | prism | 8,8,8 | 0,-52,0 | 0,0,0 | the front eye on the robot
+
+Actually, the eye prism is at y -52 which is below the body (body bottom is at -35-15=-50), so it doesn't touch. Let me fix the positions so all parts touch.
+
+Final corrected recipe:
+
+ENTITY: Sentry Drone
+GAME: wire arcade
+COLOUR: 255,128,0
+SIZE: 30,50,30
+SYMMETRIC: yes
+BASE: flies
+PARTS:
+base | box | 30,12,30 | 0,0,0 | 0,0,0 | the wide base of the patrol robot
+neck | box | 10,25,20 | 0,-12,0 | 0,0,0 | the short neck connecting base to body
+body | box | 14,30,14 | 0,-35,0 | 0,0,0 | the ball body of the patrol robot
+eye | prism | 8,8,8 | 0,-50,0 | 0,0,0 | the front eye on the robot
+
+Wait, body is 30 tall, centred at y -35, so it spans y -50 to y -20. Eye at y -50, radius 8, so it touches the body at y -50. That works. All parts touch: base (y 0 to 12) touches neck (y -12 to 17) at y -12; neck touches body (y -50 to -20) at y -20; body touches eye at y -50. All good, edges are minimal: base 12, neck 12, body 12, eye 18, total 54 edges, under 160. Symmetric yes, all parts on x 0 so left-right symmetric. BASE flies. Let me write the final clean version.
+
+ENTITY: Sentry Drone
+GAME: wire arcade
+COLOUR: 255,128,0
+SIZE: 30,50,30
+SYMMETRIC: yes
+BASE: flies
+PARTS:
+base | box | 30,12,30 | 0,0,0 | 0,0,0 | the wide base of the patrol robot
+neck | box | 10,25,20 | 0,-12,0 | 0,0,0 | the short neck connecting base to body
+body | box | 14,30,14 | 0,-35,0 | 0,0,0 | the ball body of the patrol robot
+eye | prism | 8,8,8 | 0,-50,0 | 0,0,0 | the front eye on the robot

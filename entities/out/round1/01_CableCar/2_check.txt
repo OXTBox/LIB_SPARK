@@ -1,0 +1,51 @@
+FAULTS
+parse    ok: 8 parts
+size     ok: is 48 x 106 x 50, SIZE says 48 x 106 x 50
+joined   FAIL: not touching the rest: cabin, window_left, window_right, wheel_hanger_left, wheel_hanger_right, cable, roof
+base     flies: lowest point at y 36.0
+mirror   ok
+edges    ok: 97 (budget 160)
+front    (judge) front half 32 vertices, widest 24; back half 34, widest 24
+
+top (front up the page)
+#####################################
+#                                   #
+#                                   #
+#                                   #
+#                                   #
+#                                   #
+#   ##############################  #
+#  # ###### #           #  #####  # #
+# #  #  # #  # ####### #   # # #   ##
+##   #  # #   ##  #  ##    # # #    #
+##   #  # #   ##     ##    # # #    #
+# #  #  # #  # ####### #   # # #   ##
+#  # ###### #           #  #####  # #
+#   ##############################  #
+#                                   #
+#                                   #
+#                                   #
+#                                   #
+#                                   #
+#####################################
+side (front to the right)
+         #
+         #
+         #
+         #
+      #######
+      #  #  #
+      #######
+      #  # ##
+      #######
+         #
+      #######
+      #######
+##################
+##################
+
+
+
+        ###
+        # #
+        ###

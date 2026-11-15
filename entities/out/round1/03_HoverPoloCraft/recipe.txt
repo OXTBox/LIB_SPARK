@@ -1,0 +1,12 @@
+ENTITY: Hover Polo Craft
+GAME: Hover Polo
+COLOUR: 120,200,255
+SIZE: 50,20,60
+SYMMETRIC: yes
+BASE: flies
+PARTS:
+skirt | box | 50,10,40 | 0,0,20 | 0,0,0 | the skirt wrapping around the hover craft's lower body
+craft_body | box | 40,12,50 | 0,-6,20 | 0,0,0 | the flat round hover craft core
+seat | box | 16,6,16 | 0,-14,20 | 0,0,0 | the seat in the middle of the craft
+fan_box | box | 20,8,12 | 0,-2,40 | 0,0,0 | the fan box at the back of the craft
+fan_mast | line | 0,-14,40; 0,-2,52 | 0,0,0 | 0,0,0 | holds the fan box at the back

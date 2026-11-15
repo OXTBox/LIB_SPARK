@@ -1,0 +1,51 @@
+FAULTS
+parse    FAIL: part line has 1 fields, not 6: Wait, the rules require every part to touch another part and; part line has 1 fields, not 6: ENTITY: Sentry Drone; part line has 1 fields, not 6: GAME: wire arcade; part line has 1 fields, not 6: COLOUR: 255,128,0; part line has 1 fields, not 6: SIZE: 30,50,30; part line has 1 fields, not 6: SYMMETRIC: yes; part line has 1 fields, not 6: BASE: flies; part line has 1 fields, not 6: Actually, the eye prism is at y -52 which is below the body ; part line has 1 fields, not 6: Final corrected recipe:; part line has 1 fields, not 6: ENTITY: Sentry Drone; part line has 1 fields, not 6: GAME: wire arcade; part line has 1 fields, not 6: COLOUR: 255,128,0; part line has 1 fields, not 6: SIZE: 30,50,30; part line has 1 fields, not 6: SYMMETRIC: yes; part line has 1 fields, not 6: BASE: flies; part line has 1 fields, not 6: Wait, body is 30 tall, centred at y -35, so it spans y -50 t; part line has 1 fields, not 6: ENTITY: Sentry Drone; part line has 1 fields, not 6: GAME: wire arcade; part line has 1 fields, not 6: COLOUR: 255,128,0; part line has 1 fields, not 6: SIZE: 30,50,30; part line has 1 fields, not 6: SYMMETRIC: yes; part line has 1 fields, not 6: BASE: flies
+size     ok: is 30 x 62 x 30, SIZE says 30 x 50 x 30
+joined   ok
+base     flies: lowest point at y 6.0
+mirror   ok
+edges    FAIL: 240 (budget 160)
+front    (judge) front half 80 vertices, widest 15; back half 80, widest 15
+
+top (front up the page)
+#######################################
+#                                     #
+#                                     #
+#            #############            #
+#            #     #     #            #
+#         ###################         #
+#         # ###         ### #         #
+#         ## #           # ##         #
+#         #  #           #  #         #
+#        ##  #           #  ##        #
+#         #  #           #  #         #
+#         #  #           #  #         #
+#         ## #           # ##         #
+#         # ###         ### #         #
+#         ###################         #
+#            #     #     #            #
+#            #############            #
+#                                     #
+#                                     #
+#######################################
+side (front to the right)
+    ###########
+    ###########
+    ###########
+    ###########
+     #       #
+     #       #
+     #       #
+     #       #
+     #       #
+     #       #
+   #############
+   # ######### #
+   #           #
+   #           #
+   #           #
+###################
+#  #           #  #
+#  #############  #
+#                 #
+###################

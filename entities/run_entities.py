@@ -52,13 +52,13 @@ def recipe_of(text):
     """the recipe part of an answer (drops a code fence or chatter before ENTITY:)"""
     text = text.replace('```', '')
     i = text.find('ENTITY:')
-    return (text[i:] if i >= 0 else text).strip() + '\n'
+    return entity.last_recipe(text).strip() + "\n"
 
 
 def ask(a, system, user, tag):
     run_arcade.breathe(a)
     run_arcade.log('%s ...' % tag)
-    text, finish, usage, secs = run_arcade.chat(a.model, system, user, 1100)
+    text, finish, usage, secs = run_arcade.chat(a.model, system, user, 1400)
     toks = usage.get('completion_tokens', 0)
     run_arcade.log('   %d tokens out in %.0f s%s' % (toks, secs, '  ** CUT OFF **' if finish == 'length' else ''))
     with open(os.path.join(OUT, '_timings.tsv'), 'a', encoding='utf-8') as f:

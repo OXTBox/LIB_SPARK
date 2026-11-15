@@ -1,13 +1,15 @@
-# Calibration: Demo.BoatMesh from Vibecode3D_Play_Simple_Test2 written as a recipe by Claude.
+# Calibration: Demo.BoatMesh from Vibecode3D_Play_Simple_Test2 written as a recipe by Claude
+# (y up: the keel is 25 below the deck, the mast top 70 above it).
 ENTITY: Sail Boat
 GAME: Simple Test2 harbour
 COLOUR: 255,255,255
 SIZE: 40,95,110
 SYMMETRIC: yes
 BASE: floats
+RELATIONS: cabin on top of hull; sail above hull
 PARTS:
 name | shape | sizes | at x,y,z | turn rx,ry,rz | what it is for
-hull | loft | 0; 0,60; 20,25; 20,-50; -20,-50; -20,25 / 25; 0,30; 10,12.5; 10,-25; -10,-25; -10,12.5 | 0,0,0 | 0,0,0 | the hull: deck outline, keel a half-size copy 25 below
-cabin | box | 24,14,30 | 0,-7,-15 | 0,0,0 | the cabin on the back deck
-mast | line | 0,0,10; 0,-70,10 | 0,0,0 | 0,0,0 | holds the sail
-sail | tri | 0,-66,12; 0,-8,12; 0,-8,45 | 0,0,0 | 0,0,0 | one triangle sail
+hull | loft | 0; 0,60; 20,25; 20,-50; -20,-50; -20,25 / -25; 0,30; 10,12.5; 10,-25; -10,-25; -10,12.5 | 0,0,0 | 0,0,0 | the hull: deck outline at height 0, a half-size keel 25 below
+cabin | box | 24,14,30 | 0,7,-15 | 0,0,0 | the cabin sitting on the back deck
+mast | line | 0,0,10; 0,70,10 | 0,0,0 | 0,0,0 | holds the sail
+sail | tri | 0,66,12; 0,8,12; 0,8,45 | 0,0,0 | 0,0,0 | one triangle sail

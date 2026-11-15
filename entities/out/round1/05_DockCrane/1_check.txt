@@ -1,0 +1,51 @@
+FAULTS
+parse    FAIL: part line has 1 fields, not 6: Wait, the hook should hang below the arm end, not at the sam; part line has 1 fields, not 6: ENTITY: Dock Crane; part line has 1 fields, not 6: GAME: 1983 Vector Arcade; part line has 1 fields, not 6: COLOUR: 180,180,180; part line has 1 fields, not 6: SIZE: 30,120,100; part line has 1 fields, not 6: SYMMETRIC: yes; part line has 1 fields, not 6: BASE: ground; part line has 1 fields, not 6: Hmm, the hook needs to hang below the arm end. The arm is 12; part line has 1 fields, not 6: Corrected:; part line has 1 fields, not 6: ENTITY: Dock Crane; part line has 1 fields, not 6: GAME: 1983 Vector Arcade; part line has 1 fields, not 6: COLOUR: 180,180,180; part line has 1 fields, not 6: SIZE: 30,120,100; part line has 1 fields, not 6: SYMMETRIC: yes; part line has 1 fields, not 6: BASE: ground; part line has 1 fields, not 6: No, still wrong. The arm should be positioned so its top is 
+size     FAIL: is 30 x 185 x 70, SIZE says 30 x 120 x 100
+joined   FAIL: not touching the rest: arm, cable, hook, arm, cable, hook, arm, cable, hook, arm, cable
+base     FAIL: lowest point at y 60.0 (ground means 0)
+mirror   ok
+edges    ok: 136 (budget 160)
+front    (judge) front half 64 vertices, widest 5; back half 32, widest 15
+
+top (front up the page)
+     #######
+     #  #  #
+     #     #
+     #######
+
+
+
+
+
+
+
+#################
+#               #
+#               #
+#               #
+#               #
+#               #
+#               #
+#               #
+#################
+side (front to the right)
+            ###
+            ###
+            ###
+            ###
+            ###
+            ###
+            ###
+#######     ###
+#     #     # #
+#     #     # #
+#     #     # #
+#     #     # #
+#     #     ###
+#     #     ###
+#     #
+#     #
+#     #
+#     #
+#     #
+#######

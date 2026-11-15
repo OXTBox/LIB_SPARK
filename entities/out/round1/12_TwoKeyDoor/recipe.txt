@@ -1,0 +1,25 @@
+ENTITY: Two Key Door
+GAME: 1983-style vector arcade
+COLOUR: 120,120,120
+SIZE: 50,80,10
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+frame | box | 50,10,10 | 0,5,0 | 0,0,0 | the door frame standing on the ground
+door | box | 40,70,8 | 0,-35,0 | 0,0,0 | the door panel inside the frame
+key | prism | 6,12,30 | 0,-70,0 | 0,0,0 | the big coloured key shape above the frame
+key_left | prism | 6,12,30 | -25,-70,0 | 0,0,0 | the left half of the key shape
+key_right | prism | 6,12,30 | 25,-70,0 | 0,0,0 | the right half of the key shape
+key_base | box | 50,10,10 | 0,-70,0 | 0,0,0 | the base plate holding the key shape
+
+Wait, the lowest point must be at y 0 with ground at 0. The key_base is at y -70 with height 10, so lowest is -70+10=-60? No, the fault says lowest point at y 10.0 (ground means 0). Let me recalculate: the frame is at y 5 with height 10, so it spans y 5 to 15, lowest point y 15? Actually the original had frame at 0,5,0 with size 50,10,10 — so y from 5 to 15, lowest 15. But the fault says lowest point at y 10.0. Hmm, maybe positions are center? If center y=5, height 10, spans 0 to 10, lowest 10. Ground means 0, so lowest must be 0. So frame should be at y 0 with height 10, spanning 0 to 10, lowest 0. Also key_base at y -70 with height 10 spans -70 to -60, that's above ground, fine. But the door at y -35 height 70 spans -70 to -10, lowest -70, fine.
+
+Wait the fault: "lowest point at y 10.0 (ground means 0)". So the lowest point of the whole object is y 10, which is above ground (ground is 0). So we need to lower something so lowest is 0. The frame is at y 5, height 10: if y is the bottom? Or center? If SIZE is 50,80,10 and frame position 0,5,0 — maybe the y coordinate is the minimum y (bottom). So frame bottom at 5, height 10 → top at 15, lowest point 5? No, lowest is 5, not 10. If y is center, frame center 5, height 10 → bottom 0, top 10, lowest 0. But fault says lowest is 10. Maybe the door is at y -35 height 70 → center -35, bottom -70, top -10, lowest -70. Key at y -70 height 12 → bottom -86, top -74. Key_base at y -70 height 10 → bottom -80, top -70. Frame at y 5 height 10 → bottom 0, top 10, lowest 0. But fault says lowest 10. Hmm, maybe the frame is at y 0? No, original frame at 0,5,0.
+
+Wait maybe the position is the top? Frame top at 5, height 10 → bottom -5, lowest -5. No.
+
+Alternatively, maybe the y in position is the maximum y (top). Frame top at 5, height 10 → bottom -5, top 5, lowest -5. No.
+
+Wait the fault says "lowest point at y 10.0 (ground means 0)". So the lowest point is 10, which is above ground (ground is 0). So we need to move the lowest part down so it's at 0. The frame is the lowest part? If frame is at y 5, height 10, and y is the bottom, then bottom is 5, top 15, lowest 5. Not 10. If y is the top, top 5, bottom -5, lowest -5. No.
+
+Wait maybe the frame's y is 5,

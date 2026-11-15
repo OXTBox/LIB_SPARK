@@ -1,0 +1,39 @@
+FAULTS
+parse    ok: 3 parts
+size     FAIL: is 76 x 60 x 24, SIZE says 80 x 80 x 10
+joined   ok
+base     flies: lowest point at y 20.0
+mirror   ok
+edges    ok: 37 (budget 160)
+front    (judge) front half 12 vertices, widest 38; back half 14, widest 38
+
+top (front up the page)
+                   ##########
+                  #          #
+################################################
+#               #       #      #               #
+#                #            #                #
+################################################
+                  ####    ####
+                      ####
+side (front to the right)
+        #
+        #
+        #
+        #
+        #
+        #
+     ######
+     #  # #
+     #  # #
+     #  # #
+     #  # #
+################
+# #  #  # #  # #
+# #  #  # #  # #
+################
+     #    #
+     #    #
+     #    #
+     #    #
+     ######

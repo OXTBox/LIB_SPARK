@@ -56,10 +56,16 @@ def main():
     check('entity: the demo boat as a recipe passes, 31 edges as its comment says', ok and len(whole.edges()) == 31, rep)
     lc, fn = entity.code(boat)
     check('entity: code uses the engine calls', fn == 'Ent.SailBoatMesh' and 'MeshLoft(' in lc and 'MeshBox(24, 14, 30)' in lc)
-    loose = boat.replace('cabin | box | 24,14,30 | 0,-7,-15', 'cabin | box | 24,14,30 | 0,-300,-15')
+    loose = boat.replace('cabin | box | 24,14,30 | 0,7,-15', 'cabin | box | 24,14,30 | 0,300,-15')
     check('entity: a part floating loose fails "joined"', any('joined' in r and 'FAIL' in r and 'cabin' in r for r in entity.check(loose)[0]))
-    lop = boat.replace('0,0,10; 0,-70,10', '0,0,10; 0,-70,10; 0,0,0')
+    lop = boat.replace('0,0,10; 0,70,10', '0,0,10; 0,70,10; 0,0,0')
     check('entity: a bad line is a parse fault, not a crash', not entity.check(lop)[1])
+    upside = boat.replace('cabin | box | 24,14,30 | 0,7,-15', 'cabin | box | 24,14,30 | 0,-32,-15')
+    check('entity: a relation that is not true fails (cabin under the hull)', any('relate' in r and 'FAIL' in r for r in entity.check(upside)[0]))
+    hut = 'ENTITY: Hut\nBASE: ground\nPARTS:\nwalls | box | 40,30,40 | 0,27,0 | 0,0,0 | walls\nWait, the walls float.\nroof | pyramid | 4,30,20 | 0,52,0 | 0,0,0 | roof\n'
+    rep, ok, whole = entity.check('chatter\n' + hut.replace('ENTITY: Hut', 'ENTITY: Old') + hut)
+    check('entity: the last recipe is read, musing lines skipped, a floating hut set down on y 0', ok and
+          any('moved down by 12.0' in r for r in rep) and abs(max(p[1] for p in whole.v)) < 1e-6, rep)
     return done()
 
 

@@ -1,0 +1,47 @@
+FAULTS
+parse    FAIL: part line has 1 fields, not 6: Wait, the mast prism is 10 tall from y 0 to y -10, but the l; part line has 1 fields, not 6: ENTITY: Robot Vacuum; part line has 1 fields, not 6: GAME: Sweep Patrol; part line has 1 fields, not 6: COLOUR: 180,180,200; part line has 1 fields, not 6: SIZE: 34,10,34; part line has 1 fields, not 6: SYMMETRIC: yes; part line has 1 fields, not 6: BASE: ground; part line has 1 fields, not 6: Hmm, the mast prism height 14 from y 0 to y -14, so its top ; part line has 1 fields, not 6: ENTITY: Robot Vacuum; part line has 1 fields, not 6: GAME: Sweep Patrol; part line has 1 fields, not 6: COLOUR: 180,180,200; part line has 1 fields, not 6: SIZE: 34,10,34; part line has 1 fields, not 6: SYMMETRIC: yes; part line has 1 fields, not 6: BASE: ground; part line has 1 fields, not 6: Actually, the prism is centred on its at point, so a prism w; part line has 1 fields, not 6: ENTITY: Robot Vacuum; part line has 1 fields, not 6: GAME: Sweep Patrol; part line has 1 fields, not 6: COLOUR: 180,180,200; part line has 1 fields, not 6: SIZE: 34,10,34; part line has 1 fields, not 6: SYMMETRIC: yes; part line has 1 fields, not 6: BASE: ground; part line has 1 fields, not 6: This works: body box 34x10x34 at y 0 spans y -5 to y 5, lowe
+size     FAIL: is 34 x 23 x 34, SIZE says 34 x 10 x 34
+joined   ok
+base     FAIL: lowest point at y 5.0 (ground means 0)
+mirror   ok
+edges    FAIL: 288 (budget 160)
+front    (judge) front half 64 vertices, widest 17; back half 104, widest 17
+
+top (front up the page)
+#######################################
+#                                     #
+#                                     #
+#                                     #
+#                                     #
+#                                     #
+#            #############            #
+#            #           #            #
+#           ##   #####   ##           #
+#         ## # ######### # ##         #
+#          # #  # # # #  # #          #
+#           ##   #####   ##           #
+#            #           #            #
+#            #############            #
+#                                     #
+#                                     #
+#                                     #
+#                                     #
+#                                     #
+#######################################
+side (front to the right)
+                       ##
+                   ##########
+                   ##########
+              ####################
+              ####################
+              #    # ###### #    #
+              ####################
+              #        ##        #
+              #         #        #
+################################################
+#             ####################             #
+#             ##        #       ##             #
+#             ####################             #
+#             #         #        #             #
+#             ####################             #
+#                                              #

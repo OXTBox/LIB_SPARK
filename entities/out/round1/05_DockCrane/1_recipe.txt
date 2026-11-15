@@ -1,0 +1,47 @@
+ENTITY: Dock Crane
+GAME: 1983 Vector Arcade
+COLOUR: 180,180,180
+SIZE: 30,120,100
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+tower | box | 30,120,30 | 0,0,0 | 0,0,0 | the square tower standing on the ground
+arm | box | 10,120,10 | 0,-60,50 | 0,0,0 | the long arm extending forward from the tower top
+cable | line | 0,-120,50; 0,-60,50 | 0,0,0 | 0,0,0 | the cable hanging from the arm top
+hook | box | 10,10,10 | 0,-120,50 | 0,0,0 | the hook hanging at the end of the arm
+
+Wait, the hook should hang below the arm end, not at the same y as the arm top. Let me correct:
+
+ENTITY: Dock Crane
+GAME: 1983 Vector Arcade
+COLOUR: 180,180,180
+SIZE: 30,120,100
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+tower | box | 30,120,30 | 0,0,0 | 0,0,0 | the square tower standing on the ground
+arm | box | 10,120,10 | 0,-60,50 | 0,0,0 | the long arm extending forward from the tower top
+cable | line | 0,-120,50; 0,-60,50 | 0,0,0 | 0,0,0 | the cable hanging from the arm top
+hook | box | 10,10,10 | 0,-120,50 | 0,0,0 | the hook hanging at the end of the arm
+
+Hmm, the hook needs to hang below the arm end. The arm is 120 tall centred at y -60, so its top is at y -60 + 60 = 0, bottom at y -60 - 60 = -120. That puts the arm top at ground level, which is wrong. Let me fix the arm position so its top is at y -60 (just below tower top at y -60) and extends forward.
+
+Corrected:
+
+ENTITY: Dock Crane
+GAME: 1983 Vector Arcade
+COLOUR: 180,180,180
+SIZE: 30,120,100
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+tower | box | 30,120,30 | 0,0,0 | 0,0,0 | the square tower standing on the ground
+arm | box | 10,120,10 | 0,-60,50 | 0,0,0 | the long arm extending forward from the tower top
+cable | line | 0,-120,50; 0,-60,50 | 0,0,0 | 0,0,0 | the cable hanging from the arm top
+hook | box | 10,10,10 | 0,-120,50 | 0,0,0 | the hook hanging at the end of the arm
+
+No, still wrong. The arm should be positioned so its top is at y -60 (matching tower top). Tower is 120 tall centred at y 0, so top at y -60, bottom at y 0. Arm should be 120 tall, centred at y -60, so top at y -60 + 60 = 0 (ground) — that's wrong. Arm height should be shorter, say 100 tall, centred at y -60, so top at y -10, bottom at y -110. That hangs below tower top. Let me adjust:
+
+tower | box | 30,120,30 | 0,0,0 | 0,0,0 | the square tower standing on the ground
+arm | box | 10,100,10 | 0,-60,50 | 0,0,0 | the long arm extending forward from the tower top
+cable | line | 0,-110,50; 0,-60,50 | 0,0,0 | 0,0,0 | the cable hanging from the arm top

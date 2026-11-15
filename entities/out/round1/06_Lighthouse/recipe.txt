@@ -1,0 +1,12 @@
+ENTITY: Lighthouse
+GAME: Lighthouse Keeper
+COLOUR: 255,255,255
+SIZE: 50,200,50
+SYMMETRIC: yes
+BASE: stands on ground
+PARTS:
+tower | box | 40,180,40 | 0,-90,0 | 0,0,0 | the round tower narrowing toward the top
+lamp_room | box | 20,40,20 | 0,-50,0 | 0,0,0 | the lamp room with windows inside
+lamp | prism | 6,8,20 | 0,-40,0 | 0,0,0 | the lamp housing at the room centre
+cap | pyramid | 6,15,30 | 0,-110,0 | 0,0,0 | the pointed cap on top of the tower
+base_plate | box | 50,10,50 | 0,0,0 | 0,0,0 | the ground base of the lighthouse

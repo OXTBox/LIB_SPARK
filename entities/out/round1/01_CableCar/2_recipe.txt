@@ -1,0 +1,15 @@
+ENTITY: Cable Car
+GAME: Cable Car Rescue
+COLOUR: 255,255,255
+SIZE: 48,106,50
+SYMMETRIC: yes
+BASE: flies
+PARTS:
+hanger | box | 8,12,6 | 0,30,0 | 0,0,0 | the hanger arm rising from the roof to the wheels
+cabin | box | 28,22,18 | 0,-35,0 | 0,0,0 | the cabin hanging between the wheels
+window_left | box | 6,10,14 | -14,-30,0 | 0,0,0 | left side window
+window_right | box | 6,10,14 | 14,-30,0 | 0,0,0 | right side window
+wheel_hanger_left | prism | 6,10,8 | -14,-10,0 | 0,0,0 | left wheel hanger on the cable
+wheel_hanger_right | prism | 6,10,8 | 14,-10,0 | 0,0,0 | right wheel hanger on the cable
+cable | line | 0,0,0; 0,-70,0 | 0,0,0 | 0,0,0 | the cable running up the mast
+roof | box | 48,10,50 | 0,0,0 | 0,0,0 | the roof the hanger arm rises from

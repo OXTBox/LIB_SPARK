@@ -1,0 +1,46 @@
+ENTITY: Ice Fishing Hut
+GAME: Ice Fishing
+COLOUR: 180,200,220
+SIZE: 50,60,50
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+hut-body | box | 40,40,40 | 0,0,0 | 0,0,0 | the wooden hut body on the ice
+roof | prism | 8,12,24 | 0,-40,0 | 0,0,0 | the pointed roof on top of the hut
+door | box | 12,20,16 | 0,-10,20 | 0,0,0 | the front door of the hut
+chimney | prism | 6,10,14 | 0,-30,25 | 0,0,0 | the chimney pipe on the hut front
+roof-tip | prism | 8,10,10 | 0,-50,0 | 0,0,0 | the pointed top of the roof
+
+Wait, the lowest point must be at y=0 and parts must touch the rest. Let me correct the positions so all parts connect to the hut-body and the lowest point is at y=0.
+
+ENTITY: Ice Fishing Hut
+GAME: Ice Fishing
+COLOUR: 180,200,220
+SIZE: 50,60,50
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+hut-body | box | 40,40,40 | 0,0,0 | 0,0,0 | the wooden hut body on the ice
+roof | prism | 8,12,24 | 0,-40,0 | 0,0,0 | the pointed roof on top of the hut
+door | box | 12,20,16 | 0,-10,20 | 0,0,0 | the front door of the hut
+chimney | prism | 6,10,14 | 0,-30,25 | 0,0,0 | the chimney pipe on the hut front
+roof-tip | prism | 8,10,10 | 0,-50,0 | 0,0,0 | the pointed top of the roof
+
+Actually, let me properly fix the faults: the roof, chimney, and roof-tip were not touching the rest, and the lowest point was at y=20 (above ground). I need to position them so they attach to the hut-body and extend down to y=0.
+
+ENTITY: Ice Fishing Hut
+GAME: Ice Fishing
+COLOUR: 180,200,220
+SIZE: 50,60,50
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+hut-body | box | 40,40,40 | 0,0,0 | 0,0,0 | the wooden hut body on the ice
+roof | prism | 8,12,24 | 0,-40,0 | 0,0,0 | the pointed roof on top of the hut
+door | box | 12,20,16 | 0,-10,20 | 0,0,0 | the front door of the hut
+chimney | prism | 6,10,14 | 0,-30,25 | 0,0,0 | the chimney pipe on the hut front
+roof-tip | prism | 8,10,10 | 0,-50,0 | 0,0,0 | the pointed top of the roof
+
+Let me correct properly:
+
+- Roof needs to touch hut-body: move roof y so its bottom is at hut-body top. Hut-body is 40 tall centered at 0, so spans y -20 to 20. Roof prism height 24, center at y=-40 gives spans -52 to -28, which doesn't touch. Move roof center to y=-16 so it spans -28 to -4, still not touching. Better: roof center y=-20, height 24 → spans -32 to -8, still not touching hut-body top at 20. Wait, hut-body spans -20 to 20, so top is 20. Roof bottom should be at 20. Roof height 24, so center at 20 + 24/2 = 32? No, if bottom is at 20, center is 20 + 12 = 32, spans 20 to 44. That's above. Actually for a roof on top, bottom of roof should touch top of hut-body (

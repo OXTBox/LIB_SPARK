@@ -1,0 +1,51 @@
+FAULTS
+parse    FAIL: part line has 1 fields, not 6: Wait, the lowest point must be at y=0 and parts must touch t; part line has 1 fields, not 6: ENTITY: Ice Fishing Hut; part line has 1 fields, not 6: GAME: Ice Fishing; part line has 1 fields, not 6: COLOUR: 180,200,220; part line has 1 fields, not 6: SIZE: 50,60,50; part line has 1 fields, not 6: SYMMETRIC: yes; part line has 1 fields, not 6: BASE: ground; part line has 1 fields, not 6: Actually, let me properly fix the faults: the roof, chimney,; part line has 1 fields, not 6: ENTITY: Ice Fishing Hut; part line has 1 fields, not 6: GAME: Ice Fishing; part line has 1 fields, not 6: COLOUR: 180,200,220; part line has 1 fields, not 6: SIZE: 50,60,50; part line has 1 fields, not 6: SYMMETRIC: yes; part line has 1 fields, not 6: BASE: ground; part line has 1 fields, not 6: Let me correct properly:; part line has 1 fields, not 6: - Roof needs to touch hut-body: move roof y so its bottom is
+size     ok: is 40 x 75 x 54, SIZE says 50 x 60 x 50
+joined   FAIL: not touching the rest: roof, chimney, roof-tip, roof, chimney, roof-tip, roof, chimney, roof-tip
+base     FAIL: lowest point at y 20.0 (ground means 0)
+mirror   ok
+edges    FAIL: 270 (budget 160)
+front    (judge) front half 108 vertices, widest 20; back half 72, widest 20
+
+top (front up the page)
+           ########
+          #        #
+        #############
+       #  #       #  #
+        # #       # #
+#############################
+#         #########         #
+#         #       #         #
+#         #########         #
+#       ###### ######       #
+#      ##           ##      #
+#     # #            ##     #
+#     ##             # #    #
+#     ###            ##     #
+#       ##         ###      #
+#       #############       #
+#           ######          #
+#                           #
+#                           #
+#############################
+side (front to the right)
+     ###########
+    #############
+    ####  #   ###
+    #############
+    # #   #   # #
+    # #   #   # # ##########
+    # #   #   # # #    #   #
+    ############# #    #   #
+                  ##########
+#########################
+#               #   #   #
+#               #   #   #
+#               #   #   #
+#               #   #   #
+#               #########
+#                   #
+#                   #
+#                   #
+#                   #
+#####################

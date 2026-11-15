@@ -1,0 +1,51 @@
+FAULTS
+parse    ok: 5 parts
+size     ok: is 40 x 75 x 54, SIZE says 50 x 60 x 50
+joined   FAIL: not touching the rest: roof, chimney, roof-tip
+base     FAIL: lowest point at y 20.0 (ground means 0)
+mirror   ok
+edges    ok: 90 (budget 160)
+front    (judge) front half 36 vertices, widest 20; back half 24, widest 20
+
+top (front up the page)
+           ########
+          #        #
+        #############
+       #  #       #  #
+        # #       # #
+#############################
+#         #########         #
+#         #       #         #
+#         #########         #
+#       ###### ######       #
+#      ##           ##      #
+#     # #            ##     #
+#     ##             # #    #
+#     ###            ##     #
+#       ##         ###      #
+#       #############       #
+#           ######          #
+#                           #
+#                           #
+#############################
+side (front to the right)
+     ###########
+    #############
+    ####  #   ###
+    #############
+    # #   #   # #
+    # #   #   # # ##########
+    # #   #   # # #    #   #
+    ############# #    #   #
+                  ##########
+#########################
+#               #   #   #
+#               #   #   #
+#               #   #   #
+#               #   #   #
+#               #########
+#                   #
+#                   #
+#                   #
+#                   #
+#####################

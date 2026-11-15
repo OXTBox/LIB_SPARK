@@ -1,0 +1,13 @@
+ENTITY: Two Key Door
+GAME: 1983-style vector arcade
+COLOUR: 120,120,120
+SIZE: 50,80,10
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+frame | box | 50,10,10 | 0,5,0 | 0,0,0 | the door frame standing on the ground
+door | box | 40,70,8 | 0,-35,0 | 0,0,0 | the door panel inside the frame
+key | prism | 6,12,30 | 0,-70,0 | 0,0,0 | the big coloured key shape above the frame
+key_left | prism | 6,12,30 | -25,-70,0 | 0,0,0 | the left half of the key shape
+key_right | prism | 6,12,30 | 25,-70,0 | 0,0,0 | the right half of the key shape
+key_base | box | 50,10,10 | 0,-70,0 | 0,0,0 | the base plate holding the key shape

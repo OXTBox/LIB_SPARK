@@ -9,39 +9,44 @@ A recipe is words and numbers (Spark writes them, the owner's rule: never script
 written by this tool, the same calls the games use (MeshBox, MeshPrism, MeshPyramid, MeshSphere,
 MeshLathe, MeshLoft, Mesh.Transform, Mesh.Merge, Mesh.AddVertex / AddLine / AddFace).
 
-RECIPE FORMAT
+RECIPE FORMAT (y is HEIGHT ABOVE THE GROUND in a recipe; the tool turns it into the engine's
+y-down when it writes code, so Spark never has to think upside down)
     ENTITY: Sail Boat
     GAME: Simple Test2 harbour
     COLOUR: 255,255,255
     SIZE: 40,95,110            x (width), y (height), z (length) of the whole thing
     SYMMETRIC: yes             mirror image left/right (x -> -x)
-    BASE: floats               ground (lowest point at y 0) | floats | flies
+    BASE: floats               ground (the tool sets its lowest point on y 0) | floats | flies
+    RELATIONS: cabin on top of hull; sail above hull       optional, checked
     PARTS:
     name | shape | sizes | at x,y,z | turn rx,ry,rz | what it is for
-    hull | loft | 0; 0,60; 20,25; 20,-50; -20,-50; -20,25 / 25; 0,30; 10,12.5; 10,-25; -10,-25; -10,12.5 | 0,0,0 | 0,0,0 | the hull
-    cabin | box | 24,14,30 | 0,-7,-15 | 0,0,0 | the cabin
-    mast | line | 0,0,10; 0,-70,10 | 0,0,0 | 0,0,0 | holds the sail
+    hull | loft | 0; 0,60; 20,25; 20,-50; -20,-50; -20,25 / -25; 0,30; 10,12.5; 10,-25; -10,-25; -10,12.5 | 0,0,0 | 0,0,0 | the hull
+    cabin | box | 24,14,30 | 0,7,-15 | 0,0,0 | the cabin
+    mast | line | 0,0,10; 0,70,10 | 0,0,0 | 0,0,0 | holds the sail
 
-  The engine's axes: x right, y DOWN (up is -y: a mast top is at y -70), z forward (the front
-  points to +z). Turns are degrees, applied Z then Y then X (Mesh.Transform's order).
+  Axes in a recipe: x right, y UP, z forward (the front points to +z). Turns in degrees, applied
+  Z then Y then X (Mesh.Transform's order). The engine's y points down: code() negates y and the
+  x and z turns (a mirror in y), so the generated calls match a hand-written engine mesh.
   Shapes and their sizes:
     box      w,h,d                         centred on its point
-    prism    sides,radius,height           a cylinder standing on y, centred
-    pyramid  sides,radius,height           base at +height/2 (bottom), tip at -height/2 (top)
+    prism    sides,radius,height           a cylinder standing upright, centred
+    pyramid  sides,radius,height           base at the bottom, tip at the top
     sphere   radius,rings,sides
-    lathe    sides; r,y; r,y; ...          a profile spun round y, listed top to bottom
+    lathe    sides; r,y; r,y; ...          a profile spun round the upright axis, top to bottom
     loft     yA; x,z; x,z... / yB; x,z...  two outlines (seen from above, same count) joined
     line     x,y,z; x,y,z                  a wire
     tri      x,y,z; x,y,z; x,y,z           one flat triangle (a sail, a fin)
 
 CHECKS (each a line in the report; "FAIL" lines make the exit code 1)
-  parse     every part line has 6 fields and a known shape with the right sizes
-  size      the whole thing's x, y, z extents within 30% of SIZE
-  joined    every part touches the others (bounding boxes within 2% of the size): nothing floats loose
-  base      ground: lowest point at y 0 (within 3% of the height); floats/flies: just reported
-  mirror    SYMMETRIC yes: every vertex has a mirror partner at -x
+  parse     the LAST complete recipe in the answer is read (small models think aloud and
+            rewrite); lines without "|" between part lines are skipped; every part line has
+            6 fields and a known shape with the right sizes
+  size      the whole thing's width, height, length within 30% of SIZE
+  joined    every part touches the others (bounding boxes within 2% of the size)
+  base      ground: the tool lowers or raises the whole thing onto y 0 and says by how much
+  relate    each RELATIONS item holds ("a on top of b", "a above b", "a below b", "a inside b")
+  mirror    SYMMETRIC yes: every corner has a twin at -x
   edges     the edge count (as Mesh.Define counts them) is at most 160 (vector speed)
-  front     the front half (+z) and back half differ in shape, reported for a person to judge
 """
 import math, re, sys
 
@@ -201,22 +206,37 @@ def points(text, per):
     return out
 
 
+def last_recipe(text):
+    """the last complete recipe in an answer: small models sometimes think aloud ("Wait, ...")
+    and write the recipe again; the last one is their correction"""
+    lines = text.replace('\r', '\n').replace('```', '').split('\n')
+    starts = [i for i, l in enumerate(lines) if l.strip().upper().startswith('ENTITY:')]
+    for s in reversed(starts):
+        chunk = lines[s:]
+        if any(l.strip().upper().startswith('PARTS') for l in chunk) and any('|' in l for l in chunk):
+            return '\n'.join(chunk)
+    return '\n'.join(lines[starts[-1]:]) if starts else text
+
+
 def parse(text):
+    """(head, parts, errors). Recipe coordinates: y = height ABOVE the ground. Each part also
+    gets its engine form (y down: y, x-turn and z-turn negated), built as the engine builds it."""
     head, parts, errors, in_parts = {}, [], [], False
-    for raw in text.replace('\r', '\n').split('\n'):
+    for raw in last_recipe(text).split('\n'):
         line = raw.strip().strip('`')
         if not line or line.startswith('#'):
             continue
         if line.upper().startswith('PARTS'):
             in_parts = True
             continue
-        if not in_parts:
-            m = re.match(r'^([A-Z]+):\s*(.*)$', line)
-            if m:
-                head[m.group(1)] = m.group(2).strip()
+        m = re.match(r'^([A-Z]+):\s*(.*)$', line)
+        if m and (not in_parts or '|' not in line):
+            head[m.group(1)] = m.group(2).strip()
+            continue
+        if not in_parts or '|' not in line:            # musing between part lines: not a part
             continue
         f = [x.strip() for x in line.lstrip('-* ').split('|')]
-        if f and f[0].lower() == 'name':                     # the column header line
+        if f and f[0].lower() == 'name':                # the column header line
             continue
         if len(f) < 5:
             errors.append('part line has %d fields, not 6: %s' % (len(f), line[:60]))
@@ -227,31 +247,34 @@ def parse(text):
             errors.append('%s: unknown shape "%s"' % (name, shape))
             continue
         try:
-            mesh = build(shape, sizes)
             a = nums(at) or [0, 0, 0]
             t = nums(turn) or [0, 0, 0]
             if len(a) != 3 or len(t) != 3:
                 raise ValueError('"at" and "turn" need 3 numbers each')
+            eng = engine_form(shape, sizes)
+            mesh = build(shape, eng)
         except (ValueError, IndexError) as e:
             errors.append('%s (%s): %s' % (name, shape, e))
             continue
-        parts.append(dict(name=name, shape=shape, sizes=sizes, at=a, turn=t,
-                          role=f[5] if len(f) > 5 else '', mesh=mesh))
+        parts.append(dict(name=name, shape=shape, sizes=sizes, eng=eng, mesh=mesh,
+                          at=(a[0], -a[1], a[2]), turn=(-t[0], t[1], -t[2]),
+                          role=f[5] if len(f) > 5 else ''))
     return head, parts, errors
 
 
-def build(shape, sizes):
+def engine_form(shape, sizes):
+    """the shape's numbers in engine terms (y down)"""
     v = nums(sizes)
     if shape in ('box', 'prism', 'pyramid', 'sphere'):
         if len(v) != 3:
             raise ValueError('%s needs 3 numbers, got %d' % (shape, len(v)))
-        return {'box': box, 'prism': prism, 'pyramid': pyramid, 'sphere': sphere}[shape](*v)
+        return v                                  # all symmetric in y, and the pyramid's tip is up in both
     if shape == 'lathe':
         sides, rest = sizes.split(';', 1)
         prof = points(rest, 2)
         if len(prof) < 2:
             raise ValueError('a lathe needs at least 2 profile points')
-        return lathe(prof, nums(sides)[0])
+        return [nums(sides)[0], [(r, -y) for r, y in prof]]
     if shape == 'loft':
         A, B = sizes.split('/')
         ya, ra = A.split(';', 1)
@@ -259,42 +282,60 @@ def build(shape, sizes):
         pa, pb = points(ra, 2), points(rb, 2)
         if len(pa) != len(pb) or len(pa) < 2:
             raise ValueError('loft outlines need the same count of x,z points (%d and %d)' % (len(pa), len(pb)))
-        return loft(nums(ya)[0], pa, nums(yb)[0], pb)
+        return [-nums(ya)[0], pa, -nums(yb)[0], pb]
+    p = points(sizes, 3)
+    if len(p) != (2 if shape == 'line' else 3):
+        raise ValueError('a %s needs %d points' % (shape, 2 if shape == 'line' else 3))
+    return [(x, -y, z) for x, y, z in p]
+
+
+def build(shape, e):
+    if shape in ('box', 'prism', 'pyramid', 'sphere'):
+        return {'box': box, 'prism': prism, 'pyramid': pyramid, 'sphere': sphere}[shape](*e)
+    if shape == 'lathe':
+        return lathe(e[1], e[0])
+    if shape == 'loft':
+        return loft(*e)
+    m = Mesh()
+    ids = [m.add(*q) for q in e]
     if shape == 'line':
-        p = points(sizes, 3)
-        if len(p) != 2:
-            raise ValueError('a line needs 2 points')
-        m = Mesh()
-        m.lines.append((m.add(*p[0]), m.add(*p[1])))
-        return m
-    if shape == 'tri':
-        p = points(sizes, 3)
-        if len(p) != 3:
-            raise ValueError('a tri needs 3 points')
-        m = Mesh()
-        m.faces.append([m.add(*q) for q in p])
-        return m
-    raise ValueError(shape)
+        m.lines.append(tuple(ids))
+    else:
+        m.faces.append(ids)
+    return m
 
 
-def place(part):
+def place(part, settle=0.0):
     m = Mesh()
     m.merge(part['mesh'])
     rx, ry, rz = (math.radians(x) for x in part['turn'])
-    return transform(m, rx, ry, rz, *part['at'])
+    x, y, z = part['at']
+    return transform(m, rx, ry, rz, x, y + settle, z)
 
 
 def bounds(vs):
     return [min(p[i] for p in vs) for i in range(3)], [max(p[i] for p in vs) for i in range(3)]
 
 
+def settle_of(head, parts):
+    """ground objects: how far the whole thing moves (engine y) so its lowest point is on y 0"""
+    if (head.get('BASE', 'ground').split() or ['ground'])[0].lower() != 'ground' or not parts:
+        return 0.0
+    hi = max(max(p[1] for p in place(q).v) for q in parts)
+    return -hi
+
+
+REL = re.compile(r'^\s*([\w-]+)\s+(on top of|above|below|under|inside|on)\s+([\w-]+)\s*$', re.I)
+
+
 def check(text):
-    """(report lines, ok, whole mesh)"""
+    """(report lines, ok, whole mesh in engine terms, settled)"""
     head, parts, errors = parse(text)
     rep = ['parse    %s' % ('ok: %d parts' % len(parts) if not errors else 'FAIL: ' + '; '.join(errors))]
     if not parts:
         return rep + ['FAIL     no parts'], False, Mesh()
-    placed = [place(p) for p in parts]
+    settle = settle_of(head, parts)
+    placed = [place(p, settle) for p in parts]
     whole = Mesh()
     for m in placed:
         whole.merge(m)
@@ -306,11 +347,10 @@ def check(text):
         off = [abs(ext[i] - want[i]) / max(want[i], 1) for i in range(3)]
         bad = max(off) > 0.30
         ok &= not bad
-        rep.append('size     %s: is %.0f x %.0f x %.0f, SIZE says %.0f x %.0f x %.0f' %
+        rep.append('size     %s: is %.0f x %.0f x %.0f (width, height, length), SIZE says %.0f x %.0f x %.0f' %
                    ('FAIL' if bad else 'ok', ext[0], ext[1], ext[2], *want))
     else:
         rep.append('size     (no SIZE line) is %.0f x %.0f x %.0f' % tuple(ext))
-    # joined: bounding boxes touching, union by flood
     tol = 0.02 * max(ext)
     boxes = [bounds(m.v) for m in placed]
     touch = lambda a, b: all(a[0][i] - tol <= b[1][i] and b[0][i] - tol <= a[1][i] for i in range(3))
@@ -324,28 +364,56 @@ def check(text):
     loose = [parts[j]['name'] for j in range(len(parts)) if j not in seen]
     ok &= not loose
     rep.append('joined   %s' % ('ok' if not loose else 'FAIL: not touching the rest: ' + ', '.join(loose)))
-    base = head.get('BASE', 'ground').split()[0].lower() if head.get('BASE') else 'ground'
-    lowest = hi[1]                                            # y down: the lowest point has the largest y
+    base = (head.get('BASE', 'ground').split() or ['ground'])[0].lower()
     if base == 'ground':
-        bad = abs(lowest) > 0.03 * max(ext[1], 1)
-        ok &= not bad
-        rep.append('base     %s: lowest point at y %.1f (ground means 0)' % ('FAIL' if bad else 'ok', lowest))
+        rep.append('base     ok: ground; %s' % ('stands on y 0 as written' if abs(settle) < 0.05 else
+                                              'moved %s by %.1f so it stands on y 0' % ('down' if settle > 0 else 'up', abs(settle))))
     else:
-        rep.append('base     %s: lowest point at y %.1f' % (base, lowest))
+        rep.append('base     %s: lowest point %.1f above the ground' % (base, -hi[1]))
+    # relations, in height above the ground: up = -engine y
+    top = {p['name'].lower(): -boxes[k][0][1] for k, p in enumerate(parts)}      # highest point
+    bot = {p['name'].lower(): -boxes[k][1][1] for k, p in enumerate(parts)}      # lowest point
+    rels = [r for r in re.split(r'[;,]', head.get('RELATIONS', '')) if r.strip()]
+    rel_faults = []
+    htol = 0.05 * max(ext[1], 1)
+    for r in rels:
+        m = REL.match(r)
+        if not m:
+            rel_faults.append('cannot read "%s"' % r.strip())
+            continue
+        a, how, b = m.group(1).lower(), m.group(2).lower(), m.group(3).lower()
+        if a not in top or b not in top:
+            rel_faults.append('"%s": no part called %s' % (r.strip(), a if a not in top else b))
+            continue
+        if how in ('on top of', 'on'):
+            good = abs(bot[a] - top[b]) <= htol
+            why = '%s starts at height %.0f, %s ends at %.0f' % (a, bot[a], b, top[b])
+        elif how == 'above':
+            good = bot[a] >= top[b] - htol
+            why = '%s starts at %.0f, %s reaches %.0f' % (a, bot[a], b, top[b])
+        elif how in ('below', 'under'):
+            good = top[a] <= bot[b] + htol
+            why = '%s reaches %.0f, %s starts at %.0f' % (a, top[a], b, bot[b])
+        else:   # inside
+            ka, kb = [p['name'].lower() for p in parts].index(a), [p['name'].lower() for p in parts].index(b)
+            good = all(boxes[kb][0][i] - tol <= boxes[ka][0][i] and boxes[ka][1][i] <= boxes[kb][1][i] + tol for i in range(3))
+            why = '%s is not within %s' % (a, b)
+        if not good:
+            rel_faults.append('"%s" is not true: %s' % (r.strip(), why))
+    if rels:
+        ok &= not rel_faults
+        rep.append('relate   %s' % ('ok: %d relations hold' % len(rels) if not rel_faults else 'FAIL: ' + '; '.join(rel_faults)))
+    else:
+        rep.append('relate   (no RELATIONS line)')
     if head.get('SYMMETRIC', '').lower().startswith('y'):
-        keys = {(round(x, 1), round(y, 1), round(z, 1)) for x, y, z in whole.v}
-        odd = [p for p in keys if (round(-p[0], 1) or 0.0, p[1], p[2]) not in keys and (round(-p[0], 1), p[1], p[2]) not in keys]
+        keys = {(round(x, 1) + 0.0, round(y, 1) + 0.0, round(z, 1) + 0.0) for x, y, z in whole.v}
+        odd = [p for p in keys if (round(-p[0], 1) + 0.0, p[1], p[2]) not in keys]
         ok &= not odd
-        rep.append('mirror   %s' % ('ok' if not odd else 'FAIL: %d vertices have no mirror partner at -x, e.g. %s' % (len(odd), odd[0])))
+        rep.append('mirror   %s' % ('ok' if not odd else 'FAIL: %d corners have no twin on the other side (x %.1f has none at x %.1f)'
+                                    % (len(odd), odd[0][0], -odd[0][0])))
     ne = len(whole.edges())
     ok &= ne <= EDGE_BUDGET
     rep.append('edges    %s: %d (budget %d)' % ('ok' if ne <= EDGE_BUDGET else 'FAIL', ne, EDGE_BUDGET))
-    mid = (lo[2] + hi[2]) / 2
-    front = [p for p in whole.v if p[2] > mid]
-    back = [p for p in whole.v if p[2] <= mid]
-    fw = (max(abs(p[0]) for p in front) if front else 0)
-    bw = (max(abs(p[0]) for p in back) if back else 0)
-    rep.append('front    (judge) front half %d vertices, widest %.0f; back half %d, widest %.0f' % (len(front), fw, len(back), bw))
     return rep, ok, whole
 
 
@@ -381,52 +449,48 @@ def lc_name(text):
 
 
 def fmt(x):
-    return ('%.3f' % x).rstrip('0').rstrip('.') if x != int(x) else str(int(x))
+    x = round(float(x), 4) + 0.0
+    return ('%.4f' % x).rstrip('0').rstrip('.') if x != int(x) else str(int(x))
 
 
 def code(text, prefix='Ent'):
-    """the LiveCode function that builds the recipe's mesh (Vibecode3D calls only)"""
+    """the LiveCode function that builds the recipe's mesh (Vibecode3D calls only, engine y down)"""
     head, parts, errors = parse(text)
     if errors:
         raise ValueError('; '.join(errors))
+    settle = settle_of(head, parts)
     fname = '%s.%sMesh' % (prefix, lc_name(head.get('ENTITY', 'Thing')))
     out = ['## %s (%s): generated by LIB_SPARK/entities/entity.py from a recipe; edit the recipe, not this.'
            % (head.get('ENTITY', ''), head.get('GAME', '')),
-           '## Front +Z, up -Y. Colour %s.' % head.get('COLOUR', ''),
+           '## Engine axes: front +Z, up -Y (the recipe is written with y up). Colour %s.' % head.get('COLOUR', ''),
            'function %s' % fname, '   local tM, a, b, c', '   put Mesh.New() into tM']
     for p in parts:
-        sh, sz = p['shape'], p['sizes']
+        sh, e = p['shape'], p['eng']
         out.append('   -- %s: %s' % (p['name'], p['role']))
         if sh in ('line', 'tri'):
-            pts = points(sz, 3)
-            # move and turn the points here (the engine has no transform for loose vertices)
-            m = place(p)
-            names = ['a', 'b', 'c'][:len(pts)]
+            m = place(p, settle)              # loose points are placed here (no transform for them in the engine)
+            names = ['a', 'b', 'c'][:len(m.v)]
             for n, q in zip(names, m.v):
-                out.append('   Mesh.AddVertex tM, %s, %s, %s' % tuple(fmt(round(x, 3)) for x in q))
+                out.append('   Mesh.AddVertex tM, %s, %s, %s' % tuple(fmt(x) for x in q))
                 out.append('   put the result into %s' % n)
             out.append('   Mesh.AddLine tM, a, b' if sh == 'line' else '   Mesh.AddFace tM, a && b && c')
             continue
-        v = nums(sz)
         if sh == 'box':
-            call = 'MeshBox(%s, %s, %s)' % tuple(fmt(x) for x in v)
+            call = 'MeshBox(%s, %s, %s)' % tuple(fmt(x) for x in e)
         elif sh in ('prism', 'pyramid'):
-            call = 'Mesh%s(%d, %s, %s)' % (sh.capitalize(), int(v[0]), fmt(v[1]), fmt(v[2]))
+            call = 'Mesh%s(%d, %s, %s)' % (sh.capitalize(), int(e[0]), fmt(e[1]), fmt(e[2]))
         elif sh == 'sphere':
-            call = 'MeshSphere(%s, %d, %d)' % (fmt(v[0]), int(v[1]), int(v[2]))
+            call = 'MeshSphere(%s, %d, %d)' % (fmt(e[0]), int(e[1]), int(e[2]))
         elif sh == 'lathe':
-            sides, rest = sz.split(';', 1)
-            call = 'MeshLathe("%s", %d)' % ('|'.join('%s,%s' % (fmt(r), fmt(y)) for r, y in points(rest, 2)), int(nums(sides)[0]))
+            call = 'MeshLathe("%s", %d)' % ('|'.join('%s,%s' % (fmt(r), fmt(y)) for r, y in e[1]), int(e[0]))
         else:   # loft
-            A, B = sz.split('/')
-            ya, ra = A.split(';', 1)
-            yb, rb = B.split(';', 1)
             ol = lambda pts: '|'.join('%s,%s' % (fmt(x), fmt(z)) for x, z in pts)
-            call = 'MeshLoft("%s", %s, "%s", %s)' % (ol(points(ra, 2)), fmt(nums(ya)[0]), ol(points(rb, 2)), fmt(nums(yb)[0]))
-        rx, ry, rz = (math.radians(x) for x in p['turn'])
-        if any(p['turn']) or any(p['at']):
-            call = 'Mesh.Transform(%s, %s, %s, %s, %s, %s, %s, 1)' % (call, fmt(round(rx, 5)), fmt(round(ry, 5)), fmt(round(rz, 5)),
-                                                                     *(fmt(x) for x in p['at']))
+            call = 'MeshLoft("%s", %s, "%s", %s)' % (ol(e[1]), fmt(e[0]), ol(e[3]), fmt(e[2]))
+        x, y, z = p['at']
+        y += settle
+        if any(p['turn']) or x or y or z:
+            rx, ry, rz = (math.radians(t) for t in p['turn'])
+            call = 'Mesh.Transform(%s, %s, %s, %s, %s, %s, %s, 1)' % (call, fmt(rx), fmt(ry), fmt(rz), fmt(x), fmt(y), fmt(z))
         out.append('   put Mesh.Merge(tM, %s) into tM' % call)
     out += ['   return tM', 'end %s' % fname]
     return '\n'.join(out) + '\n', fname
@@ -448,7 +512,7 @@ def main(argv):
         print('== %s: %s' % (f, 'OK' if ok else 'FAULTS'))
         print('\n'.join('   ' + r for r in rep))
         print(view(whole, (0, 2), title='   top (front up the page)'))
-        print(view(whole, (2, 1), title='   side (front to the right)'))
+        print(view(whole, (2, 1), title='   side (front to the right, up is up)'))
     return 1 if bad else 0
 
 

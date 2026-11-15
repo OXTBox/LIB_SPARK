@@ -1,0 +1,11 @@
+ENTITY: Robot Vacuum
+GAME: Sweep Patrol
+COLOUR: 180,180,200
+SIZE: 34,10,34
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+body | box | 34,10,34 | 0,0,17 | 0,0,0 | the flat round vacuum body sitting on the ground
+bumper | box | 10,4,12 | 0,-2,17 | 0,0,0 | the front bumper at the +z front of the body
+mast | prism | 6,8,14 | 0,-7,17 | 0,0,0 | the vertical mast holding the light on top
+light | sphere | 4,3,6 | 0,-14,17 | 0,0,0 | the small light on top of the mast

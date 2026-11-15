@@ -1,0 +1,10 @@
+ENTITY: Clock Gear
+GAME: Clock Tower Climb
+COLOUR: 255,255,255
+SIZE: 80,80,10
+SYMMETRIC: yes
+BASE: flies
+PARTS:
+gear | box | 76,40,8 | 0,0,0 | 0,0,0 | the flat gear wheel body
+teeth | prism | 8,12,8 | 0,0,0 | 0,0,0 | the 8 teeth around the gear rim
+axle | line | 0,0,0; 0,-40,0 | 0,0,0 | 0,0,0 | the axle through the gear centre

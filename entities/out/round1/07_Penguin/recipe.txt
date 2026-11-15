@@ -1,0 +1,14 @@
+ENTITY: Penguin
+GAME: Penguin Slide
+COLOUR: 255,255,255
+SIZE: 24,40,20
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+egg | box | 20,30,16 | 0,0,8 | 0,0,0 | the egg body of the penguin
+head | sphere | 9,3,6 | 0,-22,8 | 0,0,0 | the round head of the penguin
+beak | box | 4,6,6 | 0,-24,14 | 0,0,0 | the small beak at the front of the penguin
+flipper_left | box | 8,12,6 | -9,-18,6 | 0,0,0 | the left flipper of the penguin
+flipper_right | box | 8,12,6 | 9,-18,6 | 0,0,0 | the right flipper of the penguin
+foot_left | box | 10,6,6 | -7,-28,8 | 0,0,0 | the left foot of the penguin
+foot_right | box | 10,6,6 | 7,-28,8 | 0,0,0 | the right foot of the penguin

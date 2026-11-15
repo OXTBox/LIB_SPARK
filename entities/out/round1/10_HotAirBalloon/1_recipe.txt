@@ -1,0 +1,12 @@
+ENTITY: Hot Air Balloon
+GAME: 1983-style vector arcade
+COLOUR: 255,255,255
+SIZE: 60,110,60
+SYMMETRIC: yes
+BASE: flies
+PARTS:
+balloon | prism | 12,22,40 | 0,0,-10 | 0,0,0 | the round balloon on top
+mast | line | 0,0,-10; 0,-70,-10 | 0,0,0 | 0,0,0 | holds the burner and basket
+burner | box | 14,10,10 | 0,-55,-10 | 0,0,0 | the burner between balloon and basket
+basket | box | 24,12,20 | 0,-95,-10 | 0,0,0 | the square basket at the bottom
+rope | line | 0,-45,-10; 0,-95,-10 | 0,0,0 | 0,0,0 | ropes connecting burner and basket

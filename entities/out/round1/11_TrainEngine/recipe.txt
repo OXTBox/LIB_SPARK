@@ -1,0 +1,15 @@
+ENTITY: Train Engine
+GAME: Train Yard Switch
+COLOUR: 180,180,180
+SIZE: 30,45,90
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+frame | box | 30,12,90 | 0,6,0 | 0,0,0 | the engine frame standing on the ground
+boiler | box | 24,28,40 | 0,-14,20 | 0,0,0 | the long steam boiler on the frame
+cab | box | 18,22,20 | 0,-30,10 | 0,0,0 | the cab at the back of the engine
+chimney | prism | 6,8,14 | 0,-32,-10 | 0,0,0 | the chimney at the front of the engine
+wheel1 | prism | 8,8,8 | -10,-4,0 | 0,0,0 | left front wheel
+wheel2 | prism | 8,8,8 | 10,-4,0 | 0,0,0 | right front wheel
+wheel3 | prism | 8,8,8 | -10,-4,45 | 0,0,0 | left back wheel
+wheel4 | prism | 8,8,8 | 10,-4,45 | 0,0,0 | right back wheel

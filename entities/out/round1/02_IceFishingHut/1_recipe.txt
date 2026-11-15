@@ -1,0 +1,12 @@
+ENTITY: Ice Fishing Hut
+GAME: Ice Fishing
+COLOUR: 180,200,220
+SIZE: 50,60,50
+SYMMETRIC: yes
+BASE: ground
+PARTS:
+hut-body | box | 40,40,40 | 0,0,0 | 0,0,0 | the wooden hut body on the ice
+roof | prism | 8,12,24 | 0,-40,0 | 0,0,0 | the pointed roof on top of the hut
+door | box | 12,20,16 | 0,-10,20 | 0,0,0 | the front door of the hut
+chimney | prism | 6,10,14 | 0,-30,25 | 0,0,0 | the chimney pipe on the hut front
+roof-tip | prism | 8,10,10 | 0,-50,0 | 0,0,0 | the pointed top of the roof
