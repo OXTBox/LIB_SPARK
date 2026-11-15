@@ -122,12 +122,13 @@ Falling Floor).
 
 ## Maze and rooms batch 2 (2026-11-15, 12 ideas, Claude's verdicts)
 
-Run: 03:37 to 03:43, 24 requests, 181 s of model time, 52 to 70 tokens/s. One cut off: Bridge
-Builder Room's level table ran into max_tokens (900) halfway through its layouts; its table is
-complete, the layouts are not wanted anyway, so it is not re-run.
+Run: 03:37 to 03:43, 24 requests, 181 s of model time, 52 to 70 tokens/s. Two cut off: Bridge
+Builder Room's and Storm Rescue's level outputs ran into max_tokens (900) in their layouts; both
+tables are complete and the layouts are not wanted, so neither is re-run.
 
 **Lesson for the next batch:** the header line "no Space key unless it is needed" was a comment
-(`#`) in GAME_IDEAS.txt, so Spark never saw it: 12 of 12 drafts invented a Space key (Space to
+(`#`) in GAME_IDEAS.txt, so Spark never saw it (and batch 3 found the deeper cause: the prompt
+said "CONTROLS: Only arrow keys and Space."; fixed after batch 3): 12 of 12 drafts invented a Space key (Space to
 ride lifts, Space to collect keys, Space to light beacons). Put such rules in each idea's own
 text, or in `arcade_prompt.md` (proposed: "Movement and walking into things do the work; add an
 action key only when the idea names one").
@@ -151,3 +152,29 @@ Suggested order from both batches: Two Key Doors, Pursuit Grid, Mirror Halls, Gu
 three two-hero ones are PROMPT & GLAZE levels), then Wire Sentries, Courier Run, Ring Arena, Orbit
 Room; the puzzle rooms (Push Block Vault, Bridge Builder, Switch Room, Slide Ice Cave, Tile
 Painter, Falling Floor) after one shared Python solver/checker is written.
+
+## Arenas and runs batch 3 (2026-11-15, 12 ideas, Claude's verdicts)
+
+Run: 03:44 to 03:50, 24 requests, 232 s of model time, 28 to 68 tokens/s (slower spells while
+the machine was busy). No cut-offs. The keys were written into every idea this time and 10 of 12
+still added Space: `arcade_prompt.md` said "CONTROLS: one line. Only arrow keys and Space." and
+asked "what costs a life", so every game got a Space key and lives. **Prompt fixed** (CONTROLS:
+the keys the idea names, walking does the work; lives only if something can hurt you). Batch 4
+tests the fix.
+
+| Game | Verdict | What to change |
+|---|---|---|
+| Echo Chamber (301) | buildable as is | Keys right, numbers sane (targets 5 to 9, time falling from 1.5 s, lives 3 to 1). A turning-only first-person game: the cheapest to build in Vibecode3D. |
+| Hold The Square (702) | buildable with a small change | Standing in the square fills the bar (no Space). Drones 4 to 6 and the square moving sooner (10 to 22) are fine. Small arena: xt3d bench or Vibecode3D. |
+| Gate Runner (990) | buildable with a small change | Drop Space (left/right only, as the idea says). Gate speed 20 to 28 and gates 4 to 7 are fine. Same frame as Dodge Tunnel / Coast Road. |
+| Lamp Lighter Run (387) | buildable with a small change | Walking past a lamp lights it (no Space). Lamps 5 to 9 fine; dawn = a clock of street length / speed + 30 s. |
+| Night Garden (130) | needs a change | "Space to enter the gardener's light" is backwards (the light sends you to the gate). No lives: being seen costs time. Table flat: gardeners 1 to 4, flowers 6 to 14. Same sight rule as Wire Sentries (could share code). |
+| Signal Relay (499) | needs a change, **fits PROMPT & GLAZE** | TAB swaps hero (Spark gave both Space and TAB). No lives. Pad pairs 3 to 6 fine; sight = a straight free corridor on the cellmap. |
+| Cargo Crawler (541) | needs a change | Walking into a crate hooks it (no Space). The forklift costs a life; crossing the chain just blocks (snake rules). Crates 2 to 6. |
+| Spire Climb (839) | needs a change | No Space. A ball knocks you back one turn of the ramp, no lives (the clock is the pressure). Ball speed 2.5 to 4.5 fine. Needs a spiral ramp mesh (hand-built is simpler than stacked cellmaps). |
+| Count Room (816) | needs a change | Walking onto a tile chooses it (no Space). A wrong tile resets the count, no lives. Table flat: tiles 5, 7, 9, 12, 15; swaps from level 3. |
+| Path Painter Duel (897) | needs a change | Walking paints (no Space); walls block, they do not cost lives. Spark made the rival GLAZE faster than you; equal at level 1, GLAZE +10% a level. Filling enclosed areas needs a flood fill (LIB_MAP has one). |
+| Wire Ferry (323) | needs a change | Walking a crate on at the bank loads it; balance = crates left vs right of the middle. Crate weights 1 to 3; current 0, 0, 20, 30, 40. Side view. |
+| Rescue Lift (411) | needs a change | Drop "Space to drop the cage" ("miner_speed 0" means nothing). Cage holds 3; a rock cracks it, 3 cracks = a life. Depth 4 to 8 ledges. |
+
+Across the three batches, fourteen games are near enough to build; the owner picks.
