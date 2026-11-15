@@ -251,3 +251,27 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-15 04:14:36	spark-x2.6-4b	901	Clock Tower Climb	2_levels.md	666	216	4.0	53.9	11	ok
 2026-11-15 04:14:48	spark-x2.6-4b	754	Paper Plane Post	1_concept.md	489	370	6.4	57.7	18	ok
 2026-11-15 04:14:57	spark-x2.6-4b	754	Paper Plane Post	2_levels.md	676	213	4.0	53.6	11	ok
+2026-11-15 04:31:34	spark-x2.6-4b	914	Lost Lambs	1_concept.md	488	424	5.9	71.4	18	ok
+2026-11-15 04:31:42	spark-x2.6-4b	914	Lost Lambs	2_levels.md	726	202	3.3	61.6	11	ok
+2026-11-15 04:31:53	spark-x2.6-4b	152	Bell Ringer	1_concept.md	481	425	6.0	70.9	19	ok
+2026-11-15 04:32:02	spark-x2.6-4b	152	Bell Ringer	2_levels.md	732	260	3.9	65.9	13	ok
+2026-11-15 04:32:13	spark-x2.6-4b	629	Tunnel Lights	1_concept.md	475	442	6.2	70.8	18	ok
+2026-11-15 04:32:22	spark-x2.6-4b	629	Tunnel Lights	2_levels.md	747	247	3.8	65.1	13	ok
+2026-11-15 04:32:34	spark-x2.6-4b	278	Two Hand Crane	1_concept.md	494	498	7.0	71.6	20	ok
+2026-11-15 04:32:42	spark-x2.6-4b	278	Two Hand Crane	2_levels.md	801	193	3.2	61.2	11	ok
+2026-11-15 04:32:53	spark-x2.6-4b	990	Puddle Jumper	1_concept.md	486	443	6.3	70.2	18	ok
+2026-11-15 04:33:02	spark-x2.6-4b	990	Puddle Jumper	2_levels.md	749	225	3.5	64.3	13	ok
+2026-11-15 04:33:12	spark-x2.6-4b	483	Spotlight Stage	1_concept.md	472	344	5.0	68.8	17	ok
+2026-11-15 04:33:21	spark-x2.6-4b	483	Spotlight Stage	2_levels.md	649	241	3.8	64.2	13	ok
+2026-11-15 04:33:31	spark-x2.6-4b	833	Lift Bridge	1_concept.md	479	349	5.1	68.3	18	ok
+2026-11-15 04:33:39	spark-x2.6-4b	833	Lift Bridge	2_levels.md	658	230	3.5	65.6	13	ok
+2026-11-15 04:33:50	spark-x2.6-4b	877	Hedge Cutter	1_concept.md	482	399	5.8	69.3	19	ok
+2026-11-15 04:33:59	spark-x2.6-4b	877	Hedge Cutter	2_levels.md	707	279	4.3	65.1	13	ok
+2026-11-15 04:34:10	spark-x2.6-4b	778	Rain Barrel	1_concept.md	481	414	5.9	69.7	19	ok
+2026-11-15 04:34:19	spark-x2.6-4b	778	Rain Barrel	2_levels.md	717	244	3.8	64.4	13	ok
+2026-11-15 04:34:30	spark-x2.6-4b	163	Echo Bats	1_concept.md	480	388	5.6	68.8	18	ok
+2026-11-15 04:34:39	spark-x2.6-4b	163	Echo Bats	2_levels.md	694	262	4.0	65.8	13	ok
+2026-11-15 04:34:50	spark-x2.6-4b	885	Sock Sorter	1_concept.md	476	404	6.0	67.9	17	ok
+2026-11-15 04:35:00	spark-x2.6-4b	885	Sock Sorter	2_levels.md	709	293	5.0	59.1	13	ok
+2026-11-15 04:35:11	spark-x2.6-4b	797	Slow Comet	1_concept.md	471	382	6.3	61.0	17	ok
+2026-11-15 04:35:20	spark-x2.6-4b	797	Slow Comet	2_levels.md	688	234	4.4	53.4	13	ok

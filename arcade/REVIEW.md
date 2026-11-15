@@ -289,3 +289,31 @@ is not a phrase to copy. Paper Plane Post added a Space key the idea does not ha
 | Patrol Swap (385) | needs a change, **fits PROMPT & GLAZE** | Walls block, they don't hurt. Caught = both back to the last checkpoint, no lives. Table good. |
 
 Running count across seven batches: 36 games near enough to build (3 + 3 + 4 + 3 + 5 + 10 + 8).
+
+## Batch 8 (2026-11-15, 12 ideas, after the first real rest)
+
+Run: rest 04:16 to 04:31 (model unloaded), work 04:31 to 04:35, 24 requests, 118 s of model
+time, 53 to 72 tokens/s, no cut-offs, tables in range. **CONTROLS right in 12 of 12, no invented
+keys, no copied phrase** (the reworded prompt line works). LOSE names a cause in 10 of 12, and
+Hedge Cutter answered "nothing: the score is moves against par" exactly as allowed. Spark still
+bolts "lives" onto a cause now and then ("runs out of lives after a wrong bell"), which is easy
+to strip.
+
+| Game | Verdict | What to change |
+|---|---|---|
+| Hedge Cutter (877) | buildable as is | Keys, rule, LOSE and table all right (maze 11 to 15, regrow 50 s down to 20, par cuts 7 to 15). |
+| Lift Bridge (833) | buildable as is | Up/down only, LOSE right, table good. |
+| Echo Bats (163) | buildable as is | Arrow keys move you (Spark's "move the lantern" means the same); being caught ends the try; table good. |
+| Lost Lambs (914) | buildable as is | A scared lamb ends the try; table good. |
+| Bell Ringer (152) | buildable with a small change | A wrong bell restarts the tune (no lives). Table good. |
+| Spotlight Stage (483) | buildable with a small change | A missed cue or a bump is a miss; 3 misses end the show. Table good. |
+| Rain Barrel (778) | buildable with a small change | The barrel walks the street, it can't fall off a roof: a gutter overflowing on the ground is a miss. Table good. |
+| Slow Comet (797) | buildable with a small change | The tail pushes, it doesn't hurt (that was the idea): missing the dock ends the try. Table good. |
+| Puddle Jumper (990) | buildable with a small change | Wet points: 3 splashes end the try (Spark's own count, drop "lives"). Table good. |
+| Sock Sorter (885) | buildable with a small change | The clock ends the round; no lives. Seconds 85 to 45 good. |
+| Tunnel Lights (629) | needs a change | First-person needs all four arrows (turn and walk); a switch is turned on by walking into it, not by Up. |
+| Two Hand Crane (278) | needs a change, **fits PROMPT & GLAZE** | TAB swaps hero (each has one job: PROMPT the arm, GLAZE the guide). A dropped crate is a miss. Table good. |
+
+Running count across eight batches: 46 games near enough to build (3 + 3 + 4 + 3 + 5 + 10 + 8 + 10).
+The format is now settled; further batches mostly add more of the same. Spark could next draft
+something else the owner needs (see DAY_WORK_11_15).
