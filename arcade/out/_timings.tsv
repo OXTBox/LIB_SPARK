@@ -227,3 +227,27 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-15 04:09:46	spark-x2.6-4b	500	Signal Flags	2_levels.md	666	231	3.7	62.3	13	ok
 2026-11-15 04:09:58	spark-x2.6-4b	640	Star Weaver	1_concept.md	447	402	6.4	62.6	18	ok
 2026-11-15 04:10:08	spark-x2.6-4b	640	Star Weaver	2_levels.md	710	290	4.9	59.5	14	ok
+2026-11-15 04:11:07	spark-x2.6-4b	669	Tide Pool Hop	1_concept.md	487	373	5.4	68.9	19	ok
+2026-11-15 04:11:16	spark-x2.6-4b	669	Tide Pool Hop	2_levels.md	680	208	3.3	62.7	11	ok
+2026-11-15 04:11:27	spark-x2.6-4b	468	Cable Car Rescue	1_concept.md	494	427	6.2	69.0	18	ok
+2026-11-15 04:11:36	spark-x2.6-4b	468	Cable Car Rescue	2_levels.md	726	237	3.8	61.9	13	ok
+2026-11-15 04:11:47	spark-x2.6-4b	385	Patrol Swap	1_concept.md	498	418	6.1	68.4	16	ok
+2026-11-15 04:11:56	spark-x2.6-4b	385	Patrol Swap	2_levels.md	725	279	4.4	64.1	13	ok
+2026-11-15 04:12:07	spark-x2.6-4b	518	Counterweight Room	1_concept.md	495	423	6.3	67.2	18	ok
+2026-11-15 04:12:16	spark-x2.6-4b	518	Counterweight Room	2_levels.md	726	199	3.4	58.6	11	ok
+2026-11-15 04:12:27	spark-x2.6-4b	879	Lighthouse Keeper	1_concept.md	492	383	5.7	67.0	19	ok
+2026-11-15 04:12:36	spark-x2.6-4b	879	Lighthouse Keeper	2_levels.md	692	245	4.0	61.2	13	ok
+2026-11-15 04:12:47	spark-x2.6-4b	620	Gravity Rooms	1_concept.md	493	409	6.1	67.0	20	ok
+2026-11-15 04:12:55	spark-x2.6-4b	620	Gravity Rooms	2_levels.md	712	194	3.2	61.4	11	ok
+2026-11-15 04:13:06	spark-x2.6-4b	978	Recycling Robot	1_concept.md	493	374	5.7	65.4	18	ok
+2026-11-15 04:13:15	spark-x2.6-4b	978	Recycling Robot	2_levels.md	681	239	4.0	59.5	13	ok
+2026-11-15 04:13:25	spark-x2.6-4b	655	Firefly Jar	1_concept.md	486	313	5.1	61.8	17	ok
+2026-11-15 04:13:33	spark-x2.6-4b	655	Firefly Jar	2_levels.md	619	225	3.6	62.0	12	ok
+2026-11-15 04:13:45	spark-x2.6-4b	982	Train Yard Switch	1_concept.md	493	416	6.6	62.9	18	ok
+2026-11-15 04:13:54	spark-x2.6-4b	982	Train Yard Switch	2_levels.md	721	263	4.5	58.3	13	ok
+2026-11-15 04:14:07	spark-x2.6-4b	264	Dust Devil Chase	1_concept.md	486	429	7.3	59.2	18	ok
+2026-11-15 04:14:16	spark-x2.6-4b	264	Dust Devil Chase	2_levels.md	735	243	4.4	55.3	13	ok
+2026-11-15 04:14:27	spark-x2.6-4b	901	Clock Tower Climb	1_concept.md	486	359	6.1	58.8	17	ok
+2026-11-15 04:14:36	spark-x2.6-4b	901	Clock Tower Climb	2_levels.md	666	216	4.0	53.9	11	ok
+2026-11-15 04:14:48	spark-x2.6-4b	754	Paper Plane Post	1_concept.md	489	370	6.4	57.7	18	ok
+2026-11-15 04:14:57	spark-x2.6-4b	754	Paper Plane Post	2_levels.md	676	213	4.0	53.6	11	ok

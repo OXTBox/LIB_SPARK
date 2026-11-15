@@ -262,3 +262,30 @@ against par')" instead of a lives rule.
 | Star Weaver (640) | needs a change | No Space: looking at a star for half a second links it. A wrong line just breaks the chain, no lives. Table good. |
 
 Running count across six batches: 28 games near enough to build (as is or a small change: 3 + 3 + 4 + 3 + 5 + 10).
+
+## Batch 7 (2026-11-15, 12 ideas, LOSE fix)
+
+Run: 04:11 to 04:15, 24 requests, 120 s of model time, 54 to 69 tokens/s, no cut-offs, every
+table in range. **LOSE now names a cause in 8 of 12** (was about 2 of 12): whirlwind reaches the
+edge, two trains on one track, falling off a gear. Still "lose all lives" with no cause in 4
+(Firefly Jar, Tide Pool Hop, Recycling Robot, Lighthouse Keeper). **New leak:** 3 drafts copy the
+prompt's own example wording into CONTROLS ("walking into crates picks them up, pushes them and
+presses switches"), even in Gravity Rooms where nothing is pushed. Prompt reworded so the example
+is not a phrase to copy. Paper Plane Post added a Space key the idea does not have.
+
+| Game | Verdict | What to change |
+|---|---|---|
+| Dust Devil Chase (264) | buildable as is | Keys right, LOSE right (a whirlwind leaving the map with a gem ends the try), table good. |
+| Train Yard Switch (982) | buildable as is | Keys and rules right; drop "falls off the screen edge" (tracks end in buffers). Table good. |
+| Clock Tower Climb (901) | buildable as is | Keys right, LOSE right, table good. Gears as rotating wire meshes: a fine Vibecode3D showcase. |
+| Gravity Rooms (620) | buildable with a small change | Drop the leaked "picks up / pushes" text. Otherwise right: spikes end a try, table good. |
+| Counterweight Room (518) | buildable with a small change | Drop "picks them up / presses switches" (crates are only pushed). Needs a solver check for par. |
+| Cable Car Rescue (468) | buildable with a small change | Two cars meeting ends the try (no lives); hikers don't fall. Table good. |
+| Lighthouse Keeper (879) | buildable with a small change | A ship on the rocks is a miss; 3 misses end the night. Table good. |
+| Paper Plane Post (754) | buildable with a small change | No Space. Table good. |
+| Firefly Jar (655) | needs a change | Nothing can hurt you: a timer per level (60 s) and a count to catch. Lit seconds go 3, 2, 1, 1: fine. |
+| Tide Pool Hop (669) | needs a change | Being on a rock when it goes under sends you to the shore (no lives). Tide seconds 26 to 12 good. |
+| Recycling Robot (978) | needs a change | No lose rule at all: litter piling over 20 pieces ends the try. Carry 3 to 2 good. |
+| Patrol Swap (385) | needs a change, **fits PROMPT & GLAZE** | Walls block, they don't hurt. Caught = both back to the last checkpoint, no lives. Table good. |
+
+Running count across seven batches: 36 games near enough to build (3 + 3 + 4 + 3 + 5 + 10 + 8).

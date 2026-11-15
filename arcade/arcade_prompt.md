@@ -32,7 +32,7 @@ Write the concept for this game in exactly this format, nothing before or after:
 
 # {title}
 PITCH: two sentences: what the player does and why it is fun.
-CONTROLS: one line: the keys the idea names. Walking into things picks them up, pushes them and presses switches; add Space only if the idea asks for an action key.
+CONTROLS: one line: only the keys the idea names, and what each one does in this game. No other keys.
 OBJECTS:
 - name | shape (box w,h) | colour | what it does
 (3 to 6 objects)

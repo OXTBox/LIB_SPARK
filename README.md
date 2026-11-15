@@ -20,6 +20,7 @@ What we know about working with Spark (`spark-x2.6-4b`, the local model in LM St
 | 2026-11-15 | game designs, batch 4 (12 ideas, fixed prompt) | 24 | 232 s | 28 to 71 tokens/s | keys right in 12 of 12; lives still everywhere (fixed level columns); 3 small change, 9 need a change; 1 cut-off (table complete) |
 | 2026-11-15 | game designs, batch 5 (12 ideas, own level columns) | 24 | 279 s | 20 to 70 tokens/s | columns right in 12 of 12; "cells" got pixels in 5; 1 as is, 4 small change, 7 need a change; 1 cut-off in LAYOUTS |
 | 2026-11-15 | game designs, batch 6 (12 ideas, ranged columns, no pictures) | 24 | 119 s | 60 to 70 tokens/s | every table inside its ranges, no cut-offs; 2 as is, 8 small change, 2 need a change |
+| 2026-11-15 | game designs, batch 7 (12 ideas, LOSE fix) | 24 | 120 s | 54 to 69 tokens/s | LOSE names a cause in 8 of 12; 3 copied the prompt's example into CONTROLS (reworded); 3 as is, 5 small change, 4 need a change |
 
 ## What holds so far
 
