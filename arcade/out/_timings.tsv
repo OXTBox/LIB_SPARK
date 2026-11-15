@@ -55,3 +55,31 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-13 17:22:33	spark-x2.6-4b	29	Probe Vs Cone	2_levels.md	804	523	27.9	18.7	44	ok
 2026-11-14 00:46:20	spark-x2.6-4b	973	Dodge Tunnel	1_concept.md	396	409	6.1	66.9	19	ok
 2026-11-14 00:46:31	spark-x2.6-4b	973	Dodge Tunnel	2_levels.md	751	403	6.1	66.4	46	ok
+2026-11-14 12:59:59	spark-x2.6-4b	930	Bounce Rally	1_concept.md	441	394	5.9	67.2	20	ok
+2026-11-14 13:00:10	spark-x2.6-4b	930	Bounce Rally	2_levels.md	737	439	6.5	67.8	44	ok
+2026-11-14 13:00:24	spark-x2.6-4b	124	Grid Sprint	1_concept.md	432	572	8.3	68.7	22	ok
+2026-11-14 13:00:35	spark-x2.6-4b	124	Grid Sprint	2_levels.md	913	427	6.3	67.3	46	ok
+2026-11-14 13:00:46	spark-x2.6-4b	478	Interceptor Run	1_concept.md	453	434	6.3	69.1	19	ok
+2026-11-14 13:00:57	spark-x2.6-4b	478	Interceptor Run	2_levels.md	776	413	6.3	66.0	46	ok
+2026-11-14 13:01:09	spark-x2.6-4b	841	Block City Hustle	1_concept.md	449	435	6.4	68.2	20	ok
+2026-11-14 13:01:21	spark-x2.6-4b	841	Block City Hustle	2_levels.md	779	479	7.1	67.1	49	ok
+2026-11-14 13:01:33	spark-x2.6-4b	809	Squad Buggy	1_concept.md	448	475	7.0	67.7	21	ok
+2026-11-14 13:01:47	spark-x2.6-4b	809	Squad Buggy	2_levels.md	816	538	8.8	61.0	44	ok
+2026-11-14 13:02:00	spark-x2.6-4b	773	Crater Crawler	1_concept.md	428	467	8.0	58.7	20	ok
+2026-11-14 13:02:13	spark-x2.6-4b	773	Crater Crawler	2_levels.md	810	467	8.5	55.1	44	ok
+2026-11-14 13:02:25	spark-x2.6-4b	327	Neon Drift Wastes	1_concept.md	464	366	6.6	55.8	18	ok
+2026-11-14 13:02:38	spark-x2.6-4b	327	Neon Drift Wastes	2_levels.md	710	483	8.2	58.6	44	ok
+2026-11-14 13:02:51	spark-x2.6-4b	871	Ramp Rider	1_concept.md	421	522	7.7	68.0	22	ok
+2026-11-14 13:03:09	spark-x2.6-4b	871	Ramp Rider	2_levels.md	865	900	13.5	66.9	87	CUT
+2026-11-14 13:03:21	spark-x2.6-4b	293	Fuel Line	1_concept.md	419	452	6.6	68.1	20	ok
+2026-11-14 13:03:32	spark-x2.6-4b	293	Fuel Line	2_levels.md	792	433	6.5	66.6	44	ok
+2026-11-14 13:03:44	spark-x2.6-4b	945	Tabletop Racers	1_concept.md	432	429	6.4	67.4	20	ok
+2026-11-14 13:03:55	spark-x2.6-4b	945	Tabletop Racers	2_levels.md	772	407	6.3	64.9	46	ok
+2026-11-14 13:04:06	spark-x2.6-4b	777	Coast Road	1_concept.md	426	391	5.8	68.0	19	ok
+2026-11-14 13:04:17	spark-x2.6-4b	777	Coast Road	2_levels.md	732	377	5.7	65.8	44	ok
+2026-11-14 13:04:27	spark-x2.6-4b	792	Wreck Ring	1_concept.md	409	332	5.1	64.5	17	ok
+2026-11-14 13:04:39	spark-x2.6-4b	792	Wreck Ring	2_levels.md	673	486	7.3	66.9	50	ok
+2026-11-14 13:04:50	spark-x2.6-4b	634	Fare Dash	1_concept.md	413	427	6.4	67.0	19	ok
+2026-11-14 13:05:03	spark-x2.6-4b	634	Fare Dash	2_levels.md	768	465	7.2	64.7	49	ok
+2026-11-14 13:05:13	spark-x2.6-4b	897	Light Trail Arena	1_concept.md	413	387	6.0	64.8	17	ok
+2026-11-14 13:05:25	spark-x2.6-4b	897	Light Trail Arena	2_levels.md	728	395	6.1	65.3	44	ok
