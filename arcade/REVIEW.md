@@ -205,3 +205,32 @@ name its own level columns (e.g. `Title | what happens | columns: maze size, key
 | Market Run (949) | needs a change | Bumping a shopper costs time (pushed back), not a life. List 3, 4, 5, 6, 7 items (Spark kept 3). Item names in LIB_GENERICA labels (like Bargain Hall). |
 | Fold Map Room (283) | needs a change, later | The idea is good but the fold rule needs designing by a person: which half shows, what "walls add up" means on cellmap heights. Spark kept 1 fold for all levels. |
 | Ring Toss Arena (503) | needs a change | A ring that misses is just gone (rings are the clock), no lives. Rings 8, 7, 6, 5, 4; post speed 1.8 to 3.5 fine. |
+
+## Batch 5 (2026-11-15, 12 ideas, each naming its own level columns)
+
+Run: 03:58 to 04:05, 24 requests, 279 s of model time, 20 to 70 tokens/s. One cut off at
+max_tokens (layouts again; the table is complete).
+
+**The columns work:** 12 of 12 tables use exactly the columns asked for, and most rise sensibly
+(sparks 5 to 13, gaps 2 to 6, plates 3 to 7, fires 1 to 3 with new fires every 60 s down to 15 s).
+**Still wrong:** a column named "cells" gets screen pixels in 5 of 12 (maze size 120, hall length
+900, room 900,600, pen 120, house width 120); Spark thinks in the 900 x 600 screen the prompt
+describes. And the concept still gives every game lives (CONCEPT asks "what costs a life").
+For the next batch: say "cells (5 to 20)" in the column name, and drop LAYOUTS from the LEVELS
+prompt when an idea has its own columns (every cut-off so far was in LAYOUTS).
+
+| Game | Verdict | What to change |
+|---|---|---|
+| Sentinel Ring (259) | buildable as is | Keys right, table good (pulse speed 1.5 to 2.2, pulses 1 to 5, turn 0.5 to 0.9). Pickups 5 flat is fine. |
+| Lockstep Bridge (262) | buildable with a small change, **fits PROMPT & GLAZE** | Falling = both back to the bridge start, no lives. Table good (length 12 to 28 cells, gaps 2 to 6, moving gaps from level 4). |
+| Herd The Sparks (783) | buildable with a small change | Pen size: 4, 4, 3, 3, 2 cells (not 120 to 200, and it should shrink). A spark on the fence is lost, not a life; lose when half are lost. |
+| Bucket Line (970) | buildable with a small change | House width 8 to 16 cells, not 120. A fire left 30 s spreads to the next cell; lose when the house is all fire. Fire timing table is good. |
+| Dark Elevator (345) | buildable with a small change | Blink seconds should fall (4, 3.5, 3, 2.5, 2), Spark kept 2. Floors 3 to 10 good. |
+| Rolling Stone Hall (413) | needs a change | Hall 20 to 40 cells (not 900). A ball hit = back to the last alcove, lives 3. Balls 3 to 7 good. |
+| Relay Doors (498) | needs a change, **fits PROMPT & GLAZE** | TAB swaps hero, not "plates". No lives (doors can't hurt). Table good: maze 12 to 16, plates 3 to 7, doors 1 to 5. Close to Two Key Doors: build one, make the other its later levels. |
+| Lockstep, Relay, Two Key Doors, Mirror Halls, Guard Swap, Signal Relay, Lantern Pair, Twin Lifts | (note) | Eight two-hero ideas now: enough for a PROMPT & GLAZE "co-op" world. The owner chooses which three or four. |
+| Mirror Shots (935) | needs a change | Spark lost "walking into a mirror turns it" (it kept Space, which the idea names, right). No lives: shots are counted against par. Table good. |
+| Crystal Pairs (887) | needs a change | Table flat (6 pairs, room 12 all levels): pairs 4, 6, 8, 10, 12; room 4x4 to 6x6. No lives: steps against par. Spark added "pushes crystals and triggers switches" from the new prompt's wording: drop. |
+| Pebble Trail (364) | needs a change | Spark invented a lose rule (you must pick up your pebbles). No lose: steps against par. Maze 7 to 15 cells. |
+| Echo Steps (460) | needs a change | Ghost delay 0 steps makes it touch you at once: 10, 9, 8, 7, 6. Room 7x7 to 11x11 cells. |
+| Dropping Rooms (660) | needs a change | Hole speed falls in Spark's table (should rise), smoke seconds 30 to 20 good. Rooms stacked straight down need stacked maps or one room reused: reuse one room for now. |

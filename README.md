@@ -18,6 +18,7 @@ What we know about working with Spark (`spark-x2.6-4b`, the local model in LM St
 | 2026-11-15 | game designs, maze and rooms batch 2 (12 ideas) | 24 | 181 s | 52 to 70 tokens/s | 2 level outputs cut off at max_tokens (tables complete); every draft invented a Space key (the rule was in a comment line); 3 buildable with a small change, 9 need a change (`arcade/REVIEW.md`) |
 | 2026-11-15 | game designs, arenas and runs batch 3 (12 ideas) | 24 | 232 s | 28 to 68 tokens/s | 10 of 12 added Space: the prompt itself said "Only arrow keys and Space" (fixed); 1 as is, 4 small change, 7 need a change |
 | 2026-11-15 | game designs, batch 4 (12 ideas, fixed prompt) | 24 | 232 s | 28 to 71 tokens/s | keys right in 12 of 12; lives still everywhere (fixed level columns); 3 small change, 9 need a change; 1 cut-off (table complete) |
+| 2026-11-15 | game designs, batch 5 (12 ideas, own level columns) | 24 | 279 s | 20 to 70 tokens/s | columns right in 12 of 12; "cells" got pixels in 5; 1 as is, 4 small change, 7 need a change; 1 cut-off in LAYOUTS |
 
 ## What holds so far
 

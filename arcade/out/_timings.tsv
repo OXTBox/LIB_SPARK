@@ -179,3 +179,27 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-15 03:56:28	spark-x2.6-4b	422	Sky Stepping	2_levels.md	693	432	14.2	30.5	46	ok
 2026-11-15 03:56:47	spark-x2.6-4b	949	Market Run	1_concept.md	461	452	14.5	31.1	20	ok
 2026-11-15 03:57:10	spark-x2.6-4b	949	Market Run	2_levels.md	793	517	18.1	28.5	44	ok
+2026-11-15 03:58:27	spark-x2.6-4b	783	Herd The Sparks	1_concept.md	469	389	5.7	68.0	18	ok
+2026-11-15 03:58:39	spark-x2.6-4b	783	Herd The Sparks	2_levels.md	738	467	7.0	67.1	44	ok
+2026-11-15 03:58:51	spark-x2.6-4b	498	Relay Doors	1_concept.md	474	439	6.3	69.6	21	ok
+2026-11-15 03:59:06	spark-x2.6-4b	498	Relay Doors	2_levels.md	785	735	10.6	69.3	79	ok
+2026-11-15 03:59:17	spark-x2.6-4b	413	Rolling Stone Hall	1_concept.md	461	375	5.6	66.7	18	ok
+2026-11-15 03:59:30	spark-x2.6-4b	413	Rolling Stone Hall	2_levels.md	721	455	7.6	60.0	49	ok
+2026-11-15 03:59:41	spark-x2.6-4b	887	Crystal Pairs	1_concept.md	458	384	6.7	57.5	21	ok
+2026-11-15 04:00:00	spark-x2.6-4b	887	Crystal Pairs	2_levels.md	727	705	13.6	51.9	79	ok
+2026-11-15 04:00:12	spark-x2.6-4b	345	Dark Elevator	1_concept.md	453	356	7.0	51.1	18	ok
+2026-11-15 04:00:45	spark-x2.6-4b	345	Dark Elevator	2_levels.md	699	900	28.5	31.6	74	CUT
+2026-11-15 04:01:03	spark-x2.6-4b	364	Pebble Trail	1_concept.md	462	406	12.6	32.2	19	ok
+2026-11-15 04:01:38	spark-x2.6-4b	364	Pebble Trail	2_levels.md	752	667	30.0	22.2	79	ok
+2026-11-15 04:01:56	spark-x2.6-4b	259	Sentinel Ring	1_concept.md	456	339	13.2	25.6	16	ok
+2026-11-15 04:02:22	spark-x2.6-4b	259	Sentinel Ring	2_levels.md	689	486	21.1	23.0	45	ok
+2026-11-15 04:02:43	spark-x2.6-4b	970	Bucket Line	1_concept.md	448	382	15.4	24.9	19	ok
+2026-11-15 04:03:25	spark-x2.6-4b	970	Bucket Line	2_levels.md	730	768	37.5	20.5	85	ok
+2026-11-15 04:03:36	spark-x2.6-4b	460	Echo Steps	1_concept.md	460	350	6.2	56.1	18	ok
+2026-11-15 04:03:49	spark-x2.6-4b	460	Echo Steps	2_levels.md	694	444	7.5	59.1	49	ok
+2026-11-15 04:04:00	spark-x2.6-4b	262	Lockstep Bridge	1_concept.md	460	384	5.8	66.5	18	ok
+2026-11-15 04:04:11	spark-x2.6-4b	262	Lockstep Bridge	2_levels.md	727	415	6.1	67.6	44	ok
+2026-11-15 04:04:22	spark-x2.6-4b	935	Mirror Shots	1_concept.md	448	387	5.7	67.9	18	ok
+2026-11-15 04:04:34	spark-x2.6-4b	935	Mirror Shots	2_levels.md	732	529	7.8	67.9	49	ok
+2026-11-15 04:04:44	spark-x2.6-4b	660	Dropping Rooms	1_concept.md	455	332	5.0	66.8	13	ok
+2026-11-15 04:04:56	spark-x2.6-4b	660	Dropping Rooms	2_levels.md	674	422	6.3	67.0	49	ok
