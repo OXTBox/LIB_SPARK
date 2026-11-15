@@ -48,6 +48,18 @@ def main():
         open(run_arcade.CLOCK, 'w').write('%f %f' % (_t.time() - 5000, _t.time() - 1000))
         check('a run after a full rest starts a new period', run_arcade.resume_clock(a2) > _t.time() - 5)
         run_arcade.CLOCK = old
+    # entities (the procedural entity pilot): the calibration boat and a broken recipe
+    sys.path.insert(0, os.path.join(ROOT, 'entities'))
+    import entity
+    boat = open(os.path.join(ROOT, 'entities', 'recipes', '000_sail_boat_calibration.txt')).read()
+    rep, ok, whole = entity.check(boat)
+    check('entity: the demo boat as a recipe passes, 31 edges as its comment says', ok and len(whole.edges()) == 31, rep)
+    lc, fn = entity.code(boat)
+    check('entity: code uses the engine calls', fn == 'Ent.SailBoatMesh' and 'MeshLoft(' in lc and 'MeshBox(24, 14, 30)' in lc)
+    loose = boat.replace('cabin | box | 24,14,30 | 0,-7,-15', 'cabin | box | 24,14,30 | 0,-300,-15')
+    check('entity: a part floating loose fails "joined"', any('joined' in r and 'FAIL' in r and 'cabin' in r for r in entity.check(loose)[0]))
+    lop = boat.replace('0,0,10; 0,-70,10', '0,0,10; 0,-70,10; 0,0,0')
+    check('entity: a bad line is a parse fault, not a crash', not entity.check(lop)[1])
     return done()
 
 

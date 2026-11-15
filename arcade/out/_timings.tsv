@@ -347,3 +347,10 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-15 05:07:44	spark-x2.6-4b	103	Tower Signals	2_levels.md	627	224	3.7	61.1	13	ok
 2026-11-15 05:07:56	spark-x2.6-4b	563	Clean Sweep Chimney	1_concept.md	478	459	6.7	68.5	18	ok
 2026-11-15 05:08:05	spark-x2.6-4b	563	Clean Sweep Chimney	2_levels.md	771	252	4.0	63.5	13	ok
+2026-11-15 05:09:20	spark-x2.6-4b	991	Beacon Boats	1_concept.md	480	407	5.8	70.5	19	ok
+2026-11-15 05:09:29	spark-x2.6-4b	991	Beacon Boats	2_levels.md	713	257	4.0	64.7	13	ok
+2026-11-15 05:09:40	spark-x2.6-4b	523	Mirror Maze Twins	1_concept.md	493	428	6.2	69.4	18	ok
+2026-11-15 05:09:49	spark-x2.6-4b	523	Mirror Maze Twins	2_levels.md	732	256	4.0	64.5	13	ok
+2026-11-15 05:10:01	spark-x2.6-4b	219	Hot Air Balloon	1_concept.md	477	466	6.7	69.4	20	ok
+2026-11-15 05:10:10	spark-x2.6-4b	219	Hot Air Balloon	2_levels.md	772	235	3.9	60.3	13	ok
+2026-11-15 05:10:20	spark-x2.6-4b	385	Drawbridge Traffic	1_concept.md	466	370	5.4	67.9	19	ok

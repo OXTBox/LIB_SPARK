@@ -1,3 +1,4 @@
 __pycache__/
 out/.running
 arcade/out/.work_clock
+entities/out/.running
