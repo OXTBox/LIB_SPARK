@@ -32,12 +32,12 @@ Write the concept for this game in exactly this format, nothing before or after:
 
 # {title}
 PITCH: two sentences: what the player does and why it is fun.
-CONTROLS: one line. Only arrow keys and Space.
+CONTROLS: one line: the keys the idea names. Walking into things picks them up, pushes them and presses switches; add Space only if the idea asks for an action key.
 OBJECTS:
 - name | shape (box w,h) | colour | what it does
 (3 to 6 objects)
 RULES:
-- 4 to 7 short rules: how things move, what scores, what costs a life.
+- 4 to 7 short rules: how things move, what scores, and what costs a life (if anything can: a puzzle may have no lives, only a move count).
 WIN: one line. LOSE: one line.
 NUMBERS: the starting values as name=value pairs on one line (speeds in world units per
 step, 30 steps a second; the screen is 900 wide and 600 high).

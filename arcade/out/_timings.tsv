@@ -131,3 +131,27 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-15 03:42:41	spark-x2.6-4b	264	Tile Painter	2_levels.md	722	743	12.1	61.2	79	ok
 2026-11-15 03:42:53	spark-x2.6-4b	994	Storm Rescue	1_concept.md	422	440	7.5	58.8	19	ok
 2026-11-15 03:43:15	spark-x2.6-4b	994	Storm Rescue	2_levels.md	779	900	17.2	52.4	87	CUT
+2026-11-15 03:44:18	spark-x2.6-4b	702	Hold The Square	1_concept.md	440	352	5.3	66.9	18	ok
+2026-11-15 03:44:29	spark-x2.6-4b	702	Hold The Square	2_levels.md	694	440	6.5	67.7	44	ok
+2026-11-15 03:44:39	spark-x2.6-4b	323	Wire Ferry	1_concept.md	435	304	4.7	64.8	12	ok
+2026-11-15 03:44:51	spark-x2.6-4b	323	Wire Ferry	2_levels.md	646	446	6.6	67.9	49	ok
+2026-11-15 03:45:02	spark-x2.6-4b	387	Lamp Lighter Run	1_concept.md	426	434	6.4	68.3	19	ok
+2026-11-15 03:45:14	spark-x2.6-4b	387	Lamp Lighter Run	2_levels.md	776	453	6.9	66.1	49	ok
+2026-11-15 03:45:25	spark-x2.6-4b	499	Signal Relay	1_concept.md	444	433	6.3	68.3	19	ok
+2026-11-15 03:45:38	spark-x2.6-4b	499	Signal Relay	2_levels.md	775	523	8.0	65.2	44	ok
+2026-11-15 03:45:50	spark-x2.6-4b	541	Cargo Crawler	1_concept.md	430	432	6.7	64.3	18	ok
+2026-11-15 03:46:02	spark-x2.6-4b	541	Cargo Crawler	2_levels.md	774	454	7.4	61.1	49	ok
+2026-11-15 03:46:14	spark-x2.6-4b	839	Spire Climb	1_concept.md	433	398	6.7	59.6	20	ok
+2026-11-15 03:46:35	spark-x2.6-4b	839	Spire Climb	2_levels.md	741	893	16.4	54.6	79	ok
+2026-11-15 03:46:48	spark-x2.6-4b	816	Count Room	1_concept.md	435	401	7.4	54.3	19	ok
+2026-11-15 03:47:03	spark-x2.6-4b	816	Count Room	2_levels.md	742	505	10.6	47.8	44	ok
+2026-11-15 03:47:17	spark-x2.6-4b	411	Rescue Lift	1_concept.md	422	400	8.4	47.8	19	ok
+2026-11-15 03:47:31	spark-x2.6-4b	411	Rescue Lift	2_levels.md	742	447	9.5	47.2	46	ok
+2026-11-15 03:47:47	spark-x2.6-4b	897	Path Painter Duel	1_concept.md	435	455	10.4	43.8	22	ok
+2026-11-15 03:48:03	spark-x2.6-4b	897	Path Painter Duel	2_levels.md	799	455	11.9	38.3	44	ok
+2026-11-15 03:48:18	spark-x2.6-4b	990	Gate Runner	1_concept.md	425	410	9.9	41.4	20	ok
+2026-11-15 03:48:36	spark-x2.6-4b	990	Gate Runner	2_levels.md	752	428	12.4	34.5	50	ok
+2026-11-15 03:48:50	spark-x2.6-4b	130	Night Garden	1_concept.md	421	378	9.7	38.9	20	ok
+2026-11-15 03:49:17	spark-x2.6-4b	130	Night Garden	2_levels.md	719	654	22.1	29.7	70	ok
+2026-11-15 03:49:40	spark-x2.6-4b	301	Echo Chamber	1_concept.md	420	487	17.3	28.1	21	ok
+2026-11-15 03:50:00	spark-x2.6-4b	301	Echo Chamber	2_levels.md	828	424	14.8	28.7	44	ok
