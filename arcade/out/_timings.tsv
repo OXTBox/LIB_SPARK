@@ -83,3 +83,27 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-14 13:05:03	spark-x2.6-4b	634	Fare Dash	2_levels.md	768	465	7.2	64.7	49	ok
 2026-11-14 13:05:13	spark-x2.6-4b	897	Light Trail Arena	1_concept.md	413	387	6.0	64.8	17	ok
 2026-11-14 13:05:25	spark-x2.6-4b	897	Light Trail Arena	2_levels.md	728	395	6.1	65.3	44	ok
+2026-11-15 03:32:06	spark-x2.6-4b	595	Lantern Crawl	1_concept.md	433	442	6.2	70.8	19	ok
+2026-11-15 03:32:21	spark-x2.6-4b	595	Lantern Crawl	2_levels.md	784	705	10.0	70.4	74	ok
+2026-11-15 03:32:33	spark-x2.6-4b	522	Two Key Doors	1_concept.md	463	516	7.2	71.5	22	ok
+2026-11-15 03:32:44	spark-x2.6-4b	522	Two Key Doors	2_levels.md	859	439	6.3	69.2	44	ok
+2026-11-15 03:32:56	spark-x2.6-4b	630	Echo Rescue	1_concept.md	441	477	6.7	71.3	21	ok
+2026-11-15 03:33:07	spark-x2.6-4b	630	Echo Rescue	2_levels.md	818	430	6.2	69.4	44	ok
+2026-11-15 03:33:18	spark-x2.6-4b	529	Push Block Vault	1_concept.md	439	371	5.2	70.7	13	ok
+2026-11-15 03:33:29	spark-x2.6-4b	529	Push Block Vault	2_levels.md	714	470	6.6	71.0	49	ok
+2026-11-15 03:33:40	spark-x2.6-4b	366	Ring Arena	1_concept.md	424	387	5.6	69.5	19	ok
+2026-11-15 03:33:51	spark-x2.6-4b	366	Ring Arena	2_levels.md	728	392	5.8	67.6	44	ok
+2026-11-15 03:34:01	spark-x2.6-4b	931	Stair Hopper	1_concept.md	423	410	5.9	70.0	20	ok
+2026-11-15 03:34:13	spark-x2.6-4b	931	Stair Hopper	2_levels.md	753	490	7.1	69.4	50	ok
+2026-11-15 03:34:24	spark-x2.6-4b	782	Glass Corridors	1_concept.md	432	377	5.4	70.2	19	ok
+2026-11-15 03:34:36	spark-x2.6-4b	782	Glass Corridors	2_levels.md	720	489	7.0	70.0	63	ok
+2026-11-15 03:34:47	spark-x2.6-4b	182	Bargain Hall	1_concept.md	437	464	6.6	70.7	21	ok
+2026-11-15 03:34:59	spark-x2.6-4b	182	Bargain Hall	2_levels.md	807	426	6.2	68.2	49	ok
+2026-11-15 03:35:10	spark-x2.6-4b	926	Wire Sentries	1_concept.md	426	409	5.9	69.7	20	ok
+2026-11-15 03:35:24	spark-x2.6-4b	926	Wire Sentries	2_levels.md	751	639	9.2	69.3	71	ok
+2026-11-15 03:35:35	spark-x2.6-4b	603	Falling Floor	1_concept.md	416	397	5.8	68.4	19	ok
+2026-11-15 03:35:49	spark-x2.6-4b	603	Falling Floor	2_levels.md	739	625	9.0	69.4	69	ok
+2026-11-15 03:35:59	spark-x2.6-4b	751	Tower Shift	1_concept.md	428	393	5.7	68.5	18	ok
+2026-11-15 03:36:11	spark-x2.6-4b	751	Tower Shift	2_levels.md	734	474	7.0	67.6	44	ok
+2026-11-15 03:36:22	spark-x2.6-4b	539	Courier Run	1_concept.md	433	393	5.8	67.9	18	ok
+2026-11-15 03:36:34	spark-x2.6-4b	539	Courier Run	2_levels.md	735	480	7.1	67.5	49	ok

@@ -86,3 +86,36 @@ playfield fits the window are untested.
    picture in characters.
 4. Pace: `pace.txt` holds "work minutes, rest seconds" and is read before every request. It is
    `20 15` (the owner, 2026-11-13). A whole 36-request run fits inside one work period.
+
+## Maze and rooms batch 1 (2026-11-15, 12 ideas, Claude's verdicts)
+
+Run: 03:31 to 03:36, 24 requests, 160 s of model time, 67 to 72 tokens/s; the whole
+batch fit inside one 10-minute work period, so the 15-minute rest never came. Ideas: "Maze and
+rooms batch 1" in `LIB_LLMIN/LIB_SPARK/GAME_IDEAS.txt`.
+
+**For all 12:** the concepts are usable; the LAYOUTS are not (rows of different lengths, outer
+walls with holes, the same room copied five times; as the round-1 review said, a picture in
+characters is the wrong thing to ask for). Every one of these is a maze or a room game, so the
+levels should come the way Amazing Couple's do: made once as cellmap v2 files by a Python tool
+that also checks them (reachable goals, solvable puzzles), drawn and walked from the same file.
+Spark's level tables are often flat (the same five rows) or have the speed column going the wrong
+way; the numbers below are the ones to use.
+
+| Game | Verdict | What to change |
+|---|---|---|
+| Lantern Crawl (595) | needs a change | Charge 3 is far too small: lantern = 40 steps at level 1, 30 at level 5; a flask lying in a dead end adds 15 when walked over (Spark garbled it into "refills only when you stand in a dead end"). Drop "score resets each level". First-person in Vibecode3D with the wire walls fading past 3 cells. |
+| Two Key Doors (522) | needs a change, **best fit for PROMPT & GLAZE** | No Space key: a coloured door opens when its own hero walks into it. Plates hold a door open while either hero stands on one (that is the puzzle: one holds, the other passes). Timed doors only from level 3. Exit is white (both). Level table: plates 1, 2, 3, 3, 4; timed doors 0, 0, 1, 2, 3. Fits Amazing Couple's code (TAB swap, follower already there). |
+| Echo Rescue (630) | needs a change | Spark mixed up the losing rule: a sentry touching a *survivor* sends that survivor back to where they were found (no life lost); a sentry touching *you* costs a life. Drop "survivors call out for one step before moving". Speed column should be the sentries' and go up (60, 70, 80, 90, 100), not down. Pings: 5, 5, 4, 4, 3. |
+| Push Block Vault (529) | needs a change | Arrow keys move the player, who pushes (Spark wrote "move blocks"). 3 blocks for 4 marked tiles cannot be won: blocks = tiles. A pit is not a lost life: the block fills it and becomes floor. Space = undo is fine. Levels must be checked solvable by a small Python solver before they ship. |
+| Ring Arena (366) | buildable as is | Numbers and table are sane (drones 3 to 11, speed 1.5 to 2.3, lives 3 to 1). Only add a bonus (wave clear 100 x level). One small round arena, no layout needed. Good fit for the xt3d bench. |
+| Stair Hopper (931) | needs a change | Win/lose text is garbled ("before the water reaches the bottom"): you lose a life when the water reaches you. Uses cellmap heights (floors with gaps, blue = floating ledge), side view. Water speed 2 to 6 per the table is fine; drifting ledges count 1 to 5 is fine. |
+| Glass Corridors (782) | needs a change | Spark inverted the idea: glass *does* block walking and is only see-through; there is no Space key. Score = steps, fewer is better, with a par per level. Speed column means nothing here: use maze size 7, 9, 11, 13, 15 cells and glass share 20% to 40%. |
+| Bargain Hall (182) | needs a change, later | The game is the trade table (which stall wants which item and gives which), and Spark did not make one. Drop "a trade costs a life". The item names belong in LIB_GENERICA label files so the market can be rethemed. Ask Spark next for a trade chain per level, not a layout. |
+| Wire Sentries (926) | buildable with a small change | No Space key: walking onto a core takes it. Being seen sends you to the last checkpoint pad (Spark made it a lost life; keep 3 lives for being caught three times). Table is good (cores 1 to 5, sentry speed 1.5 to 3). Sight lines along a grid row or column are easy on cellmap cells. |
+| Falling Floor (603) | needs a change | The numbers are nonsense (wall_speed, exit_speed). The one number that matters is the fall delay: 1.0 s at level 1 down to 0.6 s at level 5. Rooms must be checked by a Python search that a route through every gem to the exit exists. |
+| Tower Shift (751) | drop for now | Rooms that turn and doors that move need stacked maps, which cellmap v2 has not got yet (a Fable job, deferred). Keep the idea for after that. |
+| Courier Run (539) | buildable with a small change | No Space key: parcels are picked up at the depot and given by walking into the numbered door. Speed column = the dogs' speed (1.0 to 3.0, fine). Add the clock: 60 s, minus 5 s a level. The city is a maze with wide streets, from the same maze tool. |
+
+Suggested order if the owner wants these built: Two Key Doors (it is the heroes' own game), Wire
+Sentries, Courier Run, Ring Arena; then the ones that need a level checker (Push Block Vault,
+Falling Floor).
