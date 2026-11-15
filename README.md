@@ -15,6 +15,7 @@ What we know about working with Spark (`spark-x2.6-4b`, the local model in LM St
 | 2026-11-12/13 | iGame3D 2008 manifest (`LIB_GAMES/igame3D_2008_Texts/_manifest`) | hundreds | hours | about 40 s a request with pauses | first-look notes, reviewed in its REVIEW.md |
 | 2026-11-13 | arcade games | 36 | 950 s (16 min) | 55 to 70 tokens/s; 15 to 27 while LiveCode tests ran beside it | concepts and level tables usable; 1 of 12 scripts compiles, none works |
 | 2026-11-15 | game designs, maze and rooms batch 1 (12 ideas) | 24 | 160 s | 67 to 72 tokens/s | concepts usable (1 buildable as is, 2 with a small change, 8 need a change, 1 dropped for now); layouts unusable (`arcade/REVIEW.md`) |
+| 2026-11-15 | game designs, maze and rooms batch 2 (12 ideas) | 24 | 181 s | 52 to 70 tokens/s | 1 level table cut off at max_tokens; every draft invented a Space key (the rule was in a comment line); 3 buildable with a small change, 9 need a change (`arcade/REVIEW.md`) |
 
 ## What holds so far
 

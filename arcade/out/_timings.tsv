@@ -107,3 +107,27 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-15 03:36:11	spark-x2.6-4b	751	Tower Shift	2_levels.md	734	474	7.0	67.6	44	ok
 2026-11-15 03:36:22	spark-x2.6-4b	539	Courier Run	1_concept.md	433	393	5.8	67.9	18	ok
 2026-11-15 03:36:34	spark-x2.6-4b	539	Courier Run	2_levels.md	735	480	7.1	67.5	49	ok
+2026-11-15 03:38:25	spark-x2.6-4b	734	Mirror Halls	1_concept.md	438	419	6.0	69.4	17	ok
+2026-11-15 03:38:37	spark-x2.6-4b	734	Mirror Halls	2_levels.md	761	480	6.9	69.2	44	ok
+2026-11-15 03:38:49	spark-x2.6-4b	774	Switch Room	1_concept.md	433	450	6.5	69.4	21	ok
+2026-11-15 03:39:01	spark-x2.6-4b	774	Switch Room	2_levels.md	791	472	6.9	68.3	44	ok
+2026-11-15 03:39:12	spark-x2.6-4b	787	Beacon Chain	1_concept.md	442	446	6.4	69.2	18	ok
+2026-11-15 03:39:25	spark-x2.6-4b	787	Beacon Chain	2_levels.md	788	519	7.5	68.8	44	ok
+2026-11-15 03:39:35	spark-x2.6-4b	781	Pursuit Grid	1_concept.md	429	368	5.4	67.8	17	ok
+2026-11-15 03:39:47	spark-x2.6-4b	781	Pursuit Grid	2_levels.md	711	461	6.8	67.7	48	ok
+2026-11-15 03:39:58	spark-x2.6-4b	400	Slide Ice Cave	1_concept.md	426	417	6.1	68.5	20	ok
+2026-11-15 03:40:10	spark-x2.6-4b	400	Slide Ice Cave	2_levels.md	760	480	7.0	68.2	44	ok
+2026-11-15 03:40:22	spark-x2.6-4b	233	Lift Shaft	1_concept.md	431	450	6.6	68.1	21	ok
+2026-11-15 03:40:33	spark-x2.6-4b	233	Lift Shaft	2_levels.md	793	443	6.7	66.4	43	ok
+2026-11-15 03:40:45	spark-x2.6-4b	532	Bridge Builder Room	1_concept.md	429	418	6.4	65.8	18	ok
+2026-11-15 03:41:03	spark-x2.6-4b	532	Bridge Builder Room	2_levels.md	759	900	12.9	69.9	84	CUT
+2026-11-15 03:41:14	spark-x2.6-4b	338	Sound Maze	1_concept.md	427	436	6.4	68.5	20	ok
+2026-11-15 03:41:27	spark-x2.6-4b	338	Sound Maze	2_levels.md	777	518	7.8	66.6	44	ok
+2026-11-15 03:41:38	spark-x2.6-4b	415	Guard Swap	1_concept.md	425	410	6.2	65.9	19	ok
+2026-11-15 03:41:50	spark-x2.6-4b	415	Guard Swap	2_levels.md	751	458	7.1	64.8	44	ok
+2026-11-15 03:42:01	spark-x2.6-4b	904	Orbit Room	1_concept.md	428	412	6.5	63.7	19	ok
+2026-11-15 03:42:12	spark-x2.6-4b	904	Orbit Room	2_levels.md	753	378	6.0	62.8	44	ok
+2026-11-15 03:42:24	spark-x2.6-4b	264	Tile Painter	1_concept.md	418	380	6.1	62.6	16	ok
+2026-11-15 03:42:41	spark-x2.6-4b	264	Tile Painter	2_levels.md	722	743	12.1	61.2	79	ok
+2026-11-15 03:42:53	spark-x2.6-4b	994	Storm Rescue	1_concept.md	422	440	7.5	58.8	19	ok
+2026-11-15 03:43:15	spark-x2.6-4b	994	Storm Rescue	2_levels.md	779	900	17.2	52.4	87	CUT

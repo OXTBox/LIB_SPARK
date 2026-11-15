@@ -119,3 +119,35 @@ way; the numbers below are the ones to use.
 Suggested order if the owner wants these built: Two Key Doors (it is the heroes' own game), Wire
 Sentries, Courier Run, Ring Arena; then the ones that need a level checker (Push Block Vault,
 Falling Floor).
+
+## Maze and rooms batch 2 (2026-11-15, 12 ideas, Claude's verdicts)
+
+Run: 03:37 to 03:43, 24 requests, 181 s of model time, 52 to 70 tokens/s. One cut off: Bridge
+Builder Room's level table ran into max_tokens (900) halfway through its layouts; its table is
+complete, the layouts are not wanted anyway, so it is not re-run.
+
+**Lesson for the next batch:** the header line "no Space key unless it is needed" was a comment
+(`#`) in GAME_IDEAS.txt, so Spark never saw it: 12 of 12 drafts invented a Space key (Space to
+ride lifts, Space to collect keys, Space to light beacons). Put such rules in each idea's own
+text, or in `arcade_prompt.md` (proposed: "Movement and walking into things do the work; add an
+action key only when the idea names one").
+
+| Game | Verdict | What to change |
+|---|---|---|
+| Mirror Halls (734) | needs a change, **fits PROMPT & GLAZE** | Spark lost the rule that makes it a puzzle: a wall stops only the hero who hits it, the other still moves (Spark wrote "falls into walls, loses a life"). No lives: walls are safe. No Space: standing on both pads ends the level. Score = steps, par per level. Twin mazes from the maze tool with N cells changed: 2, 4, 6, 8, 10. |
+| Switch Room (774) | needs a change | Walking onto a switch presses it (no Space). Walls are never deadly: a raised wall blocks, and a wall cannot rise under the player (the switch waits). Colours 2, 2, 3, 3, 4; a second exit from level 3. Needs a Python solver to set par presses. |
+| Beacon Chain (787) | needs a change | Walking past a beacon lights it (no Space, no lives: nothing here can hurt you). Beacons 3, 4, 5, 6, 7 is fine; maze 7, 9, 11, 13, 15 cells. Good showcase for vector lines on the floor in Vibecode3D. |
+| Pursuit Grid (781) | buildable with a small change | No Space: walking onto a key takes it. The rule is right (hunters move when you move). Level rule: every fourth turn one more hunter steps twice (Spark's "+2 speed" is wrong). Simple and strong; good first game for the grid. |
+| Slide Ice Cave (400) | needs a change | No Space: falling into the exit hole ends the level. Drop lives (nothing can hurt you) and use a move par instead; "each life allows three completions" is nonsense. Rooms need a solver check (sliding puzzles are easy to make unsolvable). |
+| Lift Shaft (233) | needs a change, later | Spark turned it into "reach the top floor". The game is the deliveries: a person waits with a floor number, you walk them to a lift, ride, walk them out. Lifts 1, 2, 2, 3, 3; people waiting 1 to 5. Side view with cellmap heights. |
+| Bridge Builder Room (532) | needs a change | Pushing works by walking (no Space). "Reach the exit with all planks used" is wrong: spare planks are allowed. Chasm width 1, 2, 2, 3, 3; spare planks 2, 2, 1, 1, 0. Needs a solver check like Push Block Vault (the two could share one). |
+| Sound Maze (338) | needs a change | Bumping a wall must not cost a life: bumping is how you see. No Space. Sound cues are not in the engines yet; use the wall flash and the corner map only. Second floor from level 3 needs stacked maps (deferred), so levels 1 to 2 only for now. |
+| Guard Swap (415) | needs a change, **fits PROMPT & GLAZE** | Two actions on one Space key won't work: PROMPT's knockout is walking into a guard's back, GLAZE's talk is walking up to a guard's face (10 s door). Which hero you play (TAB) picks the trick. Guards 1 to 5; turn every 6 s down to 3 s. |
+| Orbit Room (904) | buildable with a small change | Walking through the aligned gap is the exit (no Space). Rotation 0.5 to 0.9 and sparks 1 to 5 are fine; rings 1, 1, 2, 2, 3. One round room: xt3d bench or Vibecode3D. |
+| Tile Painter (264) | needs a change | No Space and no timer-deaths: walking paints. "Leaving the room loses a life" cannot happen (walls). Rooms 4x4, 5x5, 6x6, 7x7, 8x8 with pillars; a Python check that each room can be painted (stepping twice un-paints, so not every room can). |
+| Storm Rescue (994) | needs a change | Villagers follow you (no Space to climb). A flooded villager is swept back to the start of the level, not a lost life; you lose only when the hilltop floods. Uses cellmap floor heights directly (the sea rises one grey step every 30 s). |
+
+Suggested order from both batches: Two Key Doors, Pursuit Grid, Mirror Halls, Guard Swap (the
+three two-hero ones are PROMPT & GLAZE levels), then Wire Sentries, Courier Run, Ring Arena, Orbit
+Room; the puzzle rooms (Push Block Vault, Bridge Builder, Switch Room, Slide Ice Cave, Tile
+Painter, Falling Floor) after one shared Python solver/checker is written.
