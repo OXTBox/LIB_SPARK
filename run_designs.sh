@@ -15,15 +15,16 @@ for line in open(ideas, encoding='utf-8', errors='replace'):
     if not line or line.startswith('#') or '|' not in line: continue
     parts = [x.strip() for x in line.split('|')]
     title, brief = parts[0], parts[1]
-    cols = 'speed | count | lives | bonus'
+    cols, legend = 'speed | count | lives | bonus', '. empty, # wall, P player start'
     if len(parts) > 2 and parts[2].lower().startswith('columns:'):   # Title | what happens | columns: a, b, c
         cols = ' | '.join(c.strip() for c in parts[2][8:].split(',') if c.strip()) or cols
+        legend = 'none'                       # own columns: no layout pictures (run_arcade.levels_prompt)
     else:
         brief = ' | '.join(parts[1:])
     if not title: continue
     gid = str(100 + zlib.crc32(title.lower().encode()) % 900)          # the same title keeps its number
     prefix = ''.join(w[:1].upper() + w[1:] for w in re.findall(r'[A-Za-z]+', title))[:5] or 'Game'
-    rows.append('\t'.join([gid, title, prefix, brief, cols, '. empty, # wall, P player start']))
+    rows.append('\t'.join([gid, title, prefix, brief, cols, legend]))
 open(out, 'w', encoding='utf-8').write('\n'.join(rows) + '\n')
 print(f'{len(rows) - 1} idea(s) in the queue')
 PY

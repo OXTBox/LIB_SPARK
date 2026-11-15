@@ -40,6 +40,15 @@ def fill(template, **values):
     return re.sub(r'\{(\w+)\}', lambda m: str(values.get(m.group(1), m.group(0))), template)
 
 
+def levels_prompt(template, g):
+    """the LEVELS prompt; an idea that names its own level columns (legend 'none', from
+    run_designs.sh) gets no LAYOUTS picture: Claude makes the levels with a checked tool, and
+    every max_tokens cut-off so far was in the pictures"""
+    if g.get('legend', '').strip().lower() == 'none':
+        return re.sub(r'^LAYOUTS\n.*?(?=^NOTES$)', '', template, flags=re.S | re.M)
+    return template
+
+
 GAMES_FILE = ['games_first_run.tsv']
 
 
@@ -180,7 +189,7 @@ def main():
         os.makedirs(folder, exist_ok=True)
         concept = stage(a, g, folder, '1_concept.md', p['SYSTEM'], fill(p['CONCEPT'], **g), 700)
         levels = stage(a, g, folder, '2_levels.md', p['SYSTEM'],
-                       fill(p['LEVELS'], concept=concept[:2600], **g), 900)
+                       fill(levels_prompt(p['LEVELS'], g), concept=concept[:2600], **g), 900)
         if not a.no_script:
             stage(a, g, folder, '3_script.livecodescript', p['SYSTEM'],
                   fill(p['SCRIPT'], concept=concept[:2600], levels=levels[:2400], example=example, **g), 3600)

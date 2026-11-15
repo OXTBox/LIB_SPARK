@@ -34,6 +34,10 @@ def main():
     a = types.SimpleNamespace(work_minutes=20, rest_seconds=15)
     w, r = run_arcade.pace(a)
     check('pace: two numbers (pace.txt or the defaults)', isinstance(w, float) and isinstance(r, float), (w, r))
+    lv = run_arcade.prompts()['LEVELS']
+    check('own level columns: no LAYOUTS picture asked for', 'LAYOUTS' not in run_arcade.levels_prompt(lv, {'legend': 'none'})
+          and 'NOTES' in run_arcade.levels_prompt(lv, {'legend': 'none'}))
+    check('old ideas still get LAYOUTS', 'LAYOUTS' in run_arcade.levels_prompt(lv, {'legend': '. empty, # wall'}))
     return done()
 
 
