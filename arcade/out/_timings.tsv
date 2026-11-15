@@ -155,3 +155,27 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-15 03:49:17	spark-x2.6-4b	130	Night Garden	2_levels.md	719	654	22.1	29.7	70	ok
 2026-11-15 03:49:40	spark-x2.6-4b	301	Echo Chamber	1_concept.md	420	487	17.3	28.1	21	ok
 2026-11-15 03:50:00	spark-x2.6-4b	301	Echo Chamber	2_levels.md	828	424	14.8	28.7	44	ok
+2026-11-15 03:51:29	spark-x2.6-4b	654	Key Ring Maze	1_concept.md	480	402	5.9	68.0	19	ok
+2026-11-15 03:51:47	spark-x2.6-4b	654	Key Ring Maze	2_levels.md	745	900	12.7	71.1	93	CUT
+2026-11-15 03:51:58	spark-x2.6-4b	530	Lantern Pair	1_concept.md	482	456	6.5	69.7	19	ok
+2026-11-15 03:52:12	spark-x2.6-4b	530	Lantern Pair	2_levels.md	798	637	9.2	69.3	79	ok
+2026-11-15 03:52:24	spark-x2.6-4b	802	Sweep Patrol	1_concept.md	468	421	6.2	68.1	19	ok
+2026-11-15 03:52:37	spark-x2.6-4b	802	Sweep Patrol	2_levels.md	764	544	8.1	67.5	49	ok
+2026-11-15 03:52:47	spark-x2.6-4b	503	Ring Toss Arena	1_concept.md	458	324	5.0	64.6	17	ok
+2026-11-15 03:52:59	spark-x2.6-4b	503	Ring Toss Arena	2_levels.md	667	444	7.2	62.0	51	ok
+2026-11-15 03:53:10	spark-x2.6-4b	623	Tunnel Digger	1_concept.md	459	373	6.1	61.4	18	ok
+2026-11-15 03:53:25	spark-x2.6-4b	623	Tunnel Digger	2_levels.md	716	611	10.3	59.1	59	ok
+2026-11-15 03:53:36	spark-x2.6-4b	283	Fold Map Room	1_concept.md	467	310	5.6	55.8	13	ok
+2026-11-15 03:53:50	spark-x2.6-4b	283	Fold Map Room	2_levels.md	651	502	8.8	57.0	44	ok
+2026-11-15 03:54:03	spark-x2.6-4b	209	Shadow Tag	1_concept.md	463	449	8.3	54.4	20	ok
+2026-11-15 03:54:17	spark-x2.6-4b	209	Shadow Tag	2_levels.md	790	426	8.6	49.7	44	ok
+2026-11-15 03:54:29	spark-x2.6-4b	469	Twin Lifts	1_concept.md	479	386	7.8	49.6	24	ok
+2026-11-15 03:54:45	spark-x2.6-4b	469	Twin Lifts	2_levels.md	728	477	10.5	45.5	44	ok
+2026-11-15 03:54:59	spark-x2.6-4b	574	Pipe Flow Room	1_concept.md	463	408	8.9	45.7	19	ok
+2026-11-15 03:55:16	spark-x2.6-4b	574	Pipe Flow Room	2_levels.md	749	482	12.1	39.8	49	ok
+2026-11-15 03:55:35	spark-x2.6-4b	331	Hover Polo	1_concept.md	465	485	14.4	33.8	20	ok
+2026-11-15 03:55:54	spark-x2.6-4b	331	Hover Polo	2_levels.md	828	426	13.6	31.3	44	ok
+2026-11-15 03:56:09	spark-x2.6-4b	422	Sky Stepping	1_concept.md	465	351	9.6	36.4	18	ok
+2026-11-15 03:56:28	spark-x2.6-4b	422	Sky Stepping	2_levels.md	693	432	14.2	30.5	46	ok
+2026-11-15 03:56:47	spark-x2.6-4b	949	Market Run	1_concept.md	461	452	14.5	31.1	20	ok
+2026-11-15 03:57:10	spark-x2.6-4b	949	Market Run	2_levels.md	793	517	18.1	28.5	44	ok

@@ -178,3 +178,30 @@ tests the fix.
 | Rescue Lift (411) | needs a change | Drop "Space to drop the cage" ("miner_speed 0" means nothing). Cage holds 3; a rock cracks it, 3 cracks = a life. Depth 4 to 8 ledges. |
 
 Across the three batches, fourteen games are near enough to build; the owner picks.
+
+## Batch 4 (2026-11-15, 12 ideas, the first run with the fixed prompt)
+
+Run: 03:51 to 03:57, 24 requests, 232 s of model time, 28 to 71 tokens/s. One cut off at
+max_tokens (Key Ring Maze's layouts; its table is complete).
+
+**The prompt fix worked for keys:** 12 of 12 CONTROLS lines use exactly the keys the idea names
+(Space only in Ring Toss Arena, which asks for it; F in Fold Map Room; TAB in the two hero games).
+**Lives are still everywhere**, now attached to odd things ("accumulating dust costs a life",
+"walking into a locked wall costs a life"), because the level table's columns are fixed as
+`speed | count | lives | bonus` (`run_designs.sh`). Next fix, proposed, not made: let each idea
+name its own level columns (e.g. `Title | what happens | columns: maze size, keys, par moves`).
+
+| Game | Verdict | What to change |
+|---|---|---|
+| Pipe Flow Room (574) | buildable with a small change | Keys right, rule right. The overflow ends the attempt (retry), not a life; time 60 s falling 5 s a level; tiles 4 to 7 fine. Needs a check that each board can connect. |
+| Tunnel Digger (623) | buildable with a small change | Keys right. "Tunnel blocked costs a life" drop: only a falling rock does. Gems 5 flat is dull: 4, 5, 6, 7, 8; rocks 3 to 8. A side-view grid game in the Dig/rock genre: needs only a cell grid. |
+| Hover Polo (331) | buildable with a small change | Drop lives (a goal is the only score). Rival speed 90 to 130 and goal width shrinking 80 to 50 are good. Physics: puck bounces like Bat Duel's ball (reuse). |
+| Shadow Tag (209) | needs a change | Tagged = back to the start, no lives. Coins 5 flat: 4 to 8. Pillar shadows from a circling light: angular check in Python first. |
+| Key Ring Maze (654) | needs a change | Walking into a locked wall just blocks. Colours 2, 2, 3, 3, 4; locks 2 to 6. Needs a solver check (a key locked behind its own lock must not happen). |
+| Lantern Pair (530) | needs a change, **fits PROMPT & GLAZE** | Spark misread TAB as handing the lantern over; TAB swaps the hero you play (the other holds the lantern and stays). Walls just block. Light radius 4, 4, 3, 3, 2 cells; maze 9 to 15. |
+| Twin Lifts (469) | needs a change, **fits PROMPT & GLAZE** | NUMBERS empty and the table flat. Floors 3 to 7; doors needing both heroes 0, 1, 2, 3, 4. Falling only if a door opens on an empty shaft: back to the floor below, no lives. |
+| Sky Stepping (422) | needs a change | A slab falls after three steps on it; falling = back to the last tower, lives 3. Slab gap 1 to 2 cells, drift from level 3. |
+| Sweep Patrol (802) | needs a change | "Dust costs a life" is nonsense: touching a vacuum costs a life. Dust cells 20 to 40, vacuums 3 to 6 fine. |
+| Market Run (949) | needs a change | Bumping a shopper costs time (pushed back), not a life. List 3, 4, 5, 6, 7 items (Spark kept 3). Item names in LIB_GENERICA labels (like Bargain Hall). |
+| Fold Map Room (283) | needs a change, later | The idea is good but the fold rule needs designing by a person: which half shows, what "walls add up" means on cellmap heights. Spark kept 1 fold for all levels. |
+| Ring Toss Arena (503) | needs a change | A ring that misses is just gone (rings are the clock), no lives. Rings 8, 7, 6, 5, 4; post speed 1.8 to 3.5 fine. |
