@@ -1,0 +1,51 @@
+FAULTS
+parse    ok: 4 parts
+size     ok: is 30 x 120 x 105 (width, height, length), SIZE says 30 x 120 x 100
+joined   ok
+base     ok: ground; stands on y 0 as written
+relate   FAIL: "mast on top of tower" is not true: mast starts at height -0, tower ends at 120
+mirror   ok
+edges    ok: 15 (budget 160)
+
+top (front up the page)
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+###########
+#    #
+###########
+side (front to the right)
+####
+#  #
+#  #
+#  #
+#  #
+#  #
+#  #
+#  #
+# ################################
+#  ##
+#  # ##
+#  #   ##
+#  #     ##
+#  #       ##
+#  #         ##
+#  #           ##
+#  #             ##
+#  #               ##
+#  #                 ##
+####                   ##

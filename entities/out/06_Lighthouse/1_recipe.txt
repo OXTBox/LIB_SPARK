@@ -1,0 +1,18 @@
+ENTITY: Lighthouse
+GAME: Lighthouse Keeper
+COLOUR: 255,255,255
+SIZE: 50,200,50
+SYMMETRIC: yes
+BASE: stands on the ground
+RELATIONS: tower on the ground; lamp_room on top of tower; cap on top of tower
+PARTS:
+tower | lathe | 8; 6,40; 12,30; 18,20; 25,10 | 0,20,0 | 0,0,0 | the tapered tower from ground to y 40
+lamp_room | box | 24,16,30 | 0,56,0 | 0,0,0 | the lamp room with windows on top of the tower
+cap | prism | 6,10,50 | 0,55,0 | 0,0,0 | the pointed cap on top of the tower
+lamp | prism | 6,12,20 | 0,70,0 | 0,0,0 | the lamp inside the cap
+window | box | 8,14,10 | 0,60,15 | 0,0,0 | the windows on the lamp room
+base_plate | box | 50,4,50 | 0,2,0 | 0,0,0 | the base plate on the ground under the tower
+
+Wait, the lathe profile: top to bottom, so first r,y is top. The tower top is at y 40, so first point r=6,y=40. Then y=30 r=12, y=20 r=18, y=10 r=25. The base at y=0 should have radius 25, but the last point is y=10 r=25. Let me add y=0 r=25 as the last point. Lathe profile top to bottom: 8; 6,40; 12,30; 18,20; 25,10; 25,0. That way the base is radius 25 at y 0, which matches the 50 wide size.
+
+Also, the tower's centre is at y 20 (since it's 40 tall, centre at 20). The lathe

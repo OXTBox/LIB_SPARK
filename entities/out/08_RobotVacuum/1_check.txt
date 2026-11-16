@@ -1,0 +1,40 @@
+FAULTS
+parse    ok: 3 parts
+size     ok: is 34 x 13 x 35 (width, height, length), SIZE says 34 x 10 x 34
+joined   ok
+base     ok: ground; stands on y 0 as written
+relate   FAIL: "bumper on top of vacuum_body" is not true: bumper starts at height 5, vacuum_body ends at 10; "light on top of vacuum_body" is not true: light starts at height 5, vacuum_body ends at 10
+mirror   ok
+edges    ok: 42 (budget 160)
+
+top (front up the page)
+            ##############
+#####################################
+#           #            #
+#           #            #
+#           #            #
+#           #            #
+#           # ########## #
+#           ##############
+#           #            #
+#          #              #
+#         #                #
+#          ##            ##
+#           #            #
+#            #          #
+#             ##########
+#
+#
+#
+#
+#####################################
+side (front to the right)
+              ###################
+              #        #       ################
+###############################################
+#             #        #       ##             #
+#             #        #       ##             #
+#             #################################
+#                                             #
+#                                             #
+#                                             #

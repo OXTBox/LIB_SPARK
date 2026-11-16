@@ -1,0 +1,52 @@
+# snapped: nothing to move
+# written out/10_HotAirBalloon/2_recipe_snapped.txt
+== out/10_HotAirBalloon/2_recipe_snapped.txt: FAULTS
+   parse    FAIL: So burner: box: unknown shape "20,10,15"; So balloon: prism: unknown shape "8,30,50"
+   size     FAIL: is 60 x 60 x 60 (width, height, length), SIZE says 60 x 110 x 60
+   joined   ok
+   base     flies: lowest point -0.0 above the ground
+   relate   FAIL: "burner below balloon" is not true: burner reaches 20, balloon starts at 10
+   mirror   ok
+   edges    ok: 48 (budget 160)
+   top (front up the page)
+                 #####
+            #####     #####
+       #####               #####
+      ##                       ##
+     #                           #
+    #     ###################     #
+   #      #                 #      #
+  #       #  #############  #       #
+  #       #  #           #  #       #
+##        #  #           #  #        ##
+ #        #  #           #  #        #
+  #       #  #           #  #       #
+  #       #  #############  #       #
+   #      #                 #      #
+    #     ###################     #
+     #                           #
+      ##                       ##
+       #####               #####
+            #####     #####
+                 #####
+   side (front to the right, up is up)
+#######################################
+#     #            #            #     #
+#     #            #            #     #
+#     #            #            #     #
+#     #            #            #     #
+#     #            #            #     #
+#     #            #            #     #
+#     #            #            #     #
+#     #            #            #     #
+#     #            #            #     #
+#     #            #            #     #
+#     #            #            #     #
+#     #            #            #     #
+#     #       ###########       #     #
+#     #       #    #    #       #     #
+#     #       #    #    #       #     #
+#######################################
+          #   #         #   #
+          #   ###########   #
+          ###################

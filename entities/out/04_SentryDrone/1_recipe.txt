@@ -1,0 +1,16 @@
+ENTITY: Sentry Drone
+GAME: wire sentry arcade
+COLOUR: 120,200,255
+SIZE: 30,50,30
+SYMMETRIC: yes
+BASE: flies
+RELATIONS: eye on top of neck; base on the ground
+PARTS:
+base | box | 30,10,30 | 0,5,0 | 0,0,0 | the wide ground base
+neck | box | 8,20,16 | 0,15,0 | 0,0,0 | the short neck connecting base to body
+body | box | 20,30,20 | 0,35,0 | 0,0,0 | the ball body of the patrol robot
+eye | prism | 6,8,10 | 0,45,5 | 0,0,0 | the front eye of the sentry
+
+Check touches: base top y 10, neck bottom y 15-10=5, neck top y 15+10=25. Body bottom y 35-15=20, so neck top 25 > body bottom 20, they overlap/touch. Base x range -15 to 15, neck x range -4 to 4, so touches base. Body x range -10 to 10, neck x range -4 to 4, touches body. Eye z 5, depth 10, front z 5+5=10, body front z 0+10=10, so touches body. Eye y 45, height 8, bottom y 41, body top y 35+15=50, so eye is on top of body (bottom 41 < body top 50, touching). All parts touch. Symmetric: all parts at x 0, so SYMMETRIC yes is correct. Size: width 30 (base width 30), height 50 (body top 50), depth 30 (base depth 30). Correct.
+
+Wait, the rules say "a part ON TOP OF another starts at the other's top height (its centre y = the other's top + half its own height)". Let me adjust eye to follow that. Body top is 50, eye half height is 4, so eye centre y should be 50+4=54? But total height would be 54+4=58, exceeding 50. Let me adjust body height to 25,

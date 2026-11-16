@@ -6,6 +6,7 @@ What we know about working with Spark (`spark-x2.6-4b`, the local model in LM St
 
 | Folder | What |
 |---|---|
+| `entities/` | 2026-11-15/16: procedural entity recipes (parts, sizes, positions) checked by `entity.py`; rounds in `out/`, verdicts `ROUND3.md` |
 | `arcade/` | 2026-11-13: can Spark work 12 arcade games out from brief to card script? Prompt `arcade_prompt.md`, games `games.tsv`, runner `run_arcade.py` (start: `START_SPARK_ARCADE.bat`), drafts in `out/`, verdict in `REVIEW.md` |
 
 ## Record of gains and time frames
@@ -26,6 +27,7 @@ What we know about working with Spark (`spark-x2.6-4b`, the local model in LM St
 | 2026-11-15 | game designs, batches 10 and 11 (24 ideas, one run; rest 04:45-05:00) | 48 | 230 s | 59 to 72 tokens/s | keys right 24 of 24; 5 as is, 13 small change, 6 need a change |
 | 2026-11-15 | entities round 2 (7 of 12 before rest) | 13 | about 4 min | 17 to 72 tokens/s (slowed while other work ran) | half the faults were phrases the checker could not read (fixed 16 Nov); the rest are real placement faults |
 | 2026-11-16 | FUN round: owner's review answers + UFO, new FUN block (`arcade/REVIEW_FUN_ROUND.md`) | 24 | about 4.5 min | 50 to 75 tokens/s | FUN filled 12 of 12, tables in range 12 of 12, no cut-offs; fun only where the brief had it; story flipped in 4 |
+| 2026-11-16 | entities round 3 (12, checker reads Spark's wordings; `entities/ROUND3.md`) | 24 | about 8 min | 20 to 70 tokens/s | 1 of 12 pass as written, 2 after the tool snaps stacking; retries resend the same numbers in 9 of 11 |
 
 ## What holds so far
 

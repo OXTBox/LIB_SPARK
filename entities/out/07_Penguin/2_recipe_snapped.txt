@@ -1,0 +1,16 @@
+# snapped: head up by 6
+ENTITY: Penguin
+GAME: Penguin Slide
+COLOUR: 255,255,255
+SIZE: 24,40,20
+SYMMETRIC: yes
+BASE: ground
+RELATIONS: egg body on the ground; head on top of egg body; beak in front of head; flippers beside head; feet on the ground
+PARTS:
+egg_body | box | 20,30,16 | 0,15,0 | 0,0,0 | the egg body sitting on the ground
+head | sphere | 8,3,6 | 0,38,0 | 0,0,0 | the round head on top of the egg body
+beak | box | 4,2,4 | 0,39,9 | 0,0,0 | the small beak at the front of the head
+flipper_left | box | 8,12,10 | -9,28,0 | 0,0,0 | the left flipper beside the head
+flipper_right | box | 8,12,10 | 9,28,0 | 0,0,0 | the right flipper beside the head
+feet | box | 12,8,8 | 0,4,0 | 0,0,0 | the feet on the ground
+

@@ -1,0 +1,50 @@
+# snapped: head up by 6
+# written out/07_Penguin/2_recipe_snapped.txt
+== out/07_Penguin/2_recipe_snapped.txt: FAULTS
+   parse    ok: 6 parts
+   size     ok: is 26 x 46 x 19 (width, height, length), SIZE says 24 x 40 x 20
+   joined   FAIL: not touching the rest: beak
+   base     ok: ground; stands on y 0 as written
+   relate   FAIL: "beak in front of head" is not true: beak does not touch head
+   mirror   ok
+   edges    ok: 90 (budget 160)
+   top (front up the page)
+                    ########
+                    #      #
+                    #      #
+     ######################################
+     #           ##############           #
+############### # #          # # ###############
+#    #       ######################       #    #
+#    #       ###    ##    ##    ###       #    #
+#    #       ##       #  #       ##       #    #
+#    #      ###        ##        ###      #    #
+#    #     ##########################     #    #
+#    #      ###       ####       ###      #    #
+#    #       ##      #    #      ##       #    #
+#    #       ######################       #    #
+################# ##        ## #################
+     #           ##############           #
+     #                                    #
+     ######################################
+   side (front to the right, up is up)
+      ###
+   ### # ###
+  ##############
+  #    #    ####
+  #    #    #
+  ###########
+  # ########
+##############
+# #        # #
+# #        # #
+# ########## #
+#            #
+#            #
+#            #
+#            #
+#            #
+#  ########  #
+#  #      #  #
+#  #      #  #
+##############

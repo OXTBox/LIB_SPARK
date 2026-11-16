@@ -1,0 +1,41 @@
+FAULTS
+parse    ok: 5 parts
+size     FAIL: is 50 x 70 x 21 (width, height, length), SIZE says 50 x 80 x 10
+joined   ok
+base     ok: ground; stands on y 0 as written
+relate   FAIL: "door panel inside frame" is not true: door is not within frame
+mirror   ok
+edges    ok: 44 (budget 160)
+
+top (front up the page)
+                 #            #
+                #              #
+################################################
+#    #       #                    #       #    #
+#    #      #           #          #      #    #
+#    #       #          #         #       #    #
+################################################
+               ##       #      ##
+                 #      #     #
+                  ############
+side (front to the right)
+   ######
+   #  # #
+   #  # #
+   #  # #
+   #  # #
+############
+#  #  # #  #
+#  #  # #  #
+####### #  #
+#  #  # #  #
+#  #  # #  #
+############
+   #    #
+   #    #
+   #    #
+   #    #
+   ######
+   #    #
+   #    #
+   ######

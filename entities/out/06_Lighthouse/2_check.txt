@@ -1,0 +1,51 @@
+FAULTS
+parse    ok: 6 parts
+size     FAIL: is 50 x 80 x 50 (width, height, length), SIZE says 50 x 200 x 50
+joined   FAIL: not touching the rest: base_plate
+base     stands: lowest point -0.0 above the ground
+relate   FAIL: "tower on the ground" is not true: tower starts at height 20, the lowest point is -0; "lamp_room on top of tower" is not true: lamp_room starts at height 48, tower ends at 60; "cap on top of tower" is not true: cap starts at height 30, tower ends at 60
+mirror   ok
+edges    ok: 144 (budget 160)
+
+top (front up the page)
+#######################################
+#           #####  #  #####           #
+#      #####    #######    #####      #
+#     ##       #########       ##     #
+#    # ## ################### ## #    #
+#   #    ###    #######    ###    #   #
+#  #     ## ############### ##     #  #
+# #     # # ####  ###  #### # #     # #
+# #    #  ####  ##   ##  ####  #    # #
+################       ################
+##    #   ###  #       #  ###   #    ##
+# #    #  ####  ##   ##  ####  #    # #
+# #     # # ####  ###  #### # #     # #
+#  #     ## ############### ##     #  #
+#   #    ###     #####     ###    #   #
+#    # ## ################### ## #    #
+#     ##       #########       ##     #
+#      #####       #       #####      #
+#           #####  #  #####           #
+#######################################
+side (front to the right)
+       ###########
+       ##   #   ##
+       ##   #   ##
+       ##   #   ######
+     ############### #
+     # ########### # #
+     # ###  #  #######
+     ###############
+     ###############
+    #  ##   #   ## #
+  ####################
+ ## #   #   #   #  #  ##
+########################
+#  #        #       #
+########################
+
+
+
+########################
+########################

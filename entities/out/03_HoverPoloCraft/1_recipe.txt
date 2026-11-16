@@ -1,0 +1,46 @@
+ENTITY: Hover Polo Craft
+GAME: Hover Polo
+COLOUR: 255,255,255
+SIZE: 50,20,60
+SYMMETRIC: yes
+BASE: flies
+RELATIONS: skirt on top of hover craft body; seat in front of hover craft body; fan box behind hover craft body
+PARTS:
+hover_craft_body | box | 40,12,40 | 0,6,30 | 0,0,0 | the flat round hover craft body
+skirt | box | 40,8,10 | 0,14,30 | 0,0,0 | the skirt attached to the top of the hover craft body
+seat | box | 10,6,10 | 0,13,35 | 0,0,0 | the seat in the middle of the hover craft body
+fan_box | box | 10,6,10 | 0,13,5 | 0,0,0 | the fan box at the back of the hover craft body
+
+Wait, that has 5 parts and the skirt is not touching the body properly. Let me correct.
+
+Actually, let me redo carefully.
+
+Hover Polo Craft: flat round hover craft, skirt, seat in middle, fan box at back. Size 50 wide (x), 20 tall (y), 60 long (z). Flies above ground.
+
+Let me design:
+
+- hover_craft_body: box 40 wide, 12 tall, 40 deep, centred at y=6 (so bottom at y=0? No, flies, so lowest point can be above ground. But it's a flat craft, so let's put it at y=10, height 12, so it spans y=4 to y=16. Actually, to be simple, let's have it at y=10, h=12, so top at y=16.
+
+Wait, the object is 20 tall total. So body height 12, skirt adds to it. Let's make body 40x12x40 at y=10 (centre), so spans y=4 to y=16. Skirt is 40x8x10 at y=14 (centre), so spans y=10 to y=18. That makes total height 18, close to 20.
+
+Seat in middle: box 10x6x10 at y=13, x=0, z=30 (front). So it's in the middle, front side.
+
+Fan box at back: box 10x6x10 at y=13, x=0, z=0 (back).
+
+Wait, but skirt should be on top of body. Body top is y=16, skirt centre y=14? No, if skirt is on top of body, its centre y should be body top + half skirt height. Body top is 10 + 12/2 = 16. Skirt height 8, so half is 4, so skirt centre y=16+4=20. That would make total height 20+4=24, too tall.
+
+Let me adjust. Body height 10, so body at y=5, spans y=0 to y=10. But it flies, so lowest point at y=0 is okay? The rule says "An object standing on the ground has its lowest point at y 0". If it flies, it can be above. But let's keep it simple, maybe lowest point at y=0 is fine even if flying? No, BASE: flies means it's not on ground. But to keep it simple, let's have body at y=8, height 10, so spans y=3 to y=13. Skirt on top: body top is 8+5=13, skirt height 6, half is 3, so skirt centre y=13+3=16, spans y=13 to y=19. Total height 19, close to 20.
+
+Seat in middle: box 10x6x10 at y=14 (centre), x=0, z=30 (front). So it's inside the craft, in the middle.
+
+Fan box at back: box 10x6x10 at y=14, x=0, z=0 (back).
+
+Now check parts touch: body at (0,8,30), size 40x10x40. Skirt at (0,16,30), size 40x6x10. Skirt is on top of body: body top is 8+5=13, skirt centre y=16, which is 13+3=16, correct (half skirt height 3). So skirt touches body.
+
+Seat at (0,14,30), size 10x6x10. Body spans x -20 to 20, y 3 to 13, z 10 to 70. Seat is at x=0, y=14, z=30. y=14 is above body top (13), but it's inside the craft, so it touches the body? The seat's bottom is y=14-3=11, which is inside body's y range (3-13). So yes, it touches the body.
+
+Fan box at (0,14,0), size 10x6x10. Body spans z 10 to 70, so z=0 is back of body. Fan box z range is -5 to 5, so it touches body at z=10? Fan box front is z=5, body back is z=10, so they touch at z=10. Yes.
+
+Now SYMMETRIC: yes, because it's symmetric left-right. All parts are at x=0, so they sit on x=0, which is allowed.
+
+Let's check edges: body is box 12 edges. Skirt 12 edges. Seat

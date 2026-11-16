@@ -1,0 +1,14 @@
+# snapped: skirt up by 1
+ENTITY: Hover Polo Craft
+GAME: Hover Polo
+COLOUR: 255,255,255
+SIZE: 50,20,60
+SYMMETRIC: yes
+BASE: flies
+RELATIONS: skirt on top of hover craft body; seat in front of hover craft body; fan box behind hover craft body
+PARTS:
+hover_craft_body | box | 40,12,40 | 0,8,30 | 0,0,0 | the flat round hover craft body
+skirt | box | 40,6,10 | 0,17,30 | 0,0,0 | the skirt attached to the top of the hover craft body
+seat | box | 10,6,10 | 0,14,30 | 0,0,0 | the seat in the middle of the hover craft body
+fan_box | box | 10,6,10 | 0,14,0 | 0,0,0 | the fan box at the back of the hover craft body
+

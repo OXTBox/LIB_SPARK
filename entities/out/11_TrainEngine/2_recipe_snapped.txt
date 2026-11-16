@@ -1,0 +1,22 @@
+# snapped: boiler up by 12
+# snapped: wheel_left down by 8
+# snapped: wheel_right down by 8
+# snapped: wheel_back_left down by 8
+# snapped: wheel_back_right down by 8
+ENTITY: Train Engine
+GAME: Train Yard Switch
+COLOUR: 255,255,255
+SIZE: 30,45,90
+SYMMETRIC: yes
+BASE: ground
+RELATIONS: boiler on top of frame; cab behind boiler; chimney in front of boiler; wheels under frame
+PARTS:
+frame | box | 30,12,90 | 0,6,45 | 0,0,0 | the engine frame standing on the ground
+boiler | box | 24,30,40 | 0,27,45 | 0,0,0 | the long steam boiler mounted on the frame
+chimney | prism | 6,8,12 | 0,40,75 | 0,0,0 | the front chimney rising above the boiler
+cab | box | 18,20,30 | 0,10,10 | 0,0,0 | the cab at the back of the engine
+wheel_left | prism | 8,8,8 | 0,-4,45 | 0,0,0 | left front wheel on the frame
+wheel_right | prism | 8,8,8 | 0,-4,45 | 0,0,0 | right front wheel on the frame
+wheel_back_left | prism | 8,8,8 | -15,-4,45 | 0,0,0 | left rear wheel on the frame
+wheel_back_right | prism | 8,8,8 | -15,-4,45 | 0,0,0 | right rear wheel on the frame
+

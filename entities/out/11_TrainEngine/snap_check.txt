@@ -1,0 +1,50 @@
+# snapped: boiler up by 12
+# snapped: wheel_left down by 8
+# snapped: wheel_right down by 8
+# snapped: wheel_back_left down by 8
+# snapped: wheel_back_right down by 8
+# written out/11_TrainEngine/2_recipe_snapped.txt
+== out/11_TrainEngine/2_recipe_snapped.txt: FAULTS
+   parse    ok: 8 parts
+   size     ok: is 38 x 54 x 95 (width, height, length), SIZE says 30 x 45 x 90
+   joined   FAIL: not touching the rest: chimney
+   base     ok: ground; moved up by 8.0 so it stands on y 0
+   relate   FAIL: "chimney in front of boiler" is not true: chimney does not touch boiler
+   mirror   FAIL: 16 corners have no twin on the other side (x -15.0 has none at x 15.0)
+   edges    ok: 150 (budget 160)
+   top (front up the page)
+   #############
+   #           #
+   #   ######  #
+   #  #     #  #
+   #   ######  #
+   #############
+   ##         ##
+   ##    #    ##
+######### ### ##
+#  ## #     # ##
+######### ### ##
+   ##    #    ##
+   ##         ##
+   #############
+   #  #      # #
+   #  #      # #
+   #  #      # #
+   #  #      # #
+   #############
+      ########
+   side (front to the right, up is up)
+                                    ########
+               ######################   #  #
+               #                   ##   #  #
+               #                   #########
+               #                   #
+               #                   #
+################                   #
+#              #                   #
+# ##############################################
+# #            #                               #
+# #            #                               #
+################################################
+                     ##  #  ##
+                     #########

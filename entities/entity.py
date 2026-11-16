@@ -239,6 +239,8 @@ def parse(text):
         f = [x.strip() for x in line.lstrip('-* ').split('|')]
         if f and f[0].lower() == 'name':                # the column header line
             continue
+        if ':' in f[0] or len(f[0].split()) > 3:        # "So burner: box | ..." is Spark thinking, not a part
+            continue
         if len(f) < 5:
             errors.append('part line has %d fields, not 6: %s' % (len(f), line[:60]))
             continue

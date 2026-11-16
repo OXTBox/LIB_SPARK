@@ -1,0 +1,52 @@
+# snapped: nothing to move
+# written out/02_IceFishingHut/2_recipe_snapped.txt
+== out/02_IceFishingHut/2_recipe_snapped.txt: OK
+   parse    ok: 4 parts
+   size     ok: is 50 x 58 x 44 (width, height, length), SIZE says 50 x 60 x 50
+   joined   ok
+   base     ok: ground; stands on y 0 as written
+   relate   ok: 3 relations hold
+   mirror   ok
+   edges    ok: 54 (budget 160)
+   top (front up the page)
+           #######################
+          # #    ###########    # #
+         #   #  ##         ##  #   #
+    ####################################
+    # ##       ###         ###       ###
+    ##           ###########           #
+    #             #########            ##
+   ##              #     #             # #
+  # #               #   #              #  #
+ #  #                # #               #   #
+############################################
+  # #               #   #              #  #
+   ##              #     #             # #
+    #             #       #            ##
+    ##           #         #           #
+    # #         #           #         ##
+    ####################################
+         #   #                 #   #
+          # #                   # #
+           #######################
+   side (front to the right, up is up)
+             ###
+           ## # ##
+         ##   #   ###
+       ##     #      ##
+    ###       #        ###
+  ##          #    ##########
+#############################
+    #              #    #
+    #              #    #
+    #              # #######
+    #              ##########
+    #                #  #  #
+    #                #  #  #
+    #                #  #  #
+    #                #  #  #
+    #                #  #  #
+    #                #  #  #
+    #                #  #  #
+    #                #  #  #
+    ########################
