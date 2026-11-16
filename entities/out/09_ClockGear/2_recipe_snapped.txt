@@ -1,0 +1,12 @@
+# snapped: gear up by 10
+ENTITY: Clock Gear
+GAME: Clock Tower Climb
+COLOUR: 180,180,180
+SIZE: 80,80,10
+SYMMETRIC: yes
+BASE: flies
+RELATIONS: gear on top of mast
+PARTS:
+gear | box | 76,80,10 | 0,80,0 | 0,0,0 | the big flat gear wheel standing upright with 8 teeth and an axle through the middle
+mast | prism | 8,70,10 | 0,35,0 | 0,0,0 | the mast holding the gear upright
+

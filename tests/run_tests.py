@@ -62,6 +62,23 @@ def main():
     check('entity: a bad line is a parse fault, not a crash', not entity.check(lop)[1])
     upside = boat.replace('cabin | box | 24,14,30 | 0,7,-15', 'cabin | box | 24,14,30 | 0,-32,-15')
     check('entity: a relation that is not true fails (cabin under the hull)', any('relate' in r and 'FAIL' in r for r in entity.check(upside)[0]))
+    words = boat.replace('RELATIONS: cabin on top of hull; sail above hull',
+                         'RELATIONS: the cabin sits on hull; sail above the hull; hull on the ground; cabin on the back of hull')
+    rep = entity.check(words)[0]
+    check('entity: Spark\'s wordings read ("sits on", "the hull", "on the ground", "on the back of")',
+          any('relate   ok: 4' in r for r in rep), rep)
+    front = boat.replace('RELATIONS: cabin on top of hull; sail above hull', 'RELATIONS: cabin in front of hull')
+    check('entity: front is +z (the cabin sits at the back, so "in front of" fails)',
+          any('relate' in r and 'front is +z' in r for r in entity.check(front)[0]))
+    two = ('ENTITY: Twins\nBASE: ground\nRELATIONS: arms on the sides of body\nPARTS:\n'
+           'body | box | 20,40,20 | 0,20,0 | 0,0,0 | body\narm_left | box | 6,20,6 | -13,25,0 | 0,0,0 | arm\n'
+           'arm_right | box | 6,20,6 | 13,25,0 | 0,0,0 | arm\n')
+    rep = entity.check(two)[0]
+    check('entity: a plural ("arms") checks every part of that kind', any('relate   ok: 1' in r for r in rep), rep)
+    sunk = boat.replace('cabin | box | 24,14,30 | 0,7,-15', 'cabin | box | 24,14,30 | 0,-3,-15')
+    fixed, notes = entity.snap(sunk)
+    check('entity: snap lifts a sunken cabin onto the hull and the recipe then passes',
+          notes == ['# snapped: cabin up by 10'] and entity.check(fixed)[1], notes)
     hut = 'ENTITY: Hut\nBASE: ground\nPARTS:\nwalls | box | 40,30,40 | 0,27,0 | 0,0,0 | walls\nWait, the walls float.\nroof | pyramid | 4,30,20 | 0,52,0 | 0,0,0 | roof\n'
     rep, ok, whole = entity.check('chatter\n' + hut.replace('ENTITY: Hut', 'ENTITY: Old') + hut)
     check('entity: the last recipe is read, musing lines skipped, a floating hut set down on y 0', ok and

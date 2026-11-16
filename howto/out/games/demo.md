@@ -1,0 +1,4 @@
+01 | Game card and loop | The demo’s card script runs Game.OnStart to set up the sea, Game.OnUpdate to update the boat, rocks, laser, and collisions about 30 times a second, and Game.OnStop to clean up, showing a complete game loop from start to stop |
+07 | Mouse and picking | Clicking the laser in the demo fires the laser at the clicked location via Game.OnClick, ScreenToCameraRay, RayCastScene, and Weapon.FireAt, showing how mouse input drives the game’s core interaction |
+10 | Collisions | The demo uses Collision.SetGroup, Collision.AddRule, and Collision.Hit to detect when drifting rocks hit the boat, showing how collision rules make the game respond to physical interactions |
+11 | Effects | When a rock drifts into the boat, the demo triggers FX.Derez to remove the rock with a visual effect, showing how effects add feedback to game events |

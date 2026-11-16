@@ -1,0 +1,28 @@
+ENTITY: Hover Polo Craft
+GAME: Hover Polo
+COLOUR: 255,255,255
+SIZE: 50,20,60
+SYMMETRIC: yes
+BASE: flies
+RELATIONS: skirt on top of hover craft body; seat on top of hover craft body; fan box on top of hover craft body
+PARTS:
+hover_craft_body | box | 40,12,40 | 0,6,30 | 0,0,0 | the flat round hover craft body
+skirt | box | 40,6,10 | 0,13,30 | 0,0,0 | the skirt attached to the top of the hover craft body
+seat | box | 8,8,12 | 0,17,30 | 0,0,0 | the seat in the middle of the hover craft body
+fan_box | box | 12,8,14 | 0,17,0 | 0,0,0 | the fan box at the back of the hover craft body
+
+Wait, I need to fix the positions so every part touches another and the relations hold. Let me recalculate:
+
+The hover craft is 50 wide (x -25 to +25), 20 tall (y 0 to 20), 60 long (z -30 to +30). Front is +z.
+
+Body: box 40 wide, 12 tall, 40 deep, centred at (0,6,30). So it spans y 0 to 12, x -20 to +20, z 10 to +50. Wait, that's too long. Let me adjust: body should be 40 wide, 12 tall, 40 deep, centred at (0,6,0) so it spans z -20 to +20, which is 40 deep. But the object is 60 long total. Let me make body 40 deep, centred at z 0, so z -20 to +20. Then skirt at back (z -20) and fan box at front (z +20).
+
+Body: box 40,12,40 at (0,6,0) → spans y 0-12, x -20 to +20, z -20 to +20. Top at y 12.
+
+Skirt: box 40,6,10 at (0,13,0) → centred at y 13, so spans y 10 to 16, x -20 to +20, z -5 to +5. Touches body at y 12 (body top is 12, skirt bottom is 10, so they overlap? No, body top is y 12, skirt bottom is y 10, so skirt sits on top of body: skirt centre y = body top + half skirt height = 12 + 3 = 15. Let me fix that.
+
+Body top is y 12 (centre 6 + 6). Skirt height 6, so half is 3. Skirt centre y = 12 + 3 = 15. So skirt at (0,15,0), box 40,6,10 → spans y 12 to 18, x -20 to +20, z -5 to +5. Touches body at y 12. Good.
+
+Seat: box 8,8,12 at (0,17,0) → centre y 17, spans y 13 to 21, x -4 to +4, z -6 to +6. Touches skirt at y 12? No, skirt top is y 18. Seat bottom is y 13, so it overlaps with skirt? No, skirt is y 12-18, seat is y 13-21, so they overlap in y 13-18. That's fine, they touch. But seat should be in the middle, on top of the hover craft body. Wait, the hover craft is 20 tall total, so top at y 20. Seat centre y 17, height 8, so top at y 21, which is above 20. Let me adjust: hover craft total height 20, so top at y 20. Seat height 8, so centre y = 20 - 4 = 16. So seat at (0,16,0), box 8,8,12 → spans y 12 to 20, x -4 to +4, z -6 to +6. Touches body at y 12, and top at y 20 (matches hover craft top). Good.
+
+Fan box: at the back, z -20. Box 12,8,14 at (0,17,-20) → centre y 17, spans y 13 to 21, x -6 to +6, z -27 to -13. Wait, hover craft is 60 long, so z -30 to +30. Fan box at back z -20, depth 14, so z -27 to -13. Touches body at z -20 (body spans z -20 to +20, so fan box at z -20 touches body at z -20). But fan box centre z should be -20, so at (0,17,-20). But then it's at the back. Let me adjust: body is 40 deep (z -20 to +20). Fan box at back, so at z -20, depth 14, so z -27 to -13. But that extends beyond body's back. Alternatively, body is 60 long? No, SIZE is 50 wide, 20 tall, 60 long. So total length 60, so z -30 to +30. Body could be 40 deep, centred at z 0, so z -20 to +

@@ -43,8 +43,9 @@ RULES:
   every part on the left has a twin at minus x, or sits on x 0.
 - BASE: ground (stands on y 0), floats (on water), or flies.
 - RELATIONS: say how the main parts stack, using the part names: "cap on top of tower;
-  lamp_room on top of tower; basket below balloon". Words allowed: on top of, above, below,
-  inside. These are checked, so place the parts so they are true: a part ON TOP OF another
+  lamp_room on top of tower; basket below balloon; door in front of hut; legs on the
+  ground". Words allowed: on top of, above, below, inside, in front of, behind, beside, on the
+  ground (front is +z; "beside" means touching it, to its left or right). These are checked, so place the parts so they are true: a part ON TOP OF another
   starts at the other's top height (its centre y = the other's top + half its own height).
 - Work out every position before you answer. Do not think aloud, do not write "Wait",
   do not write the recipe twice: one recipe, then stop.

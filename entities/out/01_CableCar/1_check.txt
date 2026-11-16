@@ -1,0 +1,51 @@
+FAULTS
+parse    ok: 8 parts
+size     ok: is 40 x 70 x 50 (width, height, length), SIZE says 40 x 70 x 50
+joined   ok
+base     flies: lowest point -0.0 above the ground
+relate   FAIL: "cabin on top of hanger" is not true: cabin starts at height 20, hanger ends at 40; "hanger arm above cabin" is not true: hanger starts at -0, cabin reaches 46
+mirror   ok
+edges    ok: 103 (budget 160)
+
+top (front up the page)
+###############################
+#                             #
+#                             #
+#                             #
+#     ###################     #
+#     #     ########    #     #
+#     # #####     #######     #
+#     ###################     #
+#     ## #           # ##     #
+#  #######           #######  #
+#  #######           #######  #
+#     ## #           # ##     #
+#     ###################     #
+#     # #####     #######     #
+#     #     ########    #     #
+#     ###################     #
+#                             #
+#                             #
+#                             #
+###############################
+side (front to the right)
+#
+#
+#
+#
+#
+#
+#
+#    ##################
+#    #    ########    #
+#    #    # #  # #    #
+#    #    # #  # #    #
+#    #    # #  # #    #
+#    #    # #  # #    #
+#    #    # #  # #    #
+#    ##################
+#     ################
+############################
+#     ## ##   #  ## ##     #
+#     ## ##   #  ## ##     #
+############################

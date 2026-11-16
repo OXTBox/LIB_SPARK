@@ -1,0 +1,43 @@
+FAULTS
+parse    ok: 8 parts
+size     ok: is 38 x 46 x 95 (width, height, length), SIZE says 30 x 45 x 90
+joined   FAIL: not touching the rest: chimney
+base     ok: ground; stands on y 0 as written
+relate   FAIL: "boiler on top of frame" is not true: boiler starts at height -0, frame ends at 12; "chimney in front of boiler" is not true: chimney does not touch boiler; "wheels under frame" is not true: wheel_left reaches 8, frame starts at -0; "wheels under frame" is not true: wheel_right reaches 8, frame starts at -0; "wheels under frame" is not true: wheel_back_left reaches 8, frame starts at -0; "wheels under frame" is not true: wheel_back_right reaches 8, frame starts at -0
+mirror   FAIL: 16 corners have no twin on the other side (x -15.0 has none at x 15.0)
+edges    ok: 150 (budget 160)
+
+top (front up the page)
+   #############
+   #           #
+   #   ######  #
+   #  #     #  #
+   #   ######  #
+   #############
+   ##         ##
+   ##    #    ##
+######### ### ##
+#  ## #     # ##
+######### ### ##
+   ##    #    ##
+   ##         ##
+   #############
+   #  #      # #
+   #  #      # #
+   #  #      # #
+   #  #      # #
+   #############
+      ########
+side (front to the right)
+                                    ########
+                                    #   #  #
+                                    #   #  #
+                                    ########
+               #####################
+               #                   #
+################                   #
+#              #                   #
+# ##############################################
+# #            #     #########     #           #
+# #            #     ##  #  ##     #           #
+################################################

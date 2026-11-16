@@ -1,0 +1,45 @@
+FAULTS
+parse    ok: 2 parts
+size     FAIL: is 140 x 80 x 140 (width, height, length), SIZE says 80 x 80 x 10
+joined   ok
+base     flies: lowest point -0.0 above the ground
+relate   FAIL: "gear on top of mast" is not true: gear starts at height -0, mast ends at 40
+mirror   ok
+edges    ok: 36 (budget 160)
+
+top (front up the page)
+                 #####
+            #####     #####
+       #####               #####
+      ##                       ##
+     #                           #
+    #                             #
+   #                               #
+  #                                 #
+  #                                 #
+##       #####################       ##
+ #       #####################       #
+  #                                 #
+  #                                 #
+   #                               #
+    #                             #
+     #                           #
+      ##                       ##
+       #####               #####
+            #####     #####
+                 #####
+side (front to the right)
+                      ####
+                      #  #
+                      #  #
+                      #  #
+                      #  #
+                      #  #
+                      #  #
+###############################################
+###############################################
+                      #  #
+                      #  #
+                      #  #
+                      #  #
+                      ####

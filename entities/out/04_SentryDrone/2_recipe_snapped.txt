@@ -1,0 +1,24 @@
+# snapped: eye down by 24
+ENTITY: Sentry Drone
+GAME: wire sentry arcade
+COLOUR: 120,200,255
+SIZE: 30,50,30
+SYMMETRIC: yes
+BASE: flies
+RELATIONS: eye on top of neck; base on the ground
+PARTS:
+base | box | 30,10,30 | 0,5,0 | 0,0,0 | the wide ground base
+neck | box | 8,20,16 | 0,15,0 | 0,0,0 | the short neck connecting base to body
+body | box | 20,30,20 | 0,35,0 | 0,0,0 | the ball body of the patrol robot
+eye | prism | 6,8,10 | 0,30,5 | 0,0,0 | the front eye of the sentry
+
+Wait, the rules say "a part ON TOP OF another starts at the other's top height (its centre y = the other's top + half its own height)". Let me adjust eye to follow that. Body top is 50, eye half height is 4, so eye centre y should be 50+4=54? But total height would be 54+4=58, exceeding 50. Let me adjust body height to 25,
+
+
+The checker found these faults:
+
+- "eye on top of neck" is not true: eye starts at height 40, neck ends at 25
+
+Write the whole recipe again with these faults fixed, in the same format, nothing else. Do not
+think aloud: one recipe, then stop. Remember: y is height above the ground; a part's "at" is its centre.
+

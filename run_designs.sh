@@ -28,4 +28,4 @@ for line in open(ideas, encoding='utf-8', errors='replace'):
 open(out, 'w', encoding='utf-8').write('\n'.join(rows) + '\n')
 print(f'{len(rows) - 1} idea(s) in the queue')
 PY
-cd "$HERE/arcade" && exec bash run_arcade.sh --games games_ideas.tsv --no-script
+cd "$HERE/arcade" && exec bash run_arcade.sh --games games_ideas.tsv --no-script "$@"

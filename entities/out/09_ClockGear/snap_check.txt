@@ -1,0 +1,48 @@
+# snapped: gear up by 10
+# written out/09_ClockGear/2_recipe_snapped.txt
+== out/09_ClockGear/2_recipe_snapped.txt: FAULTS
+   parse    ok: 2 parts
+   size     FAIL: is 140 x 90 x 140 (width, height, length), SIZE says 80 x 80 x 10
+   joined   ok
+   base     flies: lowest point 30.0 above the ground
+   relate   ok: 1 relations hold
+   mirror   ok
+   edges    ok: 36 (budget 160)
+   top (front up the page)
+                 #####
+            #####     #####
+       #####               #####
+      ##                       ##
+     #                           #
+    #                             #
+   #                               #
+  #                                 #
+  #                                 #
+##       #####################       ##
+ #       #####################       #
+  #                                 #
+  #                                 #
+   #                               #
+    #                             #
+     #                           #
+      ##                       ##
+       #####               #####
+            #####     #####
+                 #####
+   side (front to the right, up is up)
+                      ####
+                      #  #
+                      #  #
+                      #  #
+                      #  #
+                      #  #
+                      #  #
+                      #  #
+                      #  #
+                      #  #
+                      #  #
+                      #  #
+                      #  #
+###############################################
+#      #               ##               #
+###############################################

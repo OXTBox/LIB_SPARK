@@ -1,0 +1,54 @@
+# snapped: mast up by 120
+# snapped: arm up by 120
+# snapped: hook up by 120
+# written out/05_DockCrane/2_recipe_snapped.txt
+== out/05_DockCrane/2_recipe_snapped.txt: FAULTS
+   parse    ok: 4 parts
+   size     FAIL: is 30 x 190 x 105 (width, height, length), SIZE says 30 x 120 x 100
+   joined   ok
+   base     ok: ground; stands on y 0 as written
+   relate   ok: 3 relations hold
+   mirror   ok
+   edges    ok: 15 (budget 160)
+   top (front up the page)
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+     #
+###########
+#    #
+###########
+   side (front to the right, up is up)
+ #####################
+   ##
+     ##
+       ##
+        ##
+          ##
+            ##
+###           ##
+# #
+# #
+# #
+# #
+# #
+# #
+# #
+# #
+# #
+# #
+# #
+###

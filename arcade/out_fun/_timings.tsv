@@ -1,0 +1,25 @@
+when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
+2026-11-16 10:38:24	spark-x2.6-4b	651	Ghost Light Mine	1_concept.md	761	673	9.4	71.5	26	ok
+2026-11-16 10:38:33	spark-x2.6-4b	651	Ghost Light Mine	2_levels.md	1007	248	3.9	63.6	11	ok
+2026-11-16 10:38:47	spark-x2.6-4b	522	Two Key Doors	1_concept.md	731	684	9.5	71.8	28	ok
+2026-11-16 10:38:56	spark-x2.6-4b	522	Two Key Doors	2_levels.md	1009	242	3.8	63.8	13	ok
+2026-11-16 10:39:08	spark-x2.6-4b	630	Echo Rescue	1_concept.md	740	531	7.4	71.5	24	ok
+2026-11-16 10:39:18	spark-x2.6-4b	630	Echo Rescue	2_levels.md	870	275	4.3	63.8	13	ok
+2026-11-16 10:39:32	spark-x2.6-4b	906	One Cent Raise	1_concept.md	826	638	9.0	71.2	27	ok
+2026-11-16 10:39:41	spark-x2.6-4b	906	One Cent Raise	2_levels.md	979	276	4.3	64.2	13	ok
+2026-11-16 10:39:53	spark-x2.6-4b	366	Ring Arena	1_concept.md	699	480	6.9	69.3	23	ok
+2026-11-16 10:40:01	spark-x2.6-4b	366	Ring Arena	2_levels.md	811	221	3.5	63.6	12	ok
+2026-11-16 10:40:14	spark-x2.6-4b	926	Wire Sentries	1_concept.md	697	554	7.9	69.9	37	ok
+2026-11-16 10:40:23	spark-x2.6-4b	926	Wire Sentries	2_levels.md	884	262	4.0	64.7	13	ok
+2026-11-16 10:40:36	spark-x2.6-4b	304	Dont Break The Walls	1_concept.md	772	512	7.4	69.0	24	ok
+2026-11-16 10:40:45	spark-x2.6-4b	304	Dont Break The Walls	2_levels.md	846	255	4.1	62.7	13	ok
+2026-11-16 10:40:58	spark-x2.6-4b	601	Hollow Mountain	1_concept.md	747	602	8.6	70.2	24	ok
+2026-11-16 10:41:08	spark-x2.6-4b	601	Hollow Mountain	2_levels.md	945	305	4.7	64.8	13	ok
+2026-11-16 10:41:23	spark-x2.6-4b	539	Courier Run	1_concept.md	734	661	9.6	69.2	26	ok
+2026-11-16 10:41:32	spark-x2.6-4b	539	Courier Run	2_levels.md	1000	261	4.3	60.9	13	ok
+2026-11-16 10:41:47	spark-x2.6-4b	944	UFO Wrong Cargo	1_concept.md	755	695	9.9	69.9	35	ok
+2026-11-16 10:41:56	spark-x2.6-4b	944	UFO Wrong Cargo	2_levels.md	1036	228	3.8	60.0	11	ok
+2026-11-16 10:42:11	spark-x2.6-4b	456	Fellout	1_concept.md	731	698	10.1	69.4	26	ok
+2026-11-16 10:42:20	spark-x2.6-4b	456	Fellout	2_levels.md	1036	232	3.8	61.0	11	ok
+2026-11-16 10:42:33	spark-x2.6-4b	103	UFO Low Pass	1_concept.md	710	603	8.8	68.9	24	ok
+2026-11-16 10:42:43	spark-x2.6-4b	103	UFO Low Pass	2_levels.md	942	271	4.4	62.1	13	ok

@@ -1,0 +1,40 @@
+# snapped: skirt up by 1
+# written out/03_HoverPoloCraft/2_recipe_snapped.txt
+== out/03_HoverPoloCraft/2_recipe_snapped.txt: FAULTS
+   parse    ok: 4 parts
+   size     ok: is 40 x 18 x 55 (width, height, length), SIZE says 50 x 20 x 60
+   joined   FAIL: not touching the rest: fan_box
+   base     flies: lowest point 2.0 above the ground
+   relate   FAIL: "seat in front of hover craft body" is not true: seat is not at the front of hover_craft_body (front is +z); "fan box behind hover craft body" is not true: fan_box does not touch hover_craft_body
+   mirror   ok
+   edges    ok: 48 (budget 160)
+   top (front up the page)
+############################
+#
+#
+#
+#
+############################
+#         #      #
+#         #      #
+#         #      #
+############################
+#
+#
+#
+#
+############################
+
+          ########
+          #      #
+          #      #
+          ########
+   side (front to the right, up is up)
+                          #########
+##########                #########
+#        #                #       #
+#        #   ###################################
+##########   #            #########            #
+             #                                 #
+             #                                 #
+             #                                 #

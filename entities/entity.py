@@ -3,6 +3,7 @@
 
     python3 -I entities/entity.py check RECIPE.txt...     check + top and side views
     python3 -I entities/entity.py code RECIPE.txt         print the LiveCode mesh function
+    python3 -I entities/entity.py snap RECIPE.txt...      move parts so ON TOP OF / BELOW hold, write *_snapped.txt, check it
     python3 -I entities/entity.py --help
 
 A recipe is words and numbers (Spark writes them, the owner's rule: never scripts). The code is
@@ -238,6 +239,8 @@ def parse(text):
         f = [x.strip() for x in line.lstrip('-* ').split('|')]
         if f and f[0].lower() == 'name':                # the column header line
             continue
+        if ':' in f[0] or len(f[0].split()) > 3:        # "So burner: box | ..." is Spark thinking, not a part
+            continue
         if len(f) < 5:
             errors.append('part line has %d fields, not 6: %s' % (len(f), line[:60]))
             continue
@@ -325,7 +328,49 @@ def settle_of(head, parts):
     return -hi
 
 
-REL = re.compile(r'^\s*([\w-]+)\s+(on top of|above|below|under|inside|on)\s+([\w-]+)\s*$', re.I)
+# relation words Spark uses, longest first; each maps to one test (see check)
+REL_WORDS = [('on top of', 'on'), ('on the top of', 'on'), ('sits on', 'on'), ('rests on', 'on'),
+             ('in front of', 'front'), ('on the front of', 'front'), ('on front of', 'front'), ('at the front of', 'front'), ('at front of', 'front'),
+             ('on the back of', 'back'), ('on back of', 'back'), ('at the back of', 'back'), ('behind', 'back'),
+             ('on each side of', 'side'), ('on both sides of', 'side'), ('on the sides of', 'side'), ('on sides of', 'side'),
+             ('on the side of', 'side'), ('on side of', 'side'), ('beside', 'side'), ('next to', 'side'), ('against', 'side'),
+             ('hangs from', 'below'), ('hanging from', 'below'), ('beneath', 'below'), ('under', 'below'), ('below', 'below'),
+             ('above', 'above'), ('over', 'above'), ('inside', 'inside'), ('within', 'inside'), ('in', 'inside'),
+             ('attached to', 'side'), ('on', 'on')]
+REL_RX = re.compile(r'^(.*?)\s+(%s)\s+(.*)$' % '|'.join(re.escape(w) for w, _ in REL_WORDS), re.I)
+GROUND = {'ground', 'the ground', 'floor', 'the floor', 'water', 'the water'}
+
+
+def part_named(text, names):
+    """a part name from Spark's words: exact, with spaces as underscores, or the part whose name
+    is one of the words ("hut body" -> hut or body when only one of them is a part)"""
+    t = re.sub(r'^(the|a|an|its|each|both)\s+', '', text.strip().lower()).strip(' .')
+    for cand in (t, t.replace(' ', '_'), t.replace(' ', ''), t.replace('-', '_')):
+        if cand in names:
+            return cand
+    for cand in (t.replace(' ', '_').rstrip('s'), t.rstrip('s')):   # "flippers" -> flipper
+        if cand in names:
+            return cand
+    hits = [n for n in names if n in re.split(r'[\s_-]+', t) or t.replace(' ', '_') in n]
+    if len(hits) == 1:
+        return hits[0]
+    stem = t.replace(' ', '_').rstrip('s')                         # "flippers" -> flipper_left, flipper_right
+    group = [n for n in names if stem and n.startswith(stem)]
+    return group if len(group) > 1 else None
+
+
+def read_rel(r, names):
+    """-> (a, test, b) where b may be 'ground'; or (None, why, None)"""
+    m = REL_RX.match(r.strip())
+    if not m:
+        return None, 'cannot read "%s"' % r.strip(), None
+    how = dict(REL_WORDS)[m.group(2).lower()]
+    b_txt = m.group(3).strip().lower().strip(' .')
+    a = part_named(m.group(1), names)
+    b = 'ground' if b_txt in GROUND else part_named(b_txt, names)
+    if a is None or b is None:
+        return None, '"%s": no part called %s' % (r.strip(), m.group(1).strip() if a is None else b_txt), None
+    return a, how, b
 
 
 def check(text):
@@ -376,26 +421,45 @@ def check(text):
     rels = [r for r in re.split(r'[;,]', head.get('RELATIONS', '')) if r.strip()]
     rel_faults = []
     htol = 0.05 * max(ext[1], 1)
+    names = [p['name'].lower() for p in parts]
+    ctr = {n: [(boxes[k][0][i] + boxes[k][1][i]) / 2 for i in range(3)] for k, n in enumerate(names)}
+    ground = min(bot.values())   # after settling a ground object this is 0
+    pairs = []
     for r in rels:
-        m = REL.match(r)
-        if not m:
-            rel_faults.append('cannot read "%s"' % r.strip())
+        a, how, b = read_rel(r, names)
+        if a is None:
+            rel_faults.append(how)
             continue
-        a, how, b = m.group(1).lower(), m.group(2).lower(), m.group(3).lower()
-        if a not in top or b not in top:
-            rel_faults.append('"%s": no part called %s' % (r.strip(), a if a not in top else b))
-            continue
-        if how in ('on top of', 'on'):
+        for a1 in (a if isinstance(a, list) else [a]):          # a plural names every part of that kind
+            for b1 in (b if isinstance(b, list) else [b]):
+                pairs.append((r, a1, how, b1))
+    for r, a, how, b in pairs:
+        if b == 'ground':
+            good = how in ('on', 'side') and abs(bot[a] - ground) <= htol
+            why = '%s starts at height %.0f, the lowest point is %.0f' % (a, bot[a], ground)
+            if how not in ('on', 'side'):
+                good, why = True, 'ground'   # "above the ground" says nothing checkable
+        elif how == 'on':
             good = abs(bot[a] - top[b]) <= htol
             why = '%s starts at height %.0f, %s ends at %.0f' % (a, bot[a], b, top[b])
         elif how == 'above':
             good = bot[a] >= top[b] - htol
             why = '%s starts at %.0f, %s reaches %.0f' % (a, bot[a], b, top[b])
-        elif how in ('below', 'under'):
+        elif how == 'below':
             good = top[a] <= bot[b] + htol
             why = '%s reaches %.0f, %s starts at %.0f' % (a, top[a], b, bot[b])
+        elif how in ('front', 'back', 'side'):
+            ka, kb = names.index(a), names.index(b)
+            near = touch(boxes[ka], boxes[kb])
+            if how == 'side':
+                good = near and abs(ctr[a][0] - ctr[b][0]) > tol
+                why = '%s %s' % (a, 'does not touch ' + b if not near else 'is not to the left or right of ' + b)
+            else:   # +z is the front
+                d = ctr[a][2] - ctr[b][2]
+                good = near and (d > tol if how == 'front' else d < -tol)
+                why = '%s %s' % (a, 'does not touch ' + b if not near else 'is not at the %s of %s (front is +z)' % (how, b))
         else:   # inside
-            ka, kb = [p['name'].lower() for p in parts].index(a), [p['name'].lower() for p in parts].index(b)
+            ka, kb = names.index(a), names.index(b)
             good = all(boxes[kb][0][i] - tol <= boxes[ka][0][i] and boxes[ka][1][i] <= boxes[kb][1][i] + tol for i in range(3))
             why = '%s is not within %s' % (a, b)
         if not good:
@@ -415,6 +479,47 @@ def check(text):
     ok &= ne <= EDGE_BUDGET
     rep.append('edges    %s: %d (budget %d)' % ('ok' if ne <= EDGE_BUDGET else 'FAIL', ne, EDGE_BUDGET))
     return rep, ok, whole
+
+
+def snap(text):
+    """-> (recipe text, notes). Spark states the stacking right more often than it places it
+    (round 3: retries sent the same numbers back), so the tool does the placing: each "on top of"
+    and "below" relation, in the order written, moves part a up or down so it holds (two passes,
+    so chains settle). Only heights change; a note line per move is kept as a # comment."""
+    rec = last_recipe(text)
+    head, parts, errors = parse(rec)
+    if errors or not parts:
+        return rec, []
+    names = [p['name'].lower() for p in parts]
+    lift = {n: 0.0 for n in names}
+    def hb(n):
+        k = names.index(n)
+        lo, hi = bounds(place(parts[k]).v)
+        return -hi[1] + lift[n], -lo[1] + lift[n]           # (bottom, top) as heights
+    rels = [r for r in re.split(r'[;,]', head.get('RELATIONS', '')) if r.strip()]
+    for _ in range(2):
+        for r in rels:
+            a, how, b = read_rel(r, names)
+            if a is None or b == 'ground' or how not in ('on', 'below'):
+                continue
+            for a1 in (a if isinstance(a, list) else [a]):
+                for b1 in (b if isinstance(b, list) else [b]):
+                    (ab, at), (bb, bt) = hb(a1), hb(b1)
+                    lift[a1] += (bt - ab) if how == 'on' else (bb - at)
+    notes = ['# snapped: %s %s by %s' % (n, 'up' if d > 0 else 'down', fmt(abs(d))) for n, d in lift.items() if abs(d) > 0.05]
+    out, in_parts = [], False
+    for line in rec.split('\n'):
+        st = line.strip().strip('`')
+        if st.upper().startswith('PARTS'):
+            in_parts = True
+        f = [x.strip() for x in st.lstrip('-* ').split('|')]
+        if in_parts and len(f) >= 5 and f[0].lower() in lift and abs(lift[f[0].lower()]) > 0.05:
+            xyz = nums(f[3]) or [0, 0, 0]
+            xyz[1] += lift[f[0].lower()]
+            f[3] = ','.join(fmt(v) for v in xyz)
+            line = ' | '.join(f)
+        out.append(line)
+    return '\n'.join(notes + out), notes
 
 
 def view(mesh, axes, w=48, h=20, title=''):
@@ -507,6 +612,13 @@ def main(argv):
         if cmd == 'code':
             print(code(text)[0])
             continue
+        if cmd == 'snap':                     # the recipe with its stated stacking made true, then checked
+            text, notes = snap(text)
+            print('\n'.join(notes) or '# snapped: nothing to move')
+            out = f.rsplit('.', 1)[0] + '_snapped.txt'
+            open(out, 'w', encoding='utf-8').write(text + '\n')
+            print('# written', out)
+            f = out
         rep, ok, whole = check(text)
         bad += not ok
         print('== %s: %s' % (f, 'OK' if ok else 'FAULTS'))

@@ -1,0 +1,52 @@
+# snapped: eye down by 24
+# written out/04_SentryDrone/2_recipe_snapped.txt
+== out/04_SentryDrone/2_recipe_snapped.txt: OK
+   parse    ok: 4 parts
+   size     ok: is 30 x 50 x 30 (width, height, length), SIZE says 30 x 50 x 30
+   joined   ok
+   base     flies: lowest point -0.0 above the ground
+   relate   ok: 2 relations hold
+   mirror   ok
+   edges    ok: 54 (budget 160)
+   top (front up the page)
+#######################################
+#                                     #
+#             ###########             #
+#     ###########################     #
+#     #    #  ###########  #    #     #
+#     #    #  #         #  #    #     #
+#     #  ##   #         #   ##  #     #
+#     #   #   #         #   #   #     #
+#     #    #  #         #  #    #     #
+#     #    ## #         # ##    #     #
+#     #      ##         ##      #     #
+#     #       ###########       #     #
+#     #       #         #       #     #
+#     #       #         #       #     #
+#     #       #         #       #     #
+#     #       ###########       #     #
+#     ###########################     #
+#                                     #
+#                                     #
+#######################################
+   side (front to the right, up is up)
+    ################
+    #              #
+    #              #
+    #              #
+    #              #
+    #              #
+    #     ###########
+    #     #    #   ##
+    #     #    #   ##
+    #     #    #   ##
+    #################
+    ################
+     #           #
+     #           #
+     #           #
+#######################
+#    #           #
+#    #############
+#
+#######################

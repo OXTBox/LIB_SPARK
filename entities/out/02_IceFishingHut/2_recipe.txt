@@ -1,0 +1,19 @@
+ENTITY: Ice Fishing Hut
+GAME: Ice Fishing
+COLOUR: 180,220,255
+SIZE: 50,60,50
+SYMMETRIC: yes
+BASE: ground
+RELATIONS: roof on top of hut body; door in front of hut body; chimney pipe in front of hut body
+PARTS:
+hut_body | box | 40,40,30 | 0,20,0 | 0,0,0 | the wooden hut body on the ice
+roof | pyramid | 6,25,18 | 0,49,0 | 0,0,0 | the pointed roof sitting on top of the hut body
+door | box | 12,30,10 | 0,15,15 | 0,0,0 | the front door of the hut
+chimney_pipe | prism | 6,8,14 | 0,35,15 | 0,0,0 | the chimney pipe in front of the hut
+
+Check touches:
+- hut_body: box 40x40x30 at (0,20,0). Lowest y=20-20=0, touches ground. Good.
+- roof: pyramid 6,25,18 at (0,49,0). Base at bottom: base centre y=49-25/2=36.5? Wait, pyramid base at bottom, tip at top. Height 18, so base centre y=49-9=40, tip y=49+9=58. Hut body top y=20+20=40. Roof base bottom y=40, sits exactly on hut body top. Good.
+- door: box 12x30x10 at (0,15,15). Front face at z=15+5=20, within hut body front (z=0+20=20). Good.
+- chimney_pipe: prism 6x8x14 at (0,35,15). Front face at z=15+7=22, in front of hut body front (z=20). Good.
+- chimney_pipe: bottom y=35-4=31, above ground. Good.

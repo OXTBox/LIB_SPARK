@@ -1,0 +1,22 @@
+ENTITY: Sentry Drone
+GAME: wire sentry demo
+COLOUR: 255,255,255
+SIZE: 30,50,30
+SYMMETRIC: yes
+BASE: flies
+RELATIONS: eye on top of neck; base on ground
+PARTS:
+base | box | 30,10,30 | 0,5,0 | 0,0,0 | the wide base of the patrol robot, standing on the ground
+neck | box | 8,20,10 | 0,10,0 | 0,0,0 | the short neck connecting the base to the ball body
+body | sphere | 12,3,6 | 0,35,0 | 0,0,0 | the ball body of the patrol robot
+eye | prism | 6,8,10 | 0,45,0 | 0,0,0 | the sentry's single eye at the front
+
+Wait, check symmetry: base is 30 wide, at x 0, so it spans x -15 to 15, symmetric yes. Neck 8 wide at x 0, spans -4 to 4, symmetric yes. Body sphere radius 12 at x 0, spans -12 to 12, symmetric yes. Eye prism 6 wide at x 0, spans -3 to 3, symmetric yes. All parts on left have twin at minus x, or sit on x 0, so SYMMETRIC yes is correct.
+
+Check touching: base at y 5, height 10, so top at y 5+5=10. Neck at y 10, height 20, so bottom at 10-10=0? Wait, neck at y 10, height 20, so it spans y 0 to 20. That would overlap base top at 10. Wait, base top is y 5+5=10. Neck bottom is 10-10=0, so neck goes from 0 to 20, which overlaps base. That's bad.
+
+Let me fix: base height 10, at y 5, so top at 10. Neck should start at base top. Neck height 20, so its centre should be at 10 + 10 = 20 (half height). So neck at y 20, height 20, spans y 10 to 30. Then body sphere radius 12, height 3, at y 35 (30 + 1.5? No, sphere height is 3, so centre at 30 + 1.5 = 31.5? Wait, sphere size is radius,rings,sides, so height is 2*radius? No, sphere radius 12, so diameter 24, height 24. So if neck top is 30, body centre should be at 30 + 12 = 42? Wait, no: the part's "at" point is its centre. For a sphere, the height is 2*radius, so centre at y 30 + 12 = 42? But total height is 50, so top at 42+12=54, which is too tall.
+
+Let me adjust sizes: base 30x10x30, at y 5, top at 10. Neck 8x20x10, at y 20, height 20, so bottom at 10, top at 30. Body sphere radius 10, rings 3, sides 6, at y 35 (30 + 5, since radius 10, so centre 30+10=40? No, sphere centre at y 40, radius 10, so top at 50, which matches total height 50. Perfect. So body at y 40, radius 10, 3 rings, 6 sides.
+
+Eye: prism 6x8x10, at y 45 (40 + 4, since height 8, half is 4, so centre at 40+4=44? Wait, eye on top of neck? No, eye on top of body? The object has one eye at the front. Let's put eye on top of body. Body top is 50, so eye centre at 50 + 4 = 54? That's too tall. Wait, total height is 50, so top at 50. So eye should be at the front of the body, not top. Let's adjust: eye prism 6x8x10, at y 44, so it sits on the front of the body (body radius 10, so front at x 0, z 10). Eye at x 0, y 44,

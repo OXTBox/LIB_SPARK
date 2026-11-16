@@ -1,0 +1,15 @@
+ENTITY: Hot Air Balloon
+GAME: 1983-style vector arcade
+COLOUR: 255,255,255
+SIZE: 60,110,60
+SYMMETRIC: yes
+BASE: flies
+RELATIONS: balloon on top of basket; burner below balloon; basket on ground
+PARTS:
+balloon | prism | 8,30,50 | 0,35,0 | 0,0,0 | the round hot air balloon
+basket | box | 30,10,30 | 0,5,0 | 0,0,0 | the square basket on the ground
+burner | box | 20,15,15 | 0,17.5,0 | 0,0,0 | the burner between basket and balloon
+
+Wait, check edges: balloon prism 8 sides, 18 edges. Basket box 12 edges. Burner box 12 edges. Total 42 edges, under 160. Good. All parts touch: basket on ground (y=5, height 10, bottom at 0). Balloon bottom at 35-25=10, touches basket top at 5+5=10. Burner bottom at 17.5-7.5=10, touches basket top at 10, and top at 17.5+7.5=25, below balloon bottom at 10? No, balloon bottom is 10, burner top is 25, which is above balloon bottom. Wait, burner should be between basket and balloon, so burner bottom on basket top (10), burner top below balloon bottom (10). So burner height should be such that top is at 10. Burner height 15, centre y = 10 + 7.5 = 17.5, top at 17.5+7.5=25, which is above 10. That's wrong.
+
+Let me fix burner: it should be between basket (top at 10) and balloon (bottom at 10). Wait, balloon bottom is at 10, basket top is at 10, so they touch. Burner should be on the ground side? No, burner is between them, so it sits on basket top (y=10) and its top should be below balloon bottom. But balloon bottom is at 10, same as basket top. So burner height should be small, like 5, centre y=12.5, top at 15? No, balloon bottom is at 10, so burner top must be at or below 10. So burner height 5, centre y=12.5, bottom at 10, top at 15? No, 12.5-2.5=10, top at 12.5+2.5=15, which is above 10. Wait, height 5,

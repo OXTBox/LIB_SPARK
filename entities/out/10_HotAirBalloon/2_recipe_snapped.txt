@@ -1,0 +1,29 @@
+ENTITY: Hot Air Balloon
+GAME: 1983-style vector arcade
+COLOUR: 255,255,255
+SIZE: 60,110,60
+SYMMETRIC: yes
+BASE: flies
+RELATIONS: balloon on top of basket; burner below balloon; basket on ground
+PARTS:
+balloon | prism | 8,30,50 | 0,35,0 | 0,0,0 | the round hot air balloon
+basket | box | 30,10,30 | 0,5,0 | 0,0,0 | the square basket on the ground
+burner | box | 20,15,15 | 0,12,0 | 0,0,0 | the burner below balloon
+
+Wait, let me recalculate: basket height 10, centre y=5, bottom at 0, top at 10. Balloon bottom at 35-25=10, correct. Burner height 15, to be below balloon bottom (10) and on basket top (10), burner bottom must be at 10, so centre y = 10 + 7.5 = 17.5, top at 17.5+7.5=25, still wrong. Oh, I need burner height such that top is at 10. So burner height 5, centre y=12.5, bottom at 10, top at 15? No, 12.5-2.5=10, top at 12.5+2.5=15, still above 10. Wait, if burner bottom is at 10, top is 10 + height/2. To have top at 10, height must be 0. That's impossible. Oh! I had the balloon bottom wrong: balloon height 30, centre y=35, so bottom is 35 - 15 = 20, not 10! Oh right! Height 30, half is 15, so 35-15=20. So balloon bottom is at 20. Basket top is at 5+5=10. So burner should sit on basket top (10), bottom at 10, height 15, centre y=10+7.5=17.5, top at 17.5+7.5=25, which is below balloon bottom at 20. Perfect! That works.
+
+So burner centre y=17.5 is correct, but the fault said burner reaches 25, balloon starts at 10 (which was the wrong balloon bottom calc). Wait the original recipe had burner centre y=17.5, height 15, so top at 25. Balloon bottom is 20, so 25 is above 20, so burner top is above balloon bottom, which is wrong. So burner top must be at or below 20. So burner height should be such that top is at 20. Burner bottom at 10 (basket top), so height = 20 - 10 = 10. So height 10, half is 5, centre y = 10 + 5 = 15. That way, bottom at 15-5=10, top at 15+5=20, which touches balloon bottom at 20. Perfect.
+
+So burner: box | 20,10,15 | 0,15,0 | 0,0,0 | the burner below balloon
+
+Now check edges: balloon prism 8 sides, 18 edges. Basket box 12 edges. Burner box 12 edges. Total 42, under 160. Good. All parts touch: basket on ground (y=5, height 10, bottom at 0). Balloon bottom at 35-15=20, basket top at 5+5=10, wait balloon bottom 20 is above basket top 10, so they don't touch. Oh right! Balloon should be on top of basket, so balloon bottom should be at basket top 10. So balloon centre y should be 10 + 15 = 25, not 35. Oh! That's the mistake. Balloon height 30, half 15, so centre y=25, bottom at 25-15=10, which touches basket top at 10. Perfect.
+
+So balloon: prism | 8,30,50 | 0,25,0 | 0,0,0 | the round hot air balloon
+
+Now burner: sits on basket top (10), top at balloon bottom (10), so burner height 0? No, burner is between basket and balloon, so burner bottom on basket top (10), burner top below balloon bottom (10)? No, balloon bottom is 10, so burner top must be at 10, so burner height 0, impossible. Wait, balloon bottom is 10, basket top is 10, so they are touching. So burner should be on the ground side? No, burner is between basket and balloon, so it sits on basket top, and its top is below balloon bottom. But balloon bottom is 10, same as basket top. So burner height must be 0, which is impossible. So I need to adjust balloon height so balloon bottom is above basket top. Let's make balloon height 35, centre y=35, half 17.5, bottom at 35-17.5=17.5. Basket top at 10, so balloon bottom 17.5 is above 10, gap of 7.5. Then burner sits on basket top (10), height 15, centre y=17.5, bottom at 10, top at 25. Balloon bottom at 17.5, so burner top 25 is above balloon bottom 17.5, still wrong.
+
+Wait, let's do it properly:
+
+- Ground is y=0.
+- Basket: box, height
+

@@ -1,0 +1,6 @@
+01 | Game card and loop | The PromptAndGlazeMaze card runs Game.OnStart to set up the agents and maze, Game.OnUpdate to update both agents and thrown polyhedra about 30 times a second, and Game.OnStop to clean up, so a beginner sees the full game loop in one script.
+02 | Shapes | The built-in MeshBox and MeshPrism meshes used for the two agents and the thrown polyhedron powerup show how to create basic 3D shapes directly with engine calls.
+03 | Shapes | The hand-built Mesh.New, Mesh.AddVertex, Mesh.AddLine, and Mesh.AddFace calls used to construct the custom energy dot shapes point by point show how to wire custom 3D shapes without relying on built-in meshes.
+04 | Objects in the scene | The Entity.Spawn calls that place the energy dots and agents in the maze, Entity.Kill to remove collected dots, and Scene.ClearAll to reset the level show how to manage scene objects for the game.
+05 | Moving things | The SetObjectPosition, SetObjectRotation, SetObjectRotationSpeed, and SetObjectVelocity calls used to move the agents and thrown polyhedra, with +Y being DOWN, show how to animate objects moving through the maze.
+06 | Keyboard input | The keysDown and key code handling for WASD and arrow keys, plus the TestKeys hook,
