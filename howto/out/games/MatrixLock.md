@@ -1,0 +1,4 @@
+01 | Game card and loop | The falling wireframe shapes drop one at a time while Game.OnStart sets up the grid floor and Game.OnUpdate runs the drop logic about 30 times a second, showing the card script drives the whole game loop |
+04 | Objects in the scene | Each falling shape is spawned as a named mesh with a colour, killed when it lands on the floor, and the scene is cleared between levels to reset the grid, showing how objects are added and removed from the scene |
+05 | Moving things | The falling shapes drop downward using SetObjectPosition while their rotation is driven by SetObjectRotationSpeed, demonstrating that +Y is down and shapes move and rotate as they fall |
+08 | Camera | The camera uses Engine.SetCam with fixed gCameraYaw and gCameraPitch to show a top-down view of the grid floor, demonstrating how the camera is configured for the 3D grid scene |

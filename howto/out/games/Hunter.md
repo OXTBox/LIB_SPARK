@@ -1,0 +1,4 @@
+01 | Game card and loop | The Hunter card runs Game.OnStart to set up the rolling terrain, Game.OnUpdate to update the scene about 30 times a second, and Game.OnStop to clean up, so the player sees the game cycle continuously.
+04 | Objects in the scene | Spawning named rock and gem meshes with Entity.Spawn puts the terrain and hidden gems on screen, while Entity.Kill and Scene.ClearAll let the player see objects appear and disappear.
+07 | Mouse and picking | The Hunter uses Game.OnClick, ScreenToCameraRay, RayCastScene, and Weapon.FireAt to let the player click to aim and fire, showing the picking and shooting interaction works.
+10 | Collisions | The Hunter uses Collision.SetGroup, Collision.AddRule, and Collision.Hit to detect rock cracks and enemy contact, showing the collision rules drive the game's core interactions.

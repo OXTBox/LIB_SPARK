@@ -1,0 +1,5 @@
+01 | Game card and loop | The DotMaze card runs Game.OnStart to set up the maze, Game.OnUpdate to update the scene about 30 times a second, and Game.OnStop to clean up, showing the full game lifecycle.
+02 | Shapes | The built-in MeshBox used to draw the maze walls and the dot shapes appears on screen immediately after spawning, demonstrating how basic meshes create the game’s visual elements.
+03 | Shapes | The hand-wired maze walls and dots are built point by point using Mesh.New, Mesh.AddVertex, Mesh.AddLine, and Mesh.AddFace, showing how to create custom shapes without relying on built-in meshes.
+04 | Objects in the scene | Each collected dot and the chaser entities are spawned with Entity.Spawn and removed with Entity.Kill, showing how to add and remove named objects in the scene.
+05 | Moving things | The chasers and collected dots move using SetObjectPosition, SetObjectRotation, SetObjectRotationSpeed, and SetObjectVelocity, demonstrating how to animate objects with simple position and rotation updates.
