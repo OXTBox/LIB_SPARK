@@ -75,6 +75,10 @@ def main():
            'arm_right | box | 6,20,6 | 13,25,0 | 0,0,0 | arm\n')
     rep = entity.check(two)[0]
     check('entity: a plural ("arms") checks every part of that kind', any('relate   ok: 1' in r for r in rep), rep)
+    sunk = boat.replace('cabin | box | 24,14,30 | 0,7,-15', 'cabin | box | 24,14,30 | 0,-3,-15')
+    fixed, notes = entity.snap(sunk)
+    check('entity: snap lifts a sunken cabin onto the hull and the recipe then passes',
+          notes == ['# snapped: cabin up by 10'] and entity.check(fixed)[1], notes)
     hut = 'ENTITY: Hut\nBASE: ground\nPARTS:\nwalls | box | 40,30,40 | 0,27,0 | 0,0,0 | walls\nWait, the walls float.\nroof | pyramid | 4,30,20 | 0,52,0 | 0,0,0 | roof\n'
     rep, ok, whole = entity.check('chatter\n' + hut.replace('ENTITY: Hut', 'ENTITY: Old') + hut)
     check('entity: the last recipe is read, musing lines skipped, a floating hut set down on y 0', ok and

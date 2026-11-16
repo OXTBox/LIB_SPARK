@@ -3,6 +3,7 @@
 
     python3 -I entities/entity.py check RECIPE.txt...     check + top and side views
     python3 -I entities/entity.py code RECIPE.txt         print the LiveCode mesh function
+    python3 -I entities/entity.py snap RECIPE.txt...      move parts so ON TOP OF / BELOW hold, write *_snapped.txt, check it
     python3 -I entities/entity.py --help
 
 A recipe is words and numbers (Spark writes them, the owner's rule: never scripts). The code is
@@ -478,6 +479,47 @@ def check(text):
     return rep, ok, whole
 
 
+def snap(text):
+    """-> (recipe text, notes). Spark states the stacking right more often than it places it
+    (round 3: retries sent the same numbers back), so the tool does the placing: each "on top of"
+    and "below" relation, in the order written, moves part a up or down so it holds (two passes,
+    so chains settle). Only heights change; a note line per move is kept as a # comment."""
+    rec = last_recipe(text)
+    head, parts, errors = parse(rec)
+    if errors or not parts:
+        return rec, []
+    names = [p['name'].lower() for p in parts]
+    lift = {n: 0.0 for n in names}
+    def hb(n):
+        k = names.index(n)
+        lo, hi = bounds(place(parts[k]).v)
+        return -hi[1] + lift[n], -lo[1] + lift[n]           # (bottom, top) as heights
+    rels = [r for r in re.split(r'[;,]', head.get('RELATIONS', '')) if r.strip()]
+    for _ in range(2):
+        for r in rels:
+            a, how, b = read_rel(r, names)
+            if a is None or b == 'ground' or how not in ('on', 'below'):
+                continue
+            for a1 in (a if isinstance(a, list) else [a]):
+                for b1 in (b if isinstance(b, list) else [b]):
+                    (ab, at), (bb, bt) = hb(a1), hb(b1)
+                    lift[a1] += (bt - ab) if how == 'on' else (bb - at)
+    notes = ['# snapped: %s %s by %s' % (n, 'up' if d > 0 else 'down', fmt(abs(d))) for n, d in lift.items() if abs(d) > 0.05]
+    out, in_parts = [], False
+    for line in rec.split('\n'):
+        st = line.strip().strip('`')
+        if st.upper().startswith('PARTS'):
+            in_parts = True
+        f = [x.strip() for x in st.lstrip('-* ').split('|')]
+        if in_parts and len(f) >= 5 and f[0].lower() in lift and abs(lift[f[0].lower()]) > 0.05:
+            xyz = nums(f[3]) or [0, 0, 0]
+            xyz[1] += lift[f[0].lower()]
+            f[3] = ','.join(fmt(v) for v in xyz)
+            line = ' | '.join(f)
+        out.append(line)
+    return '\n'.join(notes + out), notes
+
+
 def view(mesh, axes, w=48, h=20, title=''):
     """the edges drawn in characters; axes (0, 2) = top view (x right, z up the page),
     (2, 1) = side view (z right, y down the page: up is up)"""
@@ -568,6 +610,13 @@ def main(argv):
         if cmd == 'code':
             print(code(text)[0])
             continue
+        if cmd == 'snap':                     # the recipe with its stated stacking made true, then checked
+            text, notes = snap(text)
+            print('\n'.join(notes) or '# snapped: nothing to move')
+            out = f.rsplit('.', 1)[0] + '_snapped.txt'
+            open(out, 'w', encoding='utf-8').write(text + '\n')
+            print('# written', out)
+            f = out
         rep, ok, whole = check(text)
         bad += not ok
         print('== %s: %s' % (f, 'OK' if ok else 'FAULTS'))
