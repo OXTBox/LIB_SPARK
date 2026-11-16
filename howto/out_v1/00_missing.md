@@ -1,0 +1,8 @@
+Game loop and lifecycle | Defines the card script structure with Game.OnStart, Game.OnUpdate, and Game.OnStop to run the game repeatedly and clean up | Beginners need it to understand how a 3D vector game runs continuously and stops cleanly
+Game state management | Covers score, lives, levels, win/lose conditions, and restart logic via a State function and Space key | Beginners need it to track progress, handle game outcomes, and allow players to continue play again
+Input handling and picking | Covers keyboard input, mouse picking, and ray casting to let players interact with the game environment | Beginners need it to learn how players control movement and select objects in the 3D scene
+Camera control and navigation | Covers camera setup, yaw/pitch controls, fixed/top-down/follow/third-person views | Beginners need it to understand how the player sees the game world and navigate it effectively
+Collision detection | Covers group rules, collision rules, and distance-based checks to make objects interact | Beginners need it to learn how objects in the scene collide and respond to each other
+Animation techniques | Covers spin, bob, mesh swapping, growth/shrink, and BVH motion capture to animate objects | Beginners need it to learn how to make game objects move and appear dynamic in the scene
+Level and layout design | Covers level tables, grids, mazes, and repeatable random seeds for level content | Beginners need it to learn how to design and repeat game levels with structured layouts
+Sound and feedback | Covers audio initialization, sound playback, and particle effects for feedback | Beginners need it to learn how to add audio and visual feedback to enhance gameplay experiences
