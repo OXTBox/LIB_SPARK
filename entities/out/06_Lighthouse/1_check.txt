@@ -1,0 +1,51 @@
+FAULTS
+parse    ok: 5 parts
+size     FAIL: is 120 x 175 x 120 (width, height, length), SIZE says 50 x 200 x 50
+joined   FAIL: not touching the rest: lamp_room, cap, lamp, windows
+base     ok: ground; moved down by 5.0 so it stands on y 0
+relate   FAIL: "tower on ground": no part called ground; "lamp_room on top of tower" is not true: lamp_room starts at height 75, tower ends at 50; "cap on top of tower" is not true: cap starts at height 120, tower ends at 50
+mirror   ok
+edges    ok: 84 (budget 160)
+
+top (front up the page)
+                 #####
+            #####     #####
+       #####               #####
+      ##                       ##
+     #                           #
+    #         ###########         #
+   #         #           #         #
+  #         #  #########  #         #
+  #        #  # ####### #  #        #
+##        #  #  # ### #  #  #        ##
+ #        #  #  #     #  #  #        #
+  #        #  # ####### #  #        #
+  #         #  #########  #         #
+   #         #           #         #
+    #         ###########         #
+     #                           #
+      ##                       ##
+       #####               #####
+            #####     #####
+                 #####
+side (front to the right)
+         #########
+       #############
+       # ######### #
+       #     #     #
+       #     #     #
+       #     #     #
+       #############
+           #####
+           #  ###
+           #  ###
+           #   #
+           #####
+
+
+###########################
+#   #        #        #   #
+#   #        #        #   #
+#   #        #        #   #
+#   #        #        #   #
+###########################

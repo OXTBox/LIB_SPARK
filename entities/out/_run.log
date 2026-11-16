@@ -67,3 +67,44 @@
 05:39:44     1100 tokens out in 23 s  ** CUT OFF **
 05:39:44     try 2: FAULTS parse    FAIL: part line has 1 fields, not 6: Wait, the lowest point must be at y 0 with ground at 0. The ; part line has 1 fields, not 6: Wait the fault: "lowest point at y 10.0 (ground means 0)". S;
 05:39:44  === done: 4 passed the check. Claude reviews next.
+05:43:06  === start: 12 entities, model spark-x2.6-4b
+05:43:07  01 Cable Car: recipe ...
+05:43:26     1400 tokens out in 19 s  ** CUT OFF **
+05:43:26     try 1: FAULTS joined   FAIL: not touching the rest: cable; relate   FAIL: cannot read "window_left on sides of cabin"; cannot read "window_right on sides of cabin"
+05:43:26  01 Cable Car: retry ...
+05:43:31     332 tokens out in 5 s
+05:43:31     try 2: FAULTS joined   FAIL: not touching the rest: cable; relate   FAIL: cannot read "window_left on sides of cabin"; cannot read "window_right on sides of cabin"
+05:43:31  02 Ice Fishing Hut: recipe ...
+05:43:50     1400 tokens out in 19 s  ** CUT OFF **
+05:43:50     try 1: FAULTS joined   FAIL: not touching the rest: door; relate   FAIL: cannot read "roof on top of hut body"; cannot read "door on front of hut body"; cannot read "chimney pipe on top of hut body"
+05:43:50  02 Ice Fishing Hut: retry ...
+05:43:54     241 tokens out in 4 s
+05:43:54     try 2: FAULTS joined   FAIL: not touching the rest: door; relate   FAIL: cannot read "roof on top of hut body"; cannot read "door on front of hut body"; cannot read "chimney pipe on top of hut body"
+05:43:54  03 Hover Polo Craft: recipe ...
+05:44:14     1400 tokens out in 20 s  ** CUT OFF **
+05:44:14     try 1: FAULTS joined   FAIL: not touching the rest: fan_box; relate   FAIL: cannot read "skirt on top of hover craft body"; cannot read "seat on top of hover craft body"; cannot read "fan box on top of hover craft 
+05:44:14  03 Hover Polo Craft: retry ...
+05:44:18     249 tokens out in 5 s
+05:44:18     try 2: FAULTS joined   FAIL: not touching the rest: fan_box; relate   FAIL: cannot read "skirt on top of hover craft body"; cannot read "seat on top of hover craft body"; cannot read "fan box on top of hover craft 
+05:44:18  04 Sentry Drone: recipe ...
+05:44:44     1400 tokens out in 26 s  ** CUT OFF **
+05:44:44     try 1: FAULTS joined   FAIL: not touching the rest: body, eye; relate   FAIL: "eye on top of neck" is not true: eye starts at height 40, neck ends at 20; "base on ground": no part called ground
+05:44:44  04 Sentry Drone: retry ...
+05:44:51     230 tokens out in 7 s
+05:44:51     try 2: FAULTS relate   FAIL: "eye on top of body" is not true: eye starts at height 39, body ends at 52; "base on ground": no part called ground
+05:44:51  05 Dock Crane: recipe ...
+05:45:35     1273 tokens out in 44 s
+05:45:35     try 1: FAULTS size     FAIL: is 30 x 150 x 205 (width, height, length), SIZE says 30 x 120 x 100; joined   FAIL: not touching the rest: cable, hook; relate   FAIL: "tower on ground": no part called ground
+05:45:35  05 Dock Crane: retry ...
+05:45:47     249 tokens out in 12 s
+05:45:47     try 2: FAULTS size     FAIL: is 30 x 150 x 205 (width, height, length), SIZE says 30 x 120 x 100; joined   FAIL: not touching the rest: cable, hook; relate   FAIL: "tower on ground": no part called ground
+05:45:47  06 Lighthouse: recipe ...
+05:46:02     271 tokens out in 15 s
+05:46:02     try 1: FAULTS size     FAIL: is 120 x 175 x 120 (width, height, length), SIZE says 50 x 200 x 50; joined   FAIL: not touching the rest: lamp_room, cap, lamp, windows; relate   FAIL: "tower on ground": no part calle
+05:46:02  06 Lighthouse: retry ...
+05:46:18     273 tokens out in 16 s
+05:46:18     try 2: FAULTS joined   FAIL: not touching the rest: lamp_room, cap, lamp, windows; relate   FAIL: "tower on ground": no part called ground; "lamp_room on top of tower" is not true: lamp_room starts at height 75, to
+05:46:18  07 Penguin: recipe ...
+05:47:31     1400 tokens out in 72 s  ** CUT OFF **
+05:47:31     try 1: FAULTS relate   FAIL: cannot read "egg body on ground"; cannot read "head on top of egg body"; "beak on top of head" is not true: beak starts at height 39, head ends at 43; "flippers on top of head": no part
+05:47:31  RESTING 900 s (model unloaded, RAM and heat come down)

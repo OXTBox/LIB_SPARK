@@ -1,0 +1,12 @@
+ENTITY: Dock Crane
+GAME: 1983-style vector arcade
+COLOUR: 255,255,255
+SIZE: 30,120,100
+SYMMETRIC: yes
+BASE: ground
+RELATIONS: tower on ground; arm on top of tower; hook below arm
+PARTS:
+tower | box | 30,70,10 | 0,35,0 | 0,0,0 | the square tower
+arm | box | 10,10,100 | 0,75,50 | 0,0,0 | the long arm pointing forward from the top of the tower
+cable | line | 0,75,100; 0,30,100 | 0,75,100 | 0,0,0 | the cable hanging down the arm
+hook | box | 8,10,10 | 0,45,100 | 0,0,0 | the hook hanging at the end of the arm

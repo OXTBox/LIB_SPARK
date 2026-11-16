@@ -325,7 +325,49 @@ def settle_of(head, parts):
     return -hi
 
 
-REL = re.compile(r'^\s*([\w-]+)\s+(on top of|above|below|under|inside|on)\s+([\w-]+)\s*$', re.I)
+# relation words Spark uses, longest first; each maps to one test (see check)
+REL_WORDS = [('on top of', 'on'), ('on the top of', 'on'), ('sits on', 'on'), ('rests on', 'on'),
+             ('in front of', 'front'), ('on the front of', 'front'), ('on front of', 'front'), ('at the front of', 'front'), ('at front of', 'front'),
+             ('on the back of', 'back'), ('on back of', 'back'), ('at the back of', 'back'), ('behind', 'back'),
+             ('on each side of', 'side'), ('on both sides of', 'side'), ('on the sides of', 'side'), ('on sides of', 'side'),
+             ('on the side of', 'side'), ('on side of', 'side'), ('beside', 'side'), ('next to', 'side'), ('against', 'side'),
+             ('hangs from', 'below'), ('hanging from', 'below'), ('beneath', 'below'), ('under', 'below'), ('below', 'below'),
+             ('above', 'above'), ('over', 'above'), ('inside', 'inside'), ('within', 'inside'), ('in', 'inside'),
+             ('attached to', 'side'), ('on', 'on')]
+REL_RX = re.compile(r'^(.*?)\s+(%s)\s+(.*)$' % '|'.join(re.escape(w) for w, _ in REL_WORDS), re.I)
+GROUND = {'ground', 'the ground', 'floor', 'the floor', 'water', 'the water'}
+
+
+def part_named(text, names):
+    """a part name from Spark's words: exact, with spaces as underscores, or the part whose name
+    is one of the words ("hut body" -> hut or body when only one of them is a part)"""
+    t = re.sub(r'^(the|a|an|its|each|both)\s+', '', text.strip().lower()).strip(' .')
+    for cand in (t, t.replace(' ', '_'), t.replace(' ', ''), t.replace('-', '_')):
+        if cand in names:
+            return cand
+    for cand in (t.replace(' ', '_').rstrip('s'), t.rstrip('s')):   # "flippers" -> flipper
+        if cand in names:
+            return cand
+    hits = [n for n in names if n in re.split(r'[\s_-]+', t) or t.replace(' ', '_') in n]
+    if len(hits) == 1:
+        return hits[0]
+    stem = t.replace(' ', '_').rstrip('s')                         # "flippers" -> flipper_left, flipper_right
+    group = [n for n in names if stem and n.startswith(stem)]
+    return group if len(group) > 1 else None
+
+
+def read_rel(r, names):
+    """-> (a, test, b) where b may be 'ground'; or (None, why, None)"""
+    m = REL_RX.match(r.strip())
+    if not m:
+        return None, 'cannot read "%s"' % r.strip(), None
+    how = dict(REL_WORDS)[m.group(2).lower()]
+    b_txt = m.group(3).strip().lower().strip(' .')
+    a = part_named(m.group(1), names)
+    b = 'ground' if b_txt in GROUND else part_named(b_txt, names)
+    if a is None or b is None:
+        return None, '"%s": no part called %s' % (r.strip(), m.group(1).strip() if a is None else b_txt), None
+    return a, how, b
 
 
 def check(text):
@@ -376,26 +418,45 @@ def check(text):
     rels = [r for r in re.split(r'[;,]', head.get('RELATIONS', '')) if r.strip()]
     rel_faults = []
     htol = 0.05 * max(ext[1], 1)
+    names = [p['name'].lower() for p in parts]
+    ctr = {n: [(boxes[k][0][i] + boxes[k][1][i]) / 2 for i in range(3)] for k, n in enumerate(names)}
+    ground = min(bot.values())   # after settling a ground object this is 0
+    pairs = []
     for r in rels:
-        m = REL.match(r)
-        if not m:
-            rel_faults.append('cannot read "%s"' % r.strip())
+        a, how, b = read_rel(r, names)
+        if a is None:
+            rel_faults.append(how)
             continue
-        a, how, b = m.group(1).lower(), m.group(2).lower(), m.group(3).lower()
-        if a not in top or b not in top:
-            rel_faults.append('"%s": no part called %s' % (r.strip(), a if a not in top else b))
-            continue
-        if how in ('on top of', 'on'):
+        for a1 in (a if isinstance(a, list) else [a]):          # a plural names every part of that kind
+            for b1 in (b if isinstance(b, list) else [b]):
+                pairs.append((r, a1, how, b1))
+    for r, a, how, b in pairs:
+        if b == 'ground':
+            good = how in ('on', 'side') and abs(bot[a] - ground) <= htol
+            why = '%s starts at height %.0f, the lowest point is %.0f' % (a, bot[a], ground)
+            if how not in ('on', 'side'):
+                good, why = True, 'ground'   # "above the ground" says nothing checkable
+        elif how == 'on':
             good = abs(bot[a] - top[b]) <= htol
             why = '%s starts at height %.0f, %s ends at %.0f' % (a, bot[a], b, top[b])
         elif how == 'above':
             good = bot[a] >= top[b] - htol
             why = '%s starts at %.0f, %s reaches %.0f' % (a, bot[a], b, top[b])
-        elif how in ('below', 'under'):
+        elif how == 'below':
             good = top[a] <= bot[b] + htol
             why = '%s reaches %.0f, %s starts at %.0f' % (a, top[a], b, bot[b])
+        elif how in ('front', 'back', 'side'):
+            ka, kb = names.index(a), names.index(b)
+            near = touch(boxes[ka], boxes[kb])
+            if how == 'side':
+                good = near and abs(ctr[a][0] - ctr[b][0]) > tol
+                why = '%s %s' % (a, 'does not touch ' + b if not near else 'is not to the left or right of ' + b)
+            else:   # +z is the front
+                d = ctr[a][2] - ctr[b][2]
+                good = near and (d > tol if how == 'front' else d < -tol)
+                why = '%s %s' % (a, 'does not touch ' + b if not near else 'is not at the %s of %s (front is +z)' % (how, b))
         else:   # inside
-            ka, kb = [p['name'].lower() for p in parts].index(a), [p['name'].lower() for p in parts].index(b)
+            ka, kb = names.index(a), names.index(b)
             good = all(boxes[kb][0][i] - tol <= boxes[ka][0][i] and boxes[ka][1][i] <= boxes[kb][1][i] + tol for i in range(3))
             why = '%s is not within %s' % (a, b)
         if not good:

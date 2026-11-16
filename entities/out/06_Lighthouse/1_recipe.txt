@@ -1,0 +1,13 @@
+ENTITY: Lighthouse
+GAME: Lighthouse Keeper
+COLOUR: 255,250,240
+SIZE: 50,200,50
+SYMMETRIC: yes
+BASE: ground
+RELATIONS: tower on ground; lamp_room on top of tower; cap on top of tower
+PARTS:
+tower | prism | 8,60,50 | 0,30,0 | 0,0,0 | the tower, narrowing toward the top
+lamp_room | box | 20,40,20 | 0,100,0 | 0,0,0 | the lamp room with windows inside
+cap | prism | 6,30,50 | 0,150,0 | 0,0,0 | the pointed cap on top of the tower
+lamp | prism | 6,20,20 | 0,170,0 | 0,0,0 | the lamp inside the lamp room
+windows | box | 4,10,10 | 0,105,10 | 0,0,0 | the windows in the lamp room

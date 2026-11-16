@@ -1,0 +1,51 @@
+FAULTS
+parse    ok: 8 parts
+size     ok: is 20 x 44 x 18 (width, height, length), SIZE says 24 x 40 x 20
+joined   ok
+base     ok: ground; stands on y 0 as written
+relate   FAIL: cannot read "egg body on ground"; cannot read "head on top of egg body"; "beak on top of head" is not true: beak starts at height 39, head ends at 43; "flippers on top of head": no part called flippers; "feet on top of flippers": no part called flippers
+mirror   ok
+edges    ok: 132 (budget 160)
+
+top (front up the page)
+###########################################
+#                                         #
+#                                         #
+#             ###############             #
+# ##############           ############## #
+# #        ######################       # #
+# #       ##   # #       ###   ##       # #
+# #      # #   # ######### #    ##      # #
+# #     #  #   # # #   # # #    # #     # #
+# #   ###############################   # #
+# #    #   #   # #  # #  # #    #  #    # #
+# #     #  #   # # #   # # #    # #     # #
+# #      # #   # ######### #    ##      # #
+# #       ##   # #       ###   ##       # #
+# #        ######################       # #
+# ##############           ############## #
+#             ###############             #
+#                                         #
+#                                         #
+###########################################
+side (front to the right)
+   ##########
+   ##########
+   ###########
+   #    #   ##
+   #    #   ##
+   ###########
+################
+#     #####
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+################

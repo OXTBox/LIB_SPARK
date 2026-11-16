@@ -21,6 +21,7 @@ Rules:
   characters or level layouts of any published game.
 - Keep it small: one screen, one player, keyboard only, a score, lives, levels.
 - Plain English, short sentences. No praise, no remarks about these instructions.
+- Where the brief has a joke, a story or a name, keep it: it is what the owner cares about most.
 - Follow the output format exactly and stop when it is complete.
 
 ## CONCEPT
@@ -31,7 +32,14 @@ Genre brief: {brief}
 Write the concept for this game in exactly this format, nothing before or after:
 
 # {title}
-PITCH: two sentences: what the player does and why it is fun.
+PITCH: one sentence: who the player is and what trouble they are in (a tiny story, not "navigate the maze").
+FUN:
+- TOY: the one action that feels good on its own, even with no goal, and what the screen does when you do it.
+- CHOICE: the trade-off the player makes again and again: two things they want that pull against each other.
+- SURPRISE: one thing that happens during a level that the player did not plan for.
+- MOMENT: the moment a player laughs, shouts or says "one more try", in one short scene.
+- EXTRA: something the player can do besides the main task, so it feels like play and not a job.
+(Each FUN line names things from THIS game only. Never write "tense", "engaging", "challenging" or "fun".)
 CONTROLS: one line: only the keys the idea names, and what each one does in this game. No other keys.
 OBJECTS:
 - name | shape (box w,h) | colour | what it does

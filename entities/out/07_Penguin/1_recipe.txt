@@ -1,0 +1,26 @@
+ENTITY: Penguin
+GAME: Penguin Slide
+COLOUR: 255,255,255
+SIZE: 24,40,20
+SYMMETRIC: yes
+BASE: ground
+RELATIONS: egg body on ground; head on top of egg body; beak on top of head; flippers on top of head; feet on top of flippers
+PARTS:
+egg_body | box | 20,30,18 | 0,15,0 | 0,0,0 | the egg body standing on the ground
+head | sphere | 8,3,6 | 0,35,0 | 0,0,0 | the round head on top of the egg body
+beak | box | 4,4,4 | 0,41,0 | 0,0,0 | the small beak at the front of the head
+flipper_left | box | 6,12,10 | -6,38,0 | 0,0,0 | the left flipper on top of the head
+flipper_right | box | 6,12,10 | 6,38,0 | 0,0,0 | the right flipper on top of the head
+feet | box | 10,4,8 | 0,42,0 | 0,0,0 | the feet on top of the flippers
+
+Wait, the flippers need to be on top of the head. Head centre is at y 35, head height is 6 so head top is 35+3=38. Flipper centre y should be 38 + half flipper height (12/2=6) = 44. Let me fix that. Also feet should be on top of flippers: flipper top is 44+6=50, feet centre y = 50 + 4/2 = 52. Let me recalculate all positions correctly.
+
+egg_body: box 20,30,18, centre at y 15 (lowest point y 0, since 15-15=0). Correct.
+head: sphere radius 8, centre at y 35. Head top is 35+8=43. Wait, sphere radius 8, so top is 35+8=43. Flipper centre y should be 43 + 6 = 49.
+feet: on top of flippers. Flipper top is 49+6=55. Feet centre y = 55 + 2 = 57.
+beak: on top of head. Head top 43, beak height 4, centre y = 43 + 2 = 45.
+
+Let me adjust:
+
+egg_body | box | 20,30,18 | 0,15,0 | 0,0,0 | the egg body standing on the ground
+head | sphere | 8,3,6 | 0,35,0 | 0,0,0

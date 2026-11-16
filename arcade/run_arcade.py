@@ -193,7 +193,11 @@ def main():
     ap.add_argument('--force', action='store_true')
     ap.add_argument('--games', default='games_first_run.tsv', help='the queue file (round two: games_round2.tsv)')
     ap.add_argument('--no-script', action='store_true', help='concept and levels only: Claude writes the scripts (REVIEW.md)')
+    ap.add_argument('--out', default='out', help='output folder under arcade/ (a new prompt gets its own: same titles, side by side)')
     a = ap.parse_args()
+    global OUT, CLOCK
+    OUT = os.path.join(HERE, a.out)
+    CLOCK = os.path.join(HERE, 'out', '.work_clock')   # one rest clock for every output folder
     GAMES_FILE[0] = a.games
     os.makedirs(OUT, exist_ok=True)
     tim = os.path.join(OUT, '_timings.tsv')
@@ -211,7 +215,7 @@ def main():
     for g in todo:
         folder = os.path.join(OUT, '%s_%s' % (g['id'], g['title'].replace(' ', '_')))
         os.makedirs(folder, exist_ok=True)
-        concept = stage(a, g, folder, '1_concept.md', p['SYSTEM'], fill(p['CONCEPT'], **g), 700)
+        concept = stage(a, g, folder, '1_concept.md', p['SYSTEM'], fill(p['CONCEPT'], **g), 900)
         levels = stage(a, g, folder, '2_levels.md', p['SYSTEM'],
                        fill(levels_prompt(p['LEVELS'], g), concept=concept[:2600], **g), 900)
         if not a.no_script:
