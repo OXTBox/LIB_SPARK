@@ -3,6 +3,9 @@
 Friday, November 13, 2026. Model `spark-x2.6-4b` in LM Studio, 8k context, one request at a
 time. Reviewed by Claude (Fable 5.2).
 
+> **Owner, 18 Nov 2026 (review note):** "We'll run these as soon as there is free time outside
+> application/utility/GUI etc." The designs here wait until the tools and GUI work is clear.
+
 **Question:** can Spark take a small arcade game from a one-line brief to a Vibecode3D card
 script, working the concept, the levels and the script out one after another, with nobody
 testing in between?
