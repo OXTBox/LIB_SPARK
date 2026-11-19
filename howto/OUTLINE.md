@@ -121,10 +121,11 @@ Needs: 01, 02
    Adding: four more points for a square below the triangle and four lines around it
    Result: a wire house outline: the triangle is now its roof.
    Engine calls: Mesh.AddVertex, Mesh.AddLine
-5. Make it solid-looking
-   Adding: Mesh.AddFace tM, "4 5 6 7" (the square as one face)
-   Result: the front of the house is drawn as a face, not just its edges.
-   Engine calls: Mesh.AddFace
+5. A face, and turn it
+   Adding: Mesh.AddFace tM, "4 5 6 7" (the square as one face); SetObjectRotationSpeed on the house
+   Result: the flat house turns and nearly vanishes side-on. (In wire view a face looks like its
+   edges; the filled and hidden-line looks use faces.)
+   Engine calls: Mesh.AddFace, SetObjectRotationSpeed
 
 Pitfalls:
 - Vertex numbers are the ones Mesh.AddVertex returned (1, 2, 3 ...); a line to a number that was never added draws nothing.
@@ -316,7 +317,7 @@ Needs: 01
    Result: the score goes up once a second; setting the same name replaces the text.
    Engine calls: HUD.Set
 3. Help at the bottom
-   Adding: HUD.Set "Help","ARROWS MOVE   SPACE JUMP", gViewLeft + 20, gViewBottom - 30, 11
+   Adding: HUD.Set "Help","ARROWS MOVE   SPACE JUMP", gViewLeft + 20, gViewBottom - 50, 11 (above the engine's status line)
    Result: small help text sits at the bottom of the view.
    Engine calls: HUD.Set
 4. A message that goes away
@@ -405,6 +406,7 @@ Games that show it: BigBallOfVectors, WallBreaker, CityShield
 # 12 Game state
 Goal: score, lives, levels, a win, a loss, and Space to play again.
 Needs: 06, 09, 10
+(The code starts from a small catch game: A/D move a paddle, green gems and red hazards fall.)
 
 1. The numbers
    Adding: put 0 into sScore, 3 into sLives, 1 into sLevel in Game.OnStart; show them with HUD.Set
@@ -423,13 +425,14 @@ Needs: 06, 09, 10
    Result: Space starts a fresh game; the short wait stops a held Space from skipping the message.
    Engine calls: the keysDown, Game.OnStart
 5. One line that says it all
-   Adding: function Game.State: return sLevel & "|" & sScore & "|" & sLives & "|" & sOver
+   Adding: function Catch.State (the game's prefix + .State, as topic 17 expects): return sLevel & "|" & sScore & "|" & sLives & "|" & sOver
    Result: game notes and tests (topic 17) can read the game's state.
    Engine calls: none (your own function)
 
 Pitfalls:
 - Read Space in Game.OnUpdate (topic 06), not Game.OnClick.
 - Reset every number in Game.OnStart, or Play again keeps the old score.
+- A one-line `if ... then x` followed by an `else` line: the else binds to that if. Use full if blocks.
 
 Games that show it: BigBallOfVectors, WallBreaker, SkyRaiders
 
