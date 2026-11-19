@@ -41,7 +41,7 @@ Needs: none
    Result: press Play: the viewport is empty and nothing goes wrong. The game runs.
    Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
 2. A shape on screen
-   Adding: Mesh.Define "Cube", MeshBox(40,40,40) and put Entity.Spawn("Cube",0,0,0,"cyan") into sCube, in Game.OnStart
+   Adding: Mesh.Define "Cube", MeshBox(40,40,40) and put Entity.Spawn("Cube",0,0,600,"cyan") into sCube (600 ahead of the camera), in Game.OnStart
    Result: a cyan wire cube sits in the middle of the view.
    Engine calls: Mesh.Define, MeshBox, Entity.Spawn
 3. The loop: move it a little every step
@@ -60,6 +60,8 @@ Needs: none
 Pitfalls:
 - Mesh.Define only names a shape; nothing shows until Entity.Spawn puts it in the scene.
 - Keep the angle in a script-local variable; a plain local in Game.OnUpdate starts at 0 every step.
+- The camera sits at 0,0,0: a shape spawned at z 0 is inside it. Put it ahead (z 400-600).
+- Entity.Spawn is a function: `put Entity.Spawn(...) into sKey` or `get Entity.Spawn(...)`, never a bare command.
 
 Games that show it: Simple_Test1
 
@@ -92,6 +94,7 @@ Needs: 01
 
 Pitfalls:
 - Up is minus Y: an object at y +20 sinks under the floor.
+- The code (LIB_HOWTO/topics/02_*) puts the floor at y 120 and the row at z 420 so it is not seen edge-on.
 - MeshSphere's arguments are radius, rings, sides; MeshPyramid and MeshPrism start with the sides.
 
 Games that show it: BigBallOfVectors, VectorBlobApocalypse, ShaftDescent
@@ -118,10 +121,11 @@ Needs: 01, 02
    Adding: four more points for a square below the triangle and four lines around it
    Result: a wire house outline: the triangle is now its roof.
    Engine calls: Mesh.AddVertex, Mesh.AddLine
-5. Make it solid-looking
-   Adding: Mesh.AddFace tM, "4 5 6 7" (the square as one face)
-   Result: the front of the house is drawn as a face, not just its edges.
-   Engine calls: Mesh.AddFace
+5. A face, and turn it
+   Adding: Mesh.AddFace tM, "4 5 6 7" (the square as one face); SetObjectRotationSpeed on the house
+   Result: the flat house turns and nearly vanishes side-on. (In wire view a face looks like its
+   edges; the filled and hidden-line looks use faces.)
+   Engine calls: Mesh.AddFace, SetObjectRotationSpeed
 
 Pitfalls:
 - Vertex numbers are the ones Mesh.AddVertex returned (1, 2, 3 ...); a line to a number that was never added draws nothing.
@@ -136,7 +140,7 @@ Goal: cubes appear where you want them and disappear on purpose.
 Needs: 01
 
 1. Keep the key
-   Adding: put Entity.Spawn("Cube",0,0,0,"cyan") into sCube
+   Adding: put Entity.Spawn("Cube",0,0,600,"cyan") into sCube (600 ahead of the camera)
    Result: the cube shows, and sCube holds its key (like "Cube_1") to talk to it later.
    Engine calls: Entity.Spawn
 2. Many of the same shape
@@ -313,7 +317,7 @@ Needs: 01
    Result: the score goes up once a second; setting the same name replaces the text.
    Engine calls: HUD.Set
 3. Help at the bottom
-   Adding: HUD.Set "Help","ARROWS MOVE   SPACE JUMP", gViewLeft + 20, gViewBottom - 30, 11
+   Adding: HUD.Set "Help","ARROWS MOVE   SPACE JUMP", gViewLeft + 20, gViewBottom - 50, 11 (above the engine's status line)
    Result: small help text sits at the bottom of the view.
    Engine calls: HUD.Set
 4. A message that goes away
@@ -402,6 +406,7 @@ Games that show it: BigBallOfVectors, WallBreaker, CityShield
 # 12 Game state
 Goal: score, lives, levels, a win, a loss, and Space to play again.
 Needs: 06, 09, 10
+(The code starts from a small catch game: A/D move a paddle, green gems and red hazards fall.)
 
 1. The numbers
    Adding: put 0 into sScore, 3 into sLives, 1 into sLevel in Game.OnStart; show them with HUD.Set
@@ -420,13 +425,14 @@ Needs: 06, 09, 10
    Result: Space starts a fresh game; the short wait stops a held Space from skipping the message.
    Engine calls: the keysDown, Game.OnStart
 5. One line that says it all
-   Adding: function Game.State: return sLevel & "|" & sScore & "|" & sLives & "|" & sOver
+   Adding: function Catch.State (the game's prefix + .State, as topic 17 expects): return sLevel & "|" & sScore & "|" & sLives & "|" & sOver
    Result: game notes and tests (topic 17) can read the game's state.
    Engine calls: none (your own function)
 
 Pitfalls:
 - Read Space in Game.OnUpdate (topic 06), not Game.OnClick.
 - Reset every number in Game.OnStart, or Play again keeps the old score.
+- A one-line `if ... then x` followed by an `else` line: the else binds to that if. Use full if blocks.
 
 Games that show it: BigBallOfVectors, WallBreaker, SkyRaiders
 
