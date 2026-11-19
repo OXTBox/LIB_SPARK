@@ -41,7 +41,7 @@ Needs: none
    Result: press Play: the viewport is empty and nothing goes wrong. The game runs.
    Engine calls: Game.OnStart, Engine.ResetCamera, Scene.ClearAll, HUD.Clear
 2. A shape on screen
-   Adding: Mesh.Define "Cube", MeshBox(40,40,40) and put Entity.Spawn("Cube",0,0,0,"cyan") into sCube, in Game.OnStart
+   Adding: Mesh.Define "Cube", MeshBox(40,40,40) and put Entity.Spawn("Cube",0,0,600,"cyan") into sCube (600 ahead of the camera), in Game.OnStart
    Result: a cyan wire cube sits in the middle of the view.
    Engine calls: Mesh.Define, MeshBox, Entity.Spawn
 3. The loop: move it a little every step
@@ -60,6 +60,8 @@ Needs: none
 Pitfalls:
 - Mesh.Define only names a shape; nothing shows until Entity.Spawn puts it in the scene.
 - Keep the angle in a script-local variable; a plain local in Game.OnUpdate starts at 0 every step.
+- The camera sits at 0,0,0: a shape spawned at z 0 is inside it. Put it ahead (z 400-600).
+- Entity.Spawn is a function: `put Entity.Spawn(...) into sKey` or `get Entity.Spawn(...)`, never a bare command.
 
 Games that show it: Simple_Test1
 
@@ -92,6 +94,7 @@ Needs: 01
 
 Pitfalls:
 - Up is minus Y: an object at y +20 sinks under the floor.
+- The code (LIB_HOWTO/topics/02_*) puts the floor at y 120 and the row at z 420 so it is not seen edge-on.
 - MeshSphere's arguments are radius, rings, sides; MeshPyramid and MeshPrism start with the sides.
 
 Games that show it: BigBallOfVectors, VectorBlobApocalypse, ShaftDescent
@@ -136,7 +139,7 @@ Goal: cubes appear where you want them and disappear on purpose.
 Needs: 01
 
 1. Keep the key
-   Adding: put Entity.Spawn("Cube",0,0,0,"cyan") into sCube
+   Adding: put Entity.Spawn("Cube",0,0,600,"cyan") into sCube (600 ahead of the camera)
    Result: the cube shows, and sCube holds its key (like "Cube_1") to talk to it later.
    Engine calls: Entity.Spawn
 2. Many of the same shape
