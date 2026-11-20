@@ -354,3 +354,5 @@ when	model	id	title	stage	tokens_in	tokens_out	seconds	tok_per_s	lines	finish
 2026-11-15 05:10:01	spark-x2.6-4b	219	Hot Air Balloon	1_concept.md	477	466	6.7	69.4	20	ok
 2026-11-15 05:10:10	spark-x2.6-4b	219	Hot Air Balloon	2_levels.md	772	235	3.9	60.3	13	ok
 2026-11-15 05:10:20	spark-x2.6-4b	385	Drawbridge Traffic	1_concept.md	466	370	5.4	67.9	19	ok
+2026-11-19 19:44:38	spark-x2.6-4b	285	Bank Shot Bounce	1_concept.md	728	664	9.3	71.7	38	ok
+2026-11-19 19:44:52	spark-x2.6-4b	285	Bank Shot Bounce	2_levels.md	1034	607	8.6	70.3	44	ok
