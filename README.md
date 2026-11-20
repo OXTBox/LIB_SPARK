@@ -38,3 +38,9 @@ What we know about working with Spark (`spark-x2.6-4b`, the local model in LM St
 - It does not come up with fun: it repeats the fun that is in the brief (FUN round, 16 Nov). Put the jokes and twists in the brief.
 - It can flip who the player is (guide vs chased, farmer vs UFO): check that before using a story.
 - Pace is set in a `pace.txt` beside the runner (work minutes, rest seconds), read live.
+
+## Licence
+
+GPL-3.0 (see `LICENSE`), because the xTalk work here is built on the GPL-licensed LiveCode Community 9 engine. Copyright (c) 2026 xAction.
+
+The Python files (`.py`) and other material that is not xTalk are also offered under the MIT licence, Copyright (c) 2026 xAction: you may use them under either licence.
